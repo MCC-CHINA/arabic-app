@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 630 880" preserveAspectRatio="none" role="img" aria-label="稀有档卡框">
+  <rect x="15" y="15" width="600" height="850" rx="29" fill="none" stroke="#d8b46a" stroke-opacity=".85" stroke-width="3"/>
+  <rect x="25" y="25" width="580" height="830" rx="23" fill="none" stroke="#d8b46a" stroke-opacity=".4" stroke-width="1.6"/>
+  <path d="M61,15 L15,15 L15,61" fill="none" stroke="#e9cd85" stroke-width="4.5"/>
+  <path d="M569,15 L615,15 L615,61" fill="none" stroke="#e9cd85" stroke-width="4.5"/>
+  <path d="M61,865 L15,865 L15,819" fill="none" stroke="#e9cd85" stroke-width="4.5"/>
+  <path d="M569,865 L615,865 L615,819" fill="none" stroke="#e9cd85" stroke-width="4.5"/>
+</svg>
