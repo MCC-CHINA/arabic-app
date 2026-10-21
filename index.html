@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="zh-CN">
+<html lang="zh-CN" data-card-border="gold">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
@@ -9,69 +9,71 @@
     <style>
       :root{
         color-scheme: light dark;
-        --bg:#fdfcfa;
-        --bg-soft:#f8f6f1;
+        --bg:#ffffff;
+        --bg-soft:#f5f5f7;
         --surface:#ffffff;
-        --surface-soft:#f3f1ea;
-        --ic-tile:#f1efe9;
-        --ink:#191b1e;
-        --ink-soft:#666c74;
-        --ink-mid:#42474f;
-        --line:#e8e3d8;
-        --line-strong:#d8d2c4;
-        --black:#191b1e;
-        --peach:#ffeee1;
-        --peach-strong:#ffb37a;
-        --sky:#e3efff;
-        --sky-strong:#7fb0ff;
-        --mint:#e0f4e8;
-        --mint-strong:#4fc08d;
-        --butter:#f1efe9;
-        --butter-strong:#8a8f98;
-        --lav:#ece7ff;
-        --lav-strong:#9b8cff;
-        --rose:#ffe7ea;
-        --rose-strong:#ff7d8a;
-        --teal:#e1f3ee;
-        --sand:#f7ecdc;
-        --sent-red:#cf2e3c;
-        --gold:#191b1e;
-        --gold-soft:#e9e6df;
-        --gold-ink:#191b1e;
-        --gold-tint:#f3f1ea;
-        --gold-price:#191b1e;
+        --surface-soft:#f5f5f7;
+        --ic-tile:#f5f5f7;
+        --ink:#2b2b2e;
+        --ink-soft:#8e8e93;
+        --ink-mid:#636366;
+        --line:#e5e5ea;
+        --line-strong:#d1d1d6;
+        --black:#111113;
+        --peach:#f5f5f7;
+        --peach-strong:#8e8e93;
+        --sky:#f5f5f7;
+        --sky-strong:#636366;
+        --mint:#eef3f0;
+        --mint-strong:#2e7d4f;
+        --butter:#f5f5f7;
+        --butter-strong:#8e8e93;
+        --lav:#f5f5f7;
+        --lav-strong:#636366;
+        --rose:#faeeec;
+        --rose-strong:#c0392b;
+        --teal:#f5f5f7;
+        --sand:#f5f5f7;
+        --sent-red:#c0392b;
+        --gold:#111113;
+        --gold-soft:#e9e9ec;
+        --gold-ink:#2b2b2e;
+        --gold-tint:#f5f5f7;
+        --gold-price:#111113;
         --radius:28px;
-        --shadow:0 1px 2px rgba(25,27,30,.04),0 14px 34px rgba(25,27,30,.055);
-        --shadow-lg:0 2px 4px rgba(25,27,30,.04),0 24px 54px rgba(25,27,30,.09);
+        --shadow:0 1px 2px rgba(17,17,19,.04),0 14px 34px rgba(17,17,19,.055);
+        --shadow-lg:0 2px 4px rgba(17,17,19,.04),0 24px 54px rgba(17,17,19,.09);
         --ease:cubic-bezier(.22,.8,.28,1);
       }
       @media (prefers-color-scheme: dark){
         :root{
-          --bg:#121315;
-          --bg-soft:#17181a;
-          --surface:#1d1f22;
-          --surface-soft:#27292d;
-          --ic-tile:#2b2d31;
-          --ink:#f4f1ea;
-          --ink-soft:#aeb3ba;
-          --ink-mid:#d4d1c9;
-          --line:#303237;
-          --line-strong:#45484e;
-          --black:#f4f1ea;
-          --peach:#3a2a1e;
-          --sky:#1e2f4a;
-          --mint:#1d3529;
-          --butter:#2b2c2f;
-          --lav:#2e2a4a;
-          --rose:#3a2226;
-          --teal:#1c332e;
-          --sand:#372d1c;
-          --sent-red:#ff707a;
-          --gold:#e8e6e1;
-          --gold-soft:#3f4145;
-          --gold-ink:#f4f1ea;
-          --gold-tint:#27292d;
-          --gold-price:#f4f1ea;
+          --bg:#000000;
+          --bg-soft:#1c1c1e;
+          --surface:#1c1c1e;
+          --surface-soft:#2c2c2e;
+          --ic-tile:#2c2c2e;
+          --ink:#f5f5f7;
+          --ink-soft:#98989d;
+          --ink-mid:#c7c7cc;
+          --line:#38383a;
+          --line-strong:#48484a;
+          --black:#f5f5f7;
+          --peach:#2c2c2e;
+          --sky:#2c2c2e;
+          --mint:#22302a;
+          --mint-strong:#5da87e;
+          --butter:#2c2c2e;
+          --lav:#2c2c2e;
+          --rose:#3a2320;
+          --rose-strong:#e0655a;
+          --teal:#2c2c2e;
+          --sand:#2c2c2e;
+          --sent-red:#e0655a;
+          --gold:#f5f5f7;
+          --gold-soft:#3a3a3c;
+          --gold-ink:#f5f5f7;
+          --gold-tint:#2c2c2e;
+          --gold-price:#f5f5f7;
           --shadow:0 1px 2px rgba(0,0,0,.3),0 14px 34px rgba(0,0,0,.28);
           --shadow-lg:0 2px 4px rgba(0,0,0,.3),0 24px 54px rgba(0,0,0,.38);
         }
@@ -116,7 +118,7 @@
          itself lets touches fall through - only the track is interactive */
       .tabbar{position:fixed;left:0;right:0;bottom:calc(16px + env(safe-area-inset-bottom));z-index:40;display:flex;justify-content:center;margin:0;padding:0 20px;pointer-events:none;}
       .tabnav{pointer-events:none;width:min(560px,100%);}
-      .tabslider{position:relative;pointer-events:auto;height:72px;display:flex;align-items:stretch;gap:2px;padding:6px;border-radius:999px;background:color-mix(in srgb,var(--surface) 52%,transparent);-webkit-backdrop-filter:blur(20px) saturate(180%);backdrop-filter:blur(20px) saturate(180%);border:1px solid rgb(255 255 255 / .45);box-shadow:inset 0 1px 0 rgb(255 255 255 / .5),inset 0 -1px 0 rgb(255 255 255 / .08),0 16px 40px rgba(25,27,30,.16);touch-action:none;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;cursor:pointer;transform-origin:center center;will-change:transform;transition:transform .35s cubic-bezier(.34,1.56,.64,1);}
+      .tabslider{position:relative;pointer-events:auto;height:72px;display:flex;align-items:stretch;gap:2px;padding:6px;border-radius:999px;background:rgba(255,255,255,.72);-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);border:1px solid rgb(255 255 255 / .55);box-shadow:inset 0 1px 0 rgb(255 255 255 / .7),inset 0 -1px 0 rgb(255 255 255 / .14),inset 0 0 0 1px rgb(255 255 255 / .18),0 16px 40px rgba(17,17,19,.16);touch-action:none;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;cursor:pointer;transform-origin:center center;will-change:transform;transition:transform .35s cubic-bezier(.34,1.56,.64,1);}
       .tabslider:focus-visible{outline:3px solid rgba(110,116,124,.6);outline-offset:3px;}
       /* whole-bar press life: the bar is ONE jelly body with the capsule
          inside it. A press anywhere on the bar (navStart adds .barscale)
@@ -188,7 +190,7 @@
       .tab-pill-in{position:absolute;inset:0;border-radius:999px;background:rgb(25 27 30 / .08);box-shadow:inset 0 1px 0 rgb(255 255 255 / .55),inset 0 0 0 1px rgb(255 255 255 / .25),0 4px 14px rgb(25 27 30 / .08);transition:transform .3s var(--ease),background .3s var(--ease),box-shadow .3s var(--ease);}
       .tabslider.pressing .tab-pill-in{transform:scale(1.06);background:rgb(25 27 30 / .13);box-shadow:inset 0 1px 0 rgb(255 255 255 / .65),inset 0 0 0 1px rgb(255 255 255 / .35),0 6px 18px rgb(25 27 30 / .12);transition:transform .18s ease-out,background .18s ease-out,box-shadow .18s ease-out;}
       @media (prefers-color-scheme: dark){.tab-pill-in{background:rgb(255 255 255 / .16);} .tabslider.pressing .tab-pill-in{background:rgb(255 255 255 / .24);}}
-      @media (prefers-color-scheme: dark){.tabslider{border-color:rgb(255 255 255 / .22);box-shadow:inset 0 1px 0 rgb(255 255 255 / .18),inset 0 -1px 0 rgb(255 255 255 / .05),0 16px 40px rgba(0,0,0,.45);}}
+      @media (prefers-color-scheme: dark){.tabslider{background:rgba(28,28,30,.72);border-color:rgb(255 255 255 / .22);box-shadow:inset 0 1px 0 rgb(255 255 255 / .22),inset 0 -1px 0 rgb(255 255 255 / .06),inset 0 0 0 1px rgb(255 255 255 / .08),0 16px 40px rgba(0,0,0,.45);}}
       /* the four buttons: icon above, label below, one Lucide icon set.
          The label highlight (ink colour + bold) is DECOUPLED from the
          section commit: on a tap it flips to the target button at the
@@ -301,7 +303,7 @@
       .chips-gen{display:contents;}
       .filter-chip{display:inline-flex;align-items:center;gap:4px;border-style:dashed;}
       .filter-chip .ic{width:16px;height:16px;}
-      .filter-chip[aria-pressed="true"]{background:var(--rose);border-color:var(--rose-strong);border-style:solid;color:var(--ink);box-shadow:0 1px 2px rgba(25,27,30,.05);}
+      .filter-chip[aria-pressed="true"]{background:#e9e9ec;border-color:#c7c7cc;border-style:solid;color:var(--ink);box-shadow:0 1px 2px rgba(17,17,19,.05);}
 
       /* flashcards - tactile learning object: soft colour field, fine shadow, calm type */
       .flash-zone{perspective:1400px;max-width:560px;margin:0 auto;}
@@ -330,7 +332,7 @@
       .flash-cat{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft);}
       .flash-cat::before,.flash-cat::after{content:"";width:18px;height:1px;background:currentColor;opacity:.35;}
       .flash-back .flash-cat{color:rgba(255,255,255,.55);}
-      @media(prefers-color-scheme:dark){.flash-back .flash-cat{color:rgba(0,0,0,.5);} .flash-back{background:#f2f2ee;color:#17191c;border-color:#f2f2ee;}}
+      @media(prefers-color-scheme:dark){.flash-back .flash-cat{color:rgba(0,0,0,.5);} .flash-back{background:#f5f5f7;color:#17191c;border-color:#f5f5f7;}}
       .flash-ar{font-size:60px;line-height:2.2;font-weight:700;margin-top:12px;padding:14px 6px 4px;overflow:visible;}
       /* long phrases (the greeting, colour pairs) drop a size and stay on one line instead of wrapping into space the card does not have */
       .flash-ar.long{font-size:46px;white-space:nowrap;}
@@ -439,9 +441,9 @@
       .ar-inline{font-family:"Noto Naskh Arabic","Amiri",serif;font-size:1.3em;line-height:1.9;letter-spacing:0;direction:rtl;unicode-bidi:isolate;}
       .quiz-msg{min-height:28px;font-weight:700;margin-top:16px;font-size:15px;line-height:1.9;display:flex;align-items:center;justify-content:center;gap:7px;flex-wrap:wrap;}
       .quiz-msg.good{color:#1f8a5b;}
-      .quiz-msg.bad{color:#d64550;}
+      .quiz-msg.bad{color:#c0392b;}
       #q-next{margin-top:4px;}
-      @media(prefers-color-scheme:dark){.quiz-msg.good{color:#6fd3a3;} .quiz-msg.bad{color:#ff9aa3;}}
+      @media(prefers-color-scheme:dark){.quiz-msg.good{color:#6fd3a3;} .quiz-msg.bad{color:#e0655a;}}
 
       /* spaced repetition entry on the flashcard panel: one quiet bar
          under the category chips - gold history icon, today's due
@@ -559,7 +561,7 @@
       .mastery-count{flex:1 1 0;min-width:0;font-size:13px;color:var(--ink-soft);font-variant-numeric:tabular-nums;text-align:center;}
       .mastery-count b{font-family:"Noto Sans SC","Amiri",sans-serif;color:var(--ink);}
       .nav-btn.known-on{background:var(--mint);border-color:var(--mint-strong);}
-      .nav-btn.review-on{background:var(--rose);border-color:var(--rose-strong);}
+      .nav-btn.review-on{background:#e9e9ec;border-color:#c7c7cc;}
 
       /* sentences - ledger rhythm, Arabic set large and right */
       .sent-list{max-width:640px;margin:0 auto;}
@@ -701,8 +703,20 @@
          unitless 0..1 tilt magnitude feeding ONLY the holographic
          foil layer (.tcard-holo). There is no white glare/sheen beam
          over the faces - just the sky photo, the content, the foil
-         iridescence and the static gold frame */
-      .tcard{--r:16px;--rx:0deg;--ry:0deg;--tilt:0;--flip:0deg;--fx:0%;--fy:0%;--shx:0px;--shy:0px;position:relative;width:100%;aspect-ratio:63/88;border-radius:var(--r);touch-action:none;user-select:none;-webkit-user-select:none;}
+         iridescence and the static metal frame */
+      .tcard{--r:16px;--rx:0deg;--ry:0deg;--tilt:0;--flip:0deg;--fx:0%;--fy:0%;--shx:0px;--shy:0px;--cb-frame:rgba(216,180,106,.55);--cb-frame-soft:rgba(216,180,106,.38);--cb-hi:rgba(255,240,200,.14);--cb-name:#e9cd85;--cb-name-dim:rgba(233,205,133,.75);--cb-wm:rgba(233,205,133,.11);--cb-diamond:#c99a2e;--cb-glow-a:rgba(233,190,90,.40);--cb-glow-b:rgba(233,190,90,.12);--cb-glow-0:rgba(233,190,90,0);position:relative;width:100%;aspect-ratio:63/88;border-radius:var(--r);touch-action:none;user-select:none;-webkit-user-select:none;}
+      /* card metalwork dual version (v1.1.1): every gold element on a
+         card face - frame, name type, rule diamond, watermark tint,
+         back glow and the extruded stack - reads the --cb-* vars
+         above, so ONE attribute on <html> re-skins the whole
+         collection (fan thumbnails, viewer, hero cards alike):
+         data-card-border="silver" swaps the gold values for silver
+         grays. The extrusion layer colours live here too (.lyr0-5),
+         for the same reason - buildCardEl no longer inlines them */
+      html[data-card-border="silver"] .tcard{--cb-frame:rgba(199,199,204,.62);--cb-frame-soft:rgba(199,199,204,.4);--cb-hi:rgba(255,255,255,.18);--cb-name:#dcdce1;--cb-name-dim:rgba(220,220,227,.75);--cb-wm:rgba(218,218,224,.11);--cb-diamond:#aeaeb6;--cb-glow-a:rgba(205,205,212,.38);--cb-glow-b:rgba(205,205,212,.12);--cb-glow-0:rgba(205,205,212,0);}
+      html[data-card-border="silver"] .bstack .top{background:linear-gradient(112deg,hsla(0,0%,88%,.22),hsla(0,0%,78%,.16) 24%,hsla(0,0%,90%,.18) 46%,hsla(0,0%,74%,.2) 68%,hsla(0,0%,84%,.2) 88%,hsla(0,0%,88%,.22)),linear-gradient(165deg,#f4f4f6 5%,#dcdce1 32%,#a8a8af 62%,#7d7d85 88%,#e6e6eb 100%);}
+      .bstack .lyr0{color:#0a0702;} .bstack .lyr1{color:#120c03;} .bstack .lyr2{color:#1a1104;} .bstack .lyr3{color:#251806;} .bstack .lyr4{color:#332208;} .bstack .lyr5{color:#4a320c;}
+      html[data-card-border="silver"] .bstack .lyr0{color:#050506;} html[data-card-border="silver"] .bstack .lyr1{color:#0c0c0e;} html[data-card-border="silver"] .bstack .lyr2{color:#141416;} html[data-card-border="silver"] .bstack .lyr3{color:#1d1d20;} html[data-card-border="silver"] .bstack .lyr4{color:#28282c;} html[data-card-border="silver"] .bstack .lyr5{color:#3c3c42;}
       /* flip structure, strictly layered so no layer ever has to undo
          another layer's rotation: .tcard-tilt carries ONLY the drag
          tilt (rotateX(var(--rx)) rotateY(var(--ry))); inside it,
@@ -724,8 +738,8 @@
          as soon as no card is open - no standing GPU memory */
       .tcard.live .tcard-tilt,.tcard.live .tcard-flip{will-change:transform;}
       .tcard.flipped{--flip:180deg;}
-      .tface{position:absolute;inset:0;border-radius:var(--r);overflow:hidden;backface-visibility:hidden;-webkit-backface-visibility:hidden;background:radial-gradient(120% 90% at 50% 0%,#23242c 0%,#17181e 46%,#101116 100%);border:1px solid rgba(216,180,106,.55);box-shadow:inset 0 0 0 1px rgba(0,0,0,.55),inset 0 1px 0 rgba(255,240,200,.14);color:#ece7db;display:flex;flex-direction:column;align-items:center;text-align:center;padding:9% 10%;}
-      .tface::before{content:"";position:absolute;inset:6px;border:1px solid rgba(216,180,106,.38);border-radius:calc(var(--r) - 5px);pointer-events:none;}
+      .tface{position:absolute;inset:0;border-radius:var(--r);overflow:hidden;backface-visibility:hidden;-webkit-backface-visibility:hidden;background:radial-gradient(120% 90% at 50% 0%,#23242c 0%,#17181e 46%,#101116 100%);border:1px solid var(--cb-frame);box-shadow:inset 0 0 0 1px rgba(0,0,0,.55),inset 0 1px 0 var(--cb-hi);color:#f5f5f7;display:flex;flex-direction:column;align-items:center;text-align:center;padding:9% 10%;}
+      .tface::before{content:"";position:absolute;inset:6px;border:1px solid var(--cb-frame-soft);border-radius:calc(var(--r) - 5px);pointer-events:none;}
       /* card ground: a REAL Milky Way photograph (public-domain shot,
          self-hosted at assets/card-sky.webp, pre-darkened for card duty)
          as the bottom layer of each face, under all content - no drawn
@@ -764,7 +778,7 @@
       .tcard-rain{position:absolute;inset:0;width:100%;height:100%;display:block;}
       /* meteor variant (字母启程卡): a .tcard-meteor canvas rides in
          the same sky slot - photo < canvas < ::after veil < content
-         < .tcard-holo foil < gold frame - but the engine paints only
+         < .tcard-holo foil < metal frame - but the engine paints only
          3-4 meteors on it (see rainState/rainDraw) */
       /* holographic foil: a low-saturation (~55%) conic iridescence
          laid over each face's content - layer order sky < content <
@@ -778,32 +792,33 @@
          a white light shaft */
       .tcard-holo{position:absolute;inset:0;z-index:2;border-radius:var(--r);pointer-events:none;mix-blend-mode:soft-light;background:conic-gradient(from calc(205deg + var(--tilt) * 170deg) at 50% 42%,hsla(352,55%,72%,.6),hsla(28,55%,70%,.55) 11%,hsla(52,55%,68%,.5) 22%,hsla(130,50%,66%,.5) 36%,hsla(185,55%,68%,.52) 50%,hsla(222,55%,72%,.55) 63%,hsla(272,52%,74%,.52) 77%,hsla(318,55%,72%,.55) 89%,hsla(352,55%,72%,.6));opacity:calc(.12 + var(--tilt) * .23);}
       .tfront{transform:rotateY(0deg);}
-      .tback{transform:rotateY(180deg);}
-      .tcard-wm{position:absolute;left:50%;top:55%;transform:translate(-50%,-50%);font-family:"Amiri","Noto Naskh Arabic",serif;font-size:140px;line-height:1.4;color:rgba(233,205,133,.11);white-space:nowrap;pointer-events:none;}
-      /* back watermark: أكبر answers the front's الله across the flip -
-         same Amiri face, same size, same faint gold as .tcard-wm, centred
-         behind the extruded أ stack (DOM order puts it under .bglow and
-         .bstack, which carry no z-index) */
-      .tcard-wm-back{position:absolute;left:50%;top:55%;transform:translate(-50%,-50%);font-family:"Amiri","Noto Naskh Arabic",serif;font-size:140px;line-height:1.4;color:rgba(233,205,133,.11);white-space:nowrap;pointer-events:none;}
+      .tback{transform:rotateY(180deg);background:#f5f5f5;}
+      .tcard-wm{position:absolute;left:50%;top:55%;transform:translate(-50%,-50%);font-family:"Amiri","Noto Naskh Arabic",serif;font-size:140px;line-height:1.4;color:var(--cb-wm);white-space:nowrap;pointer-events:none;}
+      /* back watermark: the card's own star name answers the front
+         across the flip - same Amiri face, same size, same faint
+         metal tint as .tcard-wm, centred behind the back stack
+         (DOM order puts it under .bglow and .bstack, which carry
+         no z-index) */
+      .tcard-wm-back{position:absolute;left:50%;top:55%;transform:translate(-50%,-50%);font-family:"Amiri","Noto Naskh Arabic",serif;font-size:140px;line-height:1.4;color:var(--cb-wm);white-space:nowrap;pointer-events:none;}
 
-      .tcard-name{position:relative;z-index:1;font-size:15px;font-weight:800;letter-spacing:.34em;text-indent:.34em;color:#e9cd85;margin-top:2px;white-space:nowrap;}
-      .tcard-rule{width:34px;height:1px;background:rgba(216,180,106,.55);margin:9px 0 4px;position:relative;z-index:1;}
-      .tcard-rule::after{content:"";position:absolute;left:50%;top:50%;width:5px;height:5px;background:#c99a2e;transform:translate(-50%,-50%) rotate(45deg);}
+      .tcard-name{position:relative;z-index:1;font-size:15px;font-weight:800;letter-spacing:.34em;text-indent:.34em;color:var(--cb-name);margin-top:2px;white-space:nowrap;}
+      .tcard-rule{width:34px;height:1px;background:var(--cb-frame);margin:9px 0 4px;position:relative;z-index:1;}
+      .tcard-rule::after{content:"";position:absolute;left:50%;top:50%;width:5px;height:5px;background:var(--cb-diamond);transform:translate(-50%,-50%) rotate(45deg);}
       /* each letter sits in a fixed-height cell, optically centred by
          flex - Arabic glyphs have wildly different heights (deep
          descenders on ج ح خ vs baseline-sitters like ا ب ت), so
          baseline alignment made every row's visual weight stagger.
          Centring each glyph in its own cell levels the whole array */
-      .tcard-grid{position:relative;z-index:1;display:grid;grid-template-columns:repeat(7,1fr);direction:rtl;align-items:center;row-gap:6px;width:100%;margin-top:10px;font-family:"Amiri","Noto Naskh Arabic",serif;font-size:30px;font-weight:600;line-height:1;color:#ddd6c4;}
+      .tcard-grid{position:relative;z-index:1;display:grid;grid-template-columns:repeat(7,1fr);direction:rtl;align-items:center;row-gap:6px;width:100%;margin-top:10px;font-family:"Amiri","Noto Naskh Arabic",serif;font-size:30px;font-weight:600;line-height:1;color:#e5e5ea;}
       .tcard-grid>span{display:flex;align-items:center;justify-content:center;height:1.9em;line-height:1;}
       /* centre line for a card whose middle is one fact rather than
          the letter array (初试通过: the round that earned it),
          centred in the space between the name rule and the foot */
-      .tcard-mid{position:relative;z-index:1;flex:1;display:flex;align-items:center;justify-content:center;font-size:16.5px;font-weight:700;letter-spacing:.18em;text-indent:.18em;color:#ece7db;white-space:nowrap;}
+      .tcard-mid{position:relative;z-index:1;flex:1;display:flex;align-items:center;justify-content:center;font-size:16.5px;font-weight:700;letter-spacing:.18em;text-indent:.18em;color:#f5f5f7;white-space:nowrap;}
       .tcard-foot{position:relative;z-index:1;margin-top:auto;width:100%;display:flex;align-items:flex-end;justify-content:space-between;gap:8px;}
-      .tcard-pass{font-size:11.5px;font-weight:700;letter-spacing:.08em;color:#e9cd85;white-space:nowrap;}
-      .tcard-date{font-size:10.5px;letter-spacing:.06em;color:rgba(236,231,219,.55);white-space:nowrap;font-variant-numeric:tabular-nums;}
-      .bglow{position:absolute;left:50%;top:44%;width:86%;aspect-ratio:1;transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(233,190,90,.40) 0%,rgba(233,190,90,.12) 42%,rgba(233,190,90,0) 68%);pointer-events:none;}
+      .tcard-pass{font-size:11.5px;font-weight:700;letter-spacing:.08em;color:var(--cb-name);white-space:nowrap;}
+      .tcard-date{font-size:10.5px;letter-spacing:.06em;color:rgba(245,245,247,.55);white-space:nowrap;font-variant-numeric:tabular-nums;}
+      .bglow{position:absolute;left:50%;top:44%;width:86%;aspect-ratio:1;transform:translate(-50%,-50%);background:radial-gradient(circle,var(--cb-glow-a) 0%,var(--cb-glow-b) 42%,var(--cb-glow-0) 68%);pointer-events:none;}
       .bstack{position:absolute;inset:0;pointer-events:none;}
       .bstack span{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:"Amiri","Noto Naskh Arabic",serif;font-size:172px;line-height:1.4;padding-top:30px;transform:translate3d(calc(var(--ox,0px) + var(--shx) * var(--d,0)),calc(var(--oy,0px) + var(--shy) * var(--d,0)),0);}
       /* the stack's typeface follows its glyph: an Arabic letter in
@@ -820,29 +835,29 @@
          touched */
       .bstack .top{background:linear-gradient(112deg,hsla(4,70%,64%,.26),hsla(48,80%,60%,.18) 24%,hsla(140,60%,58%,.20) 46%,hsla(198,75%,64%,.24) 68%,hsla(282,65%,70%,.22) 88%,hsla(340,70%,64%,.26)),linear-gradient(165deg,#f7e7b0 5%,#e9cd85 32%,#c99a2e 62%,#9a741f 88%,#e5c878 100%);background-size:230% 230%,100% 100%;background-position:calc(50% - var(--fx) * 1.3) calc(50% - var(--fy) * 1.3),0 0;-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent;}
       .tcard.anim .bstack .top{transition:background-position .6s var(--ease);}
-      .tcard-back-name{position:absolute;top:9%;left:0;right:0;z-index:1;font-size:11px;font-weight:700;letter-spacing:.3em;text-indent:.3em;color:rgba(233,205,133,.75);}
-      .tcard-back-sub{position:absolute;bottom:8.5%;left:0;right:0;z-index:1;font-size:12px;letter-spacing:.14em;color:rgba(236,231,219,.78);}
+      .tcard-back-name{position:absolute;top:9%;left:0;right:0;z-index:1;font-size:11px;font-weight:700;letter-spacing:.3em;text-indent:.3em;color:var(--cb-name-dim);}
+      .tcard-back-sub{position:absolute;bottom:8.5%;left:0;right:0;z-index:1;font-size:12px;letter-spacing:.14em;color:rgba(245,245,247,.78);}
       .tcard-back-sub .ar{font-family:"Amiri","Noto Naskh Arabic",serif;font-size:15px;letter-spacing:0;}
       /* star-name card front: BOTH big displays are FAINT, in the
-         first card's watermark register - الله rides the shared
-         .tcard-wm slot (pale gold .11, centred, whole-face ground)
-         and the name itself, set large at the top, takes the same
-         pale .11 instead of solid gold. Identification moves to
+         first card's watermark register - the star name rides the
+         shared .tcard-wm slot (pale metal .11, centred, whole-face
+         ground) and the name itself, set large at the top, takes
+         the same pale .11 instead of a solid tint. Identification moves to
          small readable lines at the foot of the face: .tcard-nameid
-         (the name again, small solid gold), .tcard-namezh (Chinese
+         (the name again, small solid metal), .tcard-namezh (Chinese
          meaning + #N) and the usual foot (series · grant date).
          Long names shrink via fitArName (JS, shrink-only, 88% cap),
          so the stylesheet size is the ceiling, never a floor */
-      .tcard-arname{position:relative;z-index:1;font-family:"Amiri","Noto Naskh Arabic",serif;font-size:27px;font-weight:700;line-height:1.55;color:rgba(233,205,133,.11);margin-top:2px;white-space:nowrap;}
-      .tcard-nameid{position:relative;z-index:1;font-family:"Amiri","Noto Naskh Arabic",serif;font-size:17px;font-weight:700;line-height:1.55;color:#e9cd85;white-space:nowrap;margin-bottom:2px;}
-      .tcard-allah-wrap{position:relative;z-index:1;flex:1;display:flex;align-items:center;justify-content:center;width:100%;}
-      .tcard-namezh{position:relative;z-index:1;font-size:14px;font-weight:700;letter-spacing:.12em;text-indent:.12em;color:#ece7db;white-space:nowrap;margin-bottom:10px;}
-      .tcard-namezh .no{color:#e9cd85;font-variant-numeric:tabular-nums;}
+      .tcard-arname{position:relative;z-index:1;font-family:"Amiri","Noto Naskh Arabic",serif;font-size:27px;font-weight:700;line-height:1.55;color:var(--cb-wm);margin-top:2px;white-space:nowrap;}
+      .tcard-nameid{position:relative;z-index:1;font-family:"Amiri","Noto Naskh Arabic",serif;font-size:17px;font-weight:700;line-height:1.55;color:var(--cb-name);white-space:nowrap;margin-bottom:2px;}
+      .tcard-flex-wrap{position:relative;z-index:1;flex:1;display:flex;align-items:center;justify-content:center;width:100%;}
+      .tcard-namezh{position:relative;z-index:1;font-size:14px;font-weight:700;letter-spacing:.12em;text-indent:.12em;color:#f5f5f7;white-space:nowrap;margin-bottom:10px;}
+      .tcard-namezh .no{color:var(--cb-name);font-variant-numeric:tabular-nums;}
       /* a star-card back stack is ONE pale layer, no extrusion: the
          giant name at the same .11 pale gold as every watermark,
-         so it reads like the first card's أكبر ground, not a
-         solid gold relief */
-      .bstack.pale span{color:rgba(233,205,133,.11);}
+         so it reads like the first card's watermark ground, not a
+         solid metal relief */
+      .bstack.pale span{color:var(--cb-wm);}
       .tcard.mini .tcard-arname{font-size:12.5px;line-height:1.5;}
       .tcard.mini .tcard-nameid{display:none;}
       .tcard.mini .tcard-namezh{font-size:8.5px;letter-spacing:.05em;text-indent:.05em;margin-bottom:4px;}
@@ -895,7 +910,7 @@
       .ccard-line-sep{color:var(--ink-soft);flex:0 0 auto;}
       .ccard-sub{color:var(--ink-mid);font-variant-numeric:tabular-nums;min-width:0;}
       /* collection progress: the x/99 count rides the head row, a
-         hairline gold track under it fills with the same number;
+         hairline ink track under it fills with the same number;
          the info list caps at five lines and scrolls its own box so
          99 rows never push the me list off the panel */
       .collect-count{margin-left:auto;font-size:13px;font-weight:800;color:var(--ink);font-variant-numeric:tabular-nums;white-space:nowrap;}
@@ -932,6 +947,7 @@
       .card-flip-btn:active{transform:scale(.94);}
       .card-flip-btn .ic{width:19px;height:19px;}
       .card-hint{font-size:12.5px;color:var(--ink-soft);letter-spacing:.06em;}
+      .card-rarity{margin-top:12px;font-size:12.5px;letter-spacing:.16em;color:rgba(255,255,255,.78);}
       .card-modal{position:fixed;inset:0;z-index:72;display:flex;align-items:center;justify-content:center;padding:24px;}
       .card-modal[hidden]{display:none!important;}
       .card-modal.show .award-backdrop{opacity:1;}
@@ -1073,8 +1089,8 @@
       .ex-opts .opt.ar{text-align:right;font-size:18px;line-height:1.9;}
       .ex-msg{min-height:22px;font-size:13.5px;margin-top:7px;font-weight:600;}
       .ex-msg.good{color:#1f8a5b;}
-      .ex-msg.bad{color:#d64550;}
-      @media(prefers-color-scheme:dark){.ex-msg.good{color:#6fd3a3;} .ex-msg.bad{color:#ff9aa3;}}
+      .ex-msg.bad{color:#c0392b;}
+      @media(prefers-color-scheme:dark){.ex-msg.good{color:#6fd3a3;} .ex-msg.bad{color:#e0655a;}}
       .lp-actions{margin-top:26px;}
       .lp-actions .nav-btn{width:100%;height:48px;font-size:15px;}
       .lp-actions .nav-btn.is-done{background:var(--surface);color:var(--gold-ink);border-color:var(--gold);}
@@ -1121,7 +1137,7 @@
       .tfc-hint{font-size:12px;color:var(--ink-soft);margin-top:5px;}
       .tfc-back-photo{position:absolute;inset:0;}
       .tfc-back-photo img{width:100%;height:100%;object-fit:cover;display:block;}
-      .tfc-back-cap{position:absolute;left:0;right:0;bottom:0;padding:34px 16px 14px;background:linear-gradient(transparent,rgba(12,10,6,.72));color:#fff;display:flex;flex-direction:column;gap:0;}
+      .tfc-back-cap{position:absolute;left:0;right:0;bottom:0;padding:34px 16px 14px;background:linear-gradient(transparent,rgba(17,17,19,.72));color:#fff;display:flex;flex-direction:column;gap:0;}
       .tfc-back-cap .zh{font-size:19px;font-weight:800;}
       .tfc-back-cap .ar{font-size:19px;line-height:1.9;}
       .tfc-back-cap .tr{font-size:12.5px;opacity:.85;}
@@ -1398,7 +1414,7 @@
          only, one spring curve; the ring itself is drawn by JS */
       .ring-wrap{position:fixed;inset:0;z-index:68;}
       .ring-wrap[hidden]{display:none;}
-      .ring-backdrop{position:absolute;inset:0;background:rgba(22,19,10,.4);opacity:0;transition:opacity .32s var(--ease);}
+      .ring-backdrop{position:absolute;inset:0;background:rgba(17,17,19,.4);opacity:0;transition:opacity .32s var(--ease);}
       .ring-wrap.open .ring-backdrop{opacity:1;}
       .ring-panel{position:absolute;left:50%;bottom:0;width:min(430px,100%);transform:translate(-50%,106%);background:color-mix(in srgb,var(--surface) 84%,transparent);-webkit-backdrop-filter:blur(18px) saturate(160%);backdrop-filter:blur(18px) saturate(160%);border:1px solid var(--line);border-bottom:0;border-radius:28px 28px 0 0;box-shadow:var(--shadow-lg);padding:10px 24px calc(22px + env(safe-area-inset-bottom));text-align:center;transition:transform .5s cubic-bezier(.34,1.3,.5,1);touch-action:none;}
       .ring-wrap.open .ring-panel{transform:translate(-50%,0);}
@@ -2138,20 +2154,20 @@
 
       var CATS = ["问候","数字","颜色","食物","时间","人与家庭","自然","日常","动物","职业","身体","衣服","天气","交通"];
       var CAT_STYLE = {
-        "问候":{bg:"var(--peach)", bgHex:"#FFF0E2", illo:'<svg viewBox="0 0 200 140" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="28" y="28" width="92" height="58" rx="20" fill="#fff"/><rect x="28" y="28" width="92" height="58" rx="20" stroke="#17191C" stroke-width="2.5"/><circle cx="56" cy="57" r="5" fill="#17191C"/><circle cx="76" cy="57" r="5" fill="#17191C"/><circle cx="96" cy="57" r="5" fill="#FFB37A"/><path d="M52 86l-6 18 26-18" fill="#fff" stroke="#17191C" stroke-width="2.5" stroke-linejoin="round"/><rect x="108" y="62" width="64" height="44" rx="16" fill="#FFB37A"/><circle cx="128" cy="84" r="4" fill="#17191C"/><circle cx="144" cy="84" r="4" fill="#17191C"/></svg>'},
+        "问候":{bg:"var(--peach)", bgHex:"#F5F5F7", illo:'<svg viewBox="0 0 200 140" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="28" y="28" width="92" height="58" rx="20" fill="#fff"/><rect x="28" y="28" width="92" height="58" rx="20" stroke="#17191C" stroke-width="2.5"/><circle cx="56" cy="57" r="5" fill="#17191C"/><circle cx="76" cy="57" r="5" fill="#17191C"/><circle cx="96" cy="57" r="5" fill="#D1D1D6"/><path d="M52 86l-6 18 26-18" fill="#fff" stroke="#17191C" stroke-width="2.5" stroke-linejoin="round"/><rect x="108" y="62" width="64" height="44" rx="16" fill="#D1D1D6"/><circle cx="128" cy="84" r="4" fill="#17191C"/><circle cx="144" cy="84" r="4" fill="#17191C"/></svg>'},
         "数字":{bg:"var(--sky)", bgHex:"#E2EFFF", illo:'<svg viewBox="0 0 200 140" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="52" cy="70" r="34" fill="#fff" stroke="#17191C" stroke-width="2.5"/><text x="52" y="82" text-anchor="middle" font-family="sans-serif" font-size="28" font-weight="800" fill="#17191C">1</text><circle cx="104" cy="70" r="34" fill="#7FB0FF"/><text x="104" y="82" text-anchor="middle" font-family="sans-serif" font-size="28" font-weight="800" fill="#17191C">2</text><circle cx="156" cy="70" r="34" fill="#fff" stroke="#17191C" stroke-width="2.5"/><text x="156" y="82" text-anchor="middle" font-family="sans-serif" font-size="28" font-weight="800" fill="#17191C">3</text></svg>'},
-        "颜色":{bg:"var(--rose)", bgHex:"#FFE6E8", illo:'<svg viewBox="0 0 200 140" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="72" cy="62" r="36" fill="#FF7D8A"/><circle cx="112" cy="62" r="36" fill="#E8B93E" fill-opacity=".9"/><circle cx="92" cy="88" r="36" fill="#4FC08D" fill-opacity=".9"/><circle cx="92" cy="70" r="10" fill="#fff" stroke="#17191C" stroke-width="2.5"/></svg>'},
+        "颜色":{bg:"var(--rose)", bgHex:"#FFE6E8", illo:'<svg viewBox="0 0 200 140" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="72" cy="62" r="36" fill="#FF7D8A"/><circle cx="112" cy="62" r="36" fill="#8E8E93" fill-opacity=".9"/><circle cx="92" cy="88" r="36" fill="#4FC08D" fill-opacity=".9"/><circle cx="92" cy="70" r="10" fill="#fff" stroke="#17191C" stroke-width="2.5"/></svg>'},
         "食物":{bg:"var(--mint)", bgHex:"#DFF5E9", illo:'<svg viewBox="0 0 200 140" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="100" cy="78" r="38" fill="#FF7D8A"/><path d="M100 40c0-12 8-18 20-20-1 12-7 20-20 20Z" fill="#4FC08D" stroke="#17191C" stroke-width="2.5" stroke-linejoin="round"/><path d="M100 42v-8" stroke="#17191C" stroke-width="2.5" stroke-linecap="round"/><circle cx="86" cy="70" r="5" fill="#fff" fill-opacity=".7"/></svg>'},
-        "时间":{bg:"var(--butter)", bgHex:"#F1EFE9", illo:'<svg viewBox="0 0 200 140" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="100" cy="70" r="42" fill="#fff" stroke="#17191C" stroke-width="2.5"/><circle cx="100" cy="70" r="4" fill="#17191C"/><path d="M100 70V46M100 70l16 10" stroke="#17191C" stroke-width="3" stroke-linecap="round"/><path d="M100 18v8M148 70h-8M52 70h8" stroke="#E8B93E" stroke-width="3" stroke-linecap="round"/></svg>'},
-        "人与家庭":{bg:"var(--lav)", bgHex:"#EBE6FF", illo:'<svg viewBox="0 0 200 140" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="76" cy="48" r="18" fill="#fff" stroke="#17191C" stroke-width="2.5"/><path d="M48 108c4-22 14-32 28-32s24 10 28 32" fill="#9B8CFF"/><circle cx="128" cy="54" r="14" fill="#fff" stroke="#17191C" stroke-width="2.5"/><path d="M106 108c3-16 10-24 22-24s19 8 22 24" fill="#FFB37A"/></svg>'},
-        "自然":{bg:"var(--teal)", bgHex:"#E1F3EE", illo:'<svg viewBox="0 0 200 140" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="58" cy="46" r="21" fill="#E8B93E"/><g stroke="#17191C" stroke-width="2.5" stroke-linecap="round"><path d="M58 12v7M58 73v7M24 46h7M85 46h7M34 22l5 5M77 65l5 5M82 22l-5 5M39 65l-5 5"/></g><circle cx="136" cy="56" r="19" fill="#fff" stroke="#17191C" stroke-width="2.5"/><circle cx="157" cy="64" r="13" fill="#fff" stroke="#17191C" stroke-width="2.5"/><rect x="119" y="56" width="50" height="19" fill="#fff"/><path d="M16 110q10-9 20 0t20 0 20 0 20 0 20 0 20 0 20 0 20 0 20 0" stroke="#43B3A2" stroke-width="3" fill="none" stroke-linecap="round"/></svg>'},
-        "日常":{bg:"var(--sand)", bgHex:"#F7ECDC", illo:'<svg viewBox="0 0 200 140" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M42 76 100 30l58 46" stroke="#17191C" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/><rect x="58" y="74" width="84" height="46" fill="#fff" stroke="#17191C" stroke-width="2.5"/><rect x="90" y="94" width="20" height="26" fill="#D9A05B"/><circle cx="128" cy="88" r="6" fill="#7FB0FF"/><path d="M28 120h144" stroke="#17191C" stroke-width="2.5" stroke-linecap="round" opacity=".35"/></svg>'},
+        "时间":{bg:"var(--butter)", bgHex:"#F5F5F7", illo:'<svg viewBox="0 0 200 140" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="100" cy="70" r="42" fill="#fff" stroke="#17191C" stroke-width="2.5"/><circle cx="100" cy="70" r="4" fill="#17191C"/><path d="M100 70V46M100 70l16 10" stroke="#17191C" stroke-width="3" stroke-linecap="round"/><path d="M100 18v8M148 70h-8M52 70h8" stroke="#8E8E93" stroke-width="3" stroke-linecap="round"/></svg>'},
+        "人与家庭":{bg:"var(--lav)", bgHex:"#EBE6FF", illo:'<svg viewBox="0 0 200 140" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="76" cy="48" r="18" fill="#fff" stroke="#17191C" stroke-width="2.5"/><path d="M48 108c4-22 14-32 28-32s24 10 28 32" fill="#9B8CFF"/><circle cx="128" cy="54" r="14" fill="#fff" stroke="#17191C" stroke-width="2.5"/><path d="M106 108c3-16 10-24 22-24s19 8 22 24" fill="#D1D1D6"/></svg>'},
+        "自然":{bg:"var(--teal)", bgHex:"#E1F3EE", illo:'<svg viewBox="0 0 200 140" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="58" cy="46" r="21" fill="#8E8E93"/><g stroke="#17191C" stroke-width="2.5" stroke-linecap="round"><path d="M58 12v7M58 73v7M24 46h7M85 46h7M34 22l5 5M77 65l5 5M82 22l-5 5M39 65l-5 5"/></g><circle cx="136" cy="56" r="19" fill="#fff" stroke="#17191C" stroke-width="2.5"/><circle cx="157" cy="64" r="13" fill="#fff" stroke="#17191C" stroke-width="2.5"/><rect x="119" y="56" width="50" height="19" fill="#fff"/><path d="M16 110q10-9 20 0t20 0 20 0 20 0 20 0 20 0 20 0 20 0 20 0" stroke="#43B3A2" stroke-width="3" fill="none" stroke-linecap="round"/></svg>'},
+        "日常":{bg:"var(--sand)", bgHex:"#F5F5F7", illo:'<svg viewBox="0 0 200 140" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M42 76 100 30l58 46" stroke="#17191C" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/><rect x="58" y="74" width="84" height="46" fill="#fff" stroke="#17191C" stroke-width="2.5"/><rect x="90" y="94" width="20" height="26" fill="#8E8E93"/><circle cx="128" cy="88" r="6" fill="#7FB0FF"/><path d="M28 120h144" stroke="#17191C" stroke-width="2.5" stroke-linecap="round" opacity=".35"/></svg>'},
         "动物":{bg:"var(--teal)", bgHex:"#E1F3EE", illo:'<svg viewBox="0 0 200 140" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="100" cy="86" r="30" fill="#fff" stroke="#17191C" stroke-width="2.5"/><path d="M74 66 66 42l24 12M126 66l8-24-24 12" fill="#fff" stroke="#17191C" stroke-width="2.5" stroke-linejoin="round"/><circle cx="88" cy="82" r="4.5" fill="#17191C"/><circle cx="112" cy="82" r="4.5" fill="#17191C"/><path d="M96 94h8l-4 5z" fill="#FF7D8A"/><path d="M84 104q6 5 12 0M104 104q6 5 12 0" stroke="#17191C" stroke-width="2.5" stroke-linecap="round"/></svg>'},
-        "职业":{bg:"var(--sky)", bgHex:"#E2EFFF", illo:'<svg viewBox="0 0 200 140" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="42" y="52" width="116" height="62" rx="10" fill="#fff" stroke="#17191C" stroke-width="2.5"/><path d="M78 52V40a8 8 0 0 1 8-8h28a8 8 0 0 1 8 8v12" stroke="#17191C" stroke-width="2.5" fill="none"/><path d="M42 78h116M100 78v12" stroke="#17191C" stroke-width="2.5"/><rect x="90" y="74" width="20" height="14" rx="3" fill="#E8B93E"/></svg>'},
+        "职业":{bg:"var(--sky)", bgHex:"#E2EFFF", illo:'<svg viewBox="0 0 200 140" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="42" y="52" width="116" height="62" rx="10" fill="#fff" stroke="#17191C" stroke-width="2.5"/><path d="M78 52V40a8 8 0 0 1 8-8h28a8 8 0 0 1 8 8v12" stroke="#17191C" stroke-width="2.5" fill="none"/><path d="M42 78h116M100 78v12" stroke="#17191C" stroke-width="2.5"/><rect x="90" y="74" width="20" height="14" rx="3" fill="#8E8E93"/></svg>'},
         "身体":{bg:"var(--rose)", bgHex:"#FFE6E8", illo:'<svg viewBox="0 0 200 140" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="100" cy="38" r="17" fill="#fff" stroke="#17191C" stroke-width="2.5"/><path d="M100 55v34M100 66l-26 14M100 66l26 14M100 89l-16 36M100 89l16 36" stroke="#17191C" stroke-width="2.5" stroke-linecap="round"/></svg>'},
         "衣服":{bg:"var(--lav)", bgHex:"#EBE6FF", illo:'<svg viewBox="0 0 200 140" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M72 30 40 52l14 20 12-8v52h68V64l12 8 14-20-32-22a28 12 0 0 1-56 0z" fill="#fff" stroke="#17191C" stroke-width="2.5" stroke-linejoin="round"/></svg>'},
-        "天气":{bg:"var(--butter)", bgHex:"#F1EFE9", illo:'<svg viewBox="0 0 200 140" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="66" cy="48" r="18" fill="#E8B93E"/><g stroke="#17191C" stroke-width="2.5" stroke-linecap="round"><path d="M66 18v6M66 72v6M36 48h6M90 48h6M45 27l4 4M83 65l4 4M87 27l-4 4"/></g><path d="M78 92a22 22 0 0 1 20-20 24 24 0 0 1 44 6 18 18 0 0 1-4 36H84a20 20 0 0 1-6-22z" fill="#fff" stroke="#17191C" stroke-width="2.5"/><path d="M104 122l-4 10M126 122l-4 10M148 122l-4 10" stroke="#7FB0FF" stroke-width="3" stroke-linecap="round"/></svg>'},
-        "交通":{bg:"var(--peach)", bgHex:"#FFF0E2", illo:'<svg viewBox="0 0 200 140" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="48" y="30" width="104" height="66" rx="14" fill="#fff" stroke="#17191C" stroke-width="2.5"/><rect x="60" y="42" width="80" height="24" rx="6" fill="#7FB0FF"/><circle cx="70" cy="82" r="5" fill="#E8B93E"/><circle cx="130" cy="82" r="5" fill="#E8B93E"/><circle cx="70" cy="106" r="11" fill="#17191C"/><circle cx="130" cy="106" r="11" fill="#17191C"/><path d="M40 118h120" stroke="#17191C" stroke-width="2.5" stroke-linecap="round" opacity=".35"/></svg>'}
+        "天气":{bg:"var(--butter)", bgHex:"#F5F5F7", illo:'<svg viewBox="0 0 200 140" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="66" cy="48" r="18" fill="#8E8E93"/><g stroke="#17191C" stroke-width="2.5" stroke-linecap="round"><path d="M66 18v6M66 72v6M36 48h6M90 48h6M45 27l4 4M83 65l4 4M87 27l-4 4"/></g><path d="M78 92a22 22 0 0 1 20-20 24 24 0 0 1 44 6 18 18 0 0 1-4 36H84a20 20 0 0 1-6-22z" fill="#fff" stroke="#17191C" stroke-width="2.5"/><path d="M104 122l-4 10M126 122l-4 10M148 122l-4 10" stroke="#7FB0FF" stroke-width="3" stroke-linecap="round"/></svg>'},
+        "交通":{bg:"var(--peach)", bgHex:"#F5F5F7", illo:'<svg viewBox="0 0 200 140" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="48" y="30" width="104" height="66" rx="14" fill="#fff" stroke="#17191C" stroke-width="2.5"/><rect x="60" y="42" width="80" height="24" rx="6" fill="#7FB0FF"/><circle cx="70" cy="82" r="5" fill="#8E8E93"/><circle cx="130" cy="82" r="5" fill="#8E8E93"/><circle cx="70" cy="106" r="11" fill="#17191C"/><circle cx="130" cy="106" r="11" fill="#17191C"/><path d="M40 118h120" stroke="#17191C" stroke-width="2.5" stroke-linecap="round" opacity=".35"/></svg>'}
       };
       var BLOBS = ["var(--peach)","var(--sky)","var(--mint)","var(--butter)","var(--lav)","var(--rose)"];
 
@@ -4405,7 +4421,7 @@
          assets/skies/n<no>.jpg - no two alike), foil layer, gold
          frame - and its big type is all FAINT, in the first
          card's watermark register: the star's own Arabic name as
-         the pale-gold .11 watermark on the front (identified by
+         the pale-metal .11 watermark on the front (identified by
          small solid-gold lines at the foot) and as one pale
          layer on the back, never a solid extrusion.
          Earn rules by number: #3-30 letter series (each
@@ -4434,8 +4450,22 @@
          fronts take their own theme word as the watermark. No card
          face anywhere in the collection carries a religious word
          any more. */
+      /* rarity tiers (v1.1.1), assigned by catalogue number from
+         the star's fame: the Summer Triangle stars, Sirius,
+         Betelgeuse, Fomalhaut, the Pleiades, Polaris and Canopus
+         headline the legendary tier; epic takes the next ring of
+         famous names; the rest split rare / common with common
+         the majority. Shown ONLY in the card viewer's info line -
+         never printed on a card face, never a fan badge */
+      function starRarity(no){
+        if ([1,2,3,4,5,6,7,8,9,25,50,95].indexOf(no) !== -1) return "传说";
+        if ([10,11,12,13,14,15,16,17,18,19,20,21,27,41,42,45,47,55].indexOf(no) !== -1) return "史诗";
+        if ([22,23,24,26,28,29,30,31,36,40,43,44,46,48,51,56,57,58,63,64,72,75,76,83,85,92,93,96,97].indexOf(no) !== -1) return "稀有";
+        return "普通";
+      }
       CARDS[0].glyph = STARS99[0][0]; CARDS[0].backWm = STARS99[0][0];
       CARDS[1].glyph = STARS99[1][0]; CARDS[1].backWm = STARS99[1][0];
+      CARDS[0].rarity = starRarity(1); CARDS[1].rarity = starRarity(2);
       CARDS.forEach(function(c){ if (c.id.indexOf("course-") === 0){ c.glyph = c.backGlyph; c.backWm = c.backGlyph; } });
       var CHECKIN_MILESTONES = [3, 7, 14, 30, 60, 100, 180, 365];
       var QUIZ_TOTAL_MILESTONES = [10, 30, 60, 100, 200, 400];
@@ -4462,7 +4492,7 @@
         else { seriesLabel = "成就系列"; rule = "完成 " + ACH_LESSONS[no - 98] + " 节主题课程"; tab = 0; }
         var entry = {
           id: "name-" + no, no: no, series: "stars", arName: ar,
-          name: zh, glyph: ar,
+          name: zh, glyph: ar, rarity: starRarity(no),
           sub: "星名卡第 " + no + " 张「" + ar + "」——" + zh + "。这张星名卡已经放进你的卡册。",
           pass: seriesLabel,
           backGlyph: ar, backWm: ar, backName: zh, backZh: true,
@@ -5208,7 +5238,7 @@
       swipeWrap.addEventListener("dragstart", function(e){ e.preventDefault(); });
 
       var flashEl = document.getElementById("flash");
-      function renderCard(){ flipped = false; flashEl.classList.remove("flipped"); var w = deck[cardIdx]; frontVisual(document.getElementById("flash-illo"), w); document.getElementById("flash-cat-front").textContent = w.cat; document.getElementById("flash-cat-back").textContent = w.cat; var farEl = document.getElementById("flash-ar"); farEl.textContent = w.ar; farEl.classList.toggle("long", w.ar.length >= 15); document.getElementById("flash-trans").textContent = w.tr; document.getElementById("flash-zh").textContent = w.zh; document.getElementById("flash-note").textContent = w.note || ""; var backEl = document.getElementById("flash-back"); var hex = colorHex(w); var fimg = foodImg(w); var timg = timeImg(w); var pimg = peopleImg(w); var nimg = natureImg(w); var dimg = dailyImg(w); var umimg = numImg(w); var gimg = greetImg(w); var ximg = extraPhoto(w); var colorBack = document.getElementById("color-back"); var foodBack = document.getElementById("food-back"); var plainBack = [document.getElementById("flash-cat-back"), document.getElementById("flash-zh"), document.getElementById("flash-note")]; if (hex){ backEl.classList.add("color-mode"); backEl.classList.remove("food-mode"); backEl.classList.toggle("on-light", colorNeedsDarkText(hex)); backEl.style.background = hex; backEl.style.borderColor = hex === "#FFFFFF" ? "#e8e3d8" : hex; plainBack.forEach(function(el){ el.style.display = "none"; }); colorBack.style.display = "flex"; foodBack.style.display = "none"; document.getElementById("color-zh").textContent = w.zh; document.getElementById("color-ar").textContent = w.ar; document.getElementById("color-tr").textContent = w.tr; } else if (fimg || timg || pimg || nimg || dimg || umimg || gimg || ximg){ backEl.classList.remove("color-mode"); backEl.classList.remove("on-light"); backEl.classList.add("food-mode"); backEl.style.background = ""; backEl.style.borderColor = ""; plainBack.forEach(function(el){ el.style.display = "none"; }); colorBack.style.display = "none"; foodBack.style.display = "block"; var fi = document.getElementById("food-img"); var fsrc = fimg ? "assets/food/" + fimg + ".jpg" : (timg ? "assets/time/" + timg + ".jpg" : (pimg ? "assets/people/" + pimg + ".jpg" : (nimg ? "assets/nature/" + nimg + ".jpg" : (umimg ? "assets/num/" + umimg + ".jpg" : (gimg ? "assets/greet/" + gimg + ".jpg" : "assets/daily/" + dimg + ".jpg"))))); if (ximg) fsrc = ximg; fi.onerror = function(){ fi.onerror = null; foodBack.style.display = "none"; plainBack.forEach(function(el){ el.style.display = ""; }); backEl.classList.remove("food-mode"); }; fi.src = fsrc; fi.style.objectPosition = posFor(fsrc); fi.alt = "「" + w.zh + "」的真实照片"; document.getElementById("food-zh").textContent = w.zh; document.getElementById("food-ar").textContent = w.ar; document.getElementById("food-tr").textContent = w.tr; } else { backEl.classList.remove("color-mode"); backEl.classList.remove("on-light"); backEl.classList.remove("food-mode"); backEl.style.background = ""; backEl.style.borderColor = ""; plainBack.forEach(function(el){ el.style.display = ""; }); colorBack.style.display = "none"; foodBack.style.display = "none"; } document.getElementById("card-counter").textContent = (cardIdx + 1) + " / " + deck.length; updateMastery(); refreshSrsUI(); cfSync(); }
+      function renderCard(){ flipped = false; flashEl.classList.remove("flipped"); var w = deck[cardIdx]; frontVisual(document.getElementById("flash-illo"), w); document.getElementById("flash-cat-front").textContent = w.cat; document.getElementById("flash-cat-back").textContent = w.cat; var farEl = document.getElementById("flash-ar"); farEl.textContent = w.ar; farEl.classList.toggle("long", w.ar.length >= 15); document.getElementById("flash-trans").textContent = w.tr; document.getElementById("flash-zh").textContent = w.zh; document.getElementById("flash-note").textContent = w.note || ""; var backEl = document.getElementById("flash-back"); var hex = colorHex(w); var fimg = foodImg(w); var timg = timeImg(w); var pimg = peopleImg(w); var nimg = natureImg(w); var dimg = dailyImg(w); var umimg = numImg(w); var gimg = greetImg(w); var ximg = extraPhoto(w); var colorBack = document.getElementById("color-back"); var foodBack = document.getElementById("food-back"); var plainBack = [document.getElementById("flash-cat-back"), document.getElementById("flash-zh"), document.getElementById("flash-note")]; if (hex){ backEl.classList.add("color-mode"); backEl.classList.remove("food-mode"); backEl.classList.toggle("on-light", colorNeedsDarkText(hex)); backEl.style.background = hex; backEl.style.borderColor = hex === "#FFFFFF" ? "#e5e5ea" : hex; plainBack.forEach(function(el){ el.style.display = "none"; }); colorBack.style.display = "flex"; foodBack.style.display = "none"; document.getElementById("color-zh").textContent = w.zh; document.getElementById("color-ar").textContent = w.ar; document.getElementById("color-tr").textContent = w.tr; } else if (fimg || timg || pimg || nimg || dimg || umimg || gimg || ximg){ backEl.classList.remove("color-mode"); backEl.classList.remove("on-light"); backEl.classList.add("food-mode"); backEl.style.background = ""; backEl.style.borderColor = ""; plainBack.forEach(function(el){ el.style.display = "none"; }); colorBack.style.display = "none"; foodBack.style.display = "block"; var fi = document.getElementById("food-img"); var fsrc = fimg ? "assets/food/" + fimg + ".jpg" : (timg ? "assets/time/" + timg + ".jpg" : (pimg ? "assets/people/" + pimg + ".jpg" : (nimg ? "assets/nature/" + nimg + ".jpg" : (umimg ? "assets/num/" + umimg + ".jpg" : (gimg ? "assets/greet/" + gimg + ".jpg" : "assets/daily/" + dimg + ".jpg"))))); if (ximg) fsrc = ximg; fi.onerror = function(){ fi.onerror = null; foodBack.style.display = "none"; plainBack.forEach(function(el){ el.style.display = ""; }); backEl.classList.remove("food-mode"); }; fi.src = fsrc; fi.style.objectPosition = posFor(fsrc); fi.alt = "「" + w.zh + "」的真实照片"; document.getElementById("food-zh").textContent = w.zh; document.getElementById("food-ar").textContent = w.ar; document.getElementById("food-tr").textContent = w.tr; } else { backEl.classList.remove("color-mode"); backEl.classList.remove("on-light"); backEl.classList.remove("food-mode"); backEl.style.background = ""; backEl.style.borderColor = ""; plainBack.forEach(function(el){ el.style.display = ""; }); colorBack.style.display = "none"; foodBack.style.display = "none"; } document.getElementById("card-counter").textContent = (cardIdx + 1) + " / " + deck.length; updateMastery(); refreshSrsUI(); cfSync(); }
       function flip(){ if (suppressFlip || cfBusy) return; flipped = !flipped; flashEl.classList.toggle("flipped", flipped); }
       /* clicks listen on the swipe wrapper, not the card: pointer capture during drags retargets the click to the wrapper, and plain taps bubble up to it. A tap on a SIDE slot rides the snap into the centre; a tap anywhere else on the strip flips the centre card - either way exactly one action fires, and a drag's trailing click is swallowed by suppressFlip */
       swipeWrap.addEventListener("click", function(e){
@@ -6056,9 +6086,7 @@
          pair is shared by both rows: 去测验 (jumps to the first
          un-earned card's own quiz - the letters panel for the
          字母启程卡, the quiz panel for 初试通过) shows until every
-         card is earned, 兑换礼品 after; 兑换 stays a placeholder
-         toast until the APP build wires a backend, same as the other
-         account rows. */
+         card is earned. */
       /* the fan and the info list are built once from COLLECT_SET
          (the 99 star-name cards in order): one overlapping thumbnail
          and one compact line per card, z-order climbing with the
@@ -6408,18 +6436,18 @@
         var tc = document.createElement("div");
         tc.className = "tcard" + (mini ? " mini" : "");
         var date = store.cardDates[card.id] || "";
-        var depths = [[9.6, "#0a0702"], [8, "#120c03"], [6.4, "#1a1104"], [4.8, "#251806"], [3.2, "#332208"], [1.6, "#4a320c"]];
+        var depths = [9.6, 8, 6.4, 4.8, 3.2, 1.6];
         var back = "";
         if (card.series === "stars"){
-          /* a star-card back carries NO extrusion: one pale-gold layer
+          /* a star-card back carries NO extrusion: one pale layer
              (the .bstack.pale colour, .11) so the giant name reads
-             as a watermark like the first card's أكبر, never a
-             solid gold relief - the small back-name / back-sub
-             lines stay readable and carry the identification */
+             as a watermark like the first card's, never a solid
+             metal relief - the small back-name / back-sub lines
+             stay readable and carry the identification */
           back = '<span style="--ox:0px;--oy:0px;--d:0">' + card.backGlyph + "</span>";
         } else {
-          depths.forEach(function(d){
-            back += '<span style="color:' + d[1] + ";--ox:" + d[0] + "px;--oy:" + (d[0] * 1.35).toFixed(1) + "px;--d:" + (d[0] / 9.6 * .9).toFixed(2) + '" data-depth="' + (d[0] / 9.6).toFixed(2) + '">' + card.backGlyph + "</span>";
+          depths.forEach(function(d, di){
+            back += '<span class="lyr' + di + '" style="--ox:' + d + "px;--oy:" + (d * 1.35).toFixed(1) + "px;--d:" + (d / 9.6 * .9).toFixed(2) + '" data-depth="' + (d / 9.6).toFixed(2) + '">' + card.backGlyph + "</span>";
           });
           back += '<span class="top" style="--ox:0px;--oy:0px;--d:0" data-depth="0">' + card.backGlyph + "</span>";
         }
@@ -6443,13 +6471,13 @@
         /* a star-card front is the first card's watermark composition:
            the star's Arabic name as the faint .tcard-wm ground,
            the rule - then the small readable identifiers at the
-           foot of the face (the name again in small solid gold,
+           foot of the face (the name again in small solid metal,
            the Chinese star name + #N, and the usual foot:
            series · grant date) */
         var frontInner = card.series === "stars"
           ? '<div class="tcard-wm">' + card.glyph + '</div>' +
             '<div class="tcard-rule"></div>' +
-            '<div class="tcard-allah-wrap"></div>' +
+            '<div class="tcard-flex-wrap"></div>' +
             '<div class="tcard-nameid">' + card.arName + '</div>' +
             '<div class="tcard-namezh">' + card.name + ' · <span class="no">#' + card.no + '</span></div>' + foot
           : '<div class="tcard-wm">' + card.glyph + '</div>' +
@@ -6470,8 +6498,9 @@
         requestAnimationFrame(function(){ fitCardWms(tc); fitCardExtras(tc); });
         return tc;
       }
-      /* watermark fit: at the stock 140px a long word (الرحمن on the
-         初试通过 back) renders wider than the card and its edges are
+      /* watermark fit: at the stock 140px a long name (a four-word
+         star name on a card back) renders wider than the card and
+         its edges are
          clipped by the face. Each watermark is measured with canvas
          measureText in the Amiri face it renders in, and shrunk -
          never grown past its stylesheet size - until the whole word
@@ -6506,8 +6535,9 @@
          cards' backs keep their stock size untouched). Same rule
          as the watermarks: measure in Amiri at the stylesheet size,
          shrink - never grow - until the text sits within 88% of the
-         card width (>=6% clear on both sides). ذُو الْجَلَالِ
-         وَالْإِكْرَامِ is the stress case at both spots */
+         card width (>=6% clear on both sides).
+         الْقَفْزَةُ الْأُولَى الشَّمَالِيَّةُ is the stress case
+         at both spots */
       function fitArName(el){
         var card = el.closest(".tcard");
         if (!card) return;
@@ -6640,6 +6670,15 @@
         if (!cardModal) return;
         var panel = cardModal.querySelector(".card-panel");
         if (panel) panel.setAttribute("aria-label", card.name);
+        var rarEl = document.getElementById("card-rarity");
+        if (!rarEl){
+          rarEl = document.createElement("div");
+          rarEl.id = "card-rarity"; rarEl.className = "card-rarity";
+          var toolsEl = cardModal.querySelector(".card-tools");
+          if (toolsEl && toolsEl.parentNode) toolsEl.parentNode.insertBefore(rarEl, toolsEl.nextSibling);
+        }
+        if (card.rarity){ rarEl.textContent = "稀有度 · " + card.rarity; rarEl.hidden = false; }
+        else { rarEl.hidden = true; }
         var slot = document.getElementById("card-slot");
         slot.innerHTML = "";
         var viewCard = buildCardEl(card, false);
@@ -7332,7 +7371,7 @@
         if (hex){
           back.classList.add("color-mode");
           back.style.background = hex;
-          back.style.borderColor = hex === "#FFFFFF" ? "#e8e3d8" : hex;
+          back.style.borderColor = hex === "#FFFFFF" ? "#e5e5ea" : hex;
           bphoto.hidden = true; bplain.style.display = "";
           var dark = colorNeedsDarkText(hex);
           ["tfc-zh", "tfc-bar2", "tfc-btr2", "tfc-note", "tfc-bcat"].forEach(function(id){
