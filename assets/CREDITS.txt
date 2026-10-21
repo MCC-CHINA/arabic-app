@@ -3,7 +3,7 @@
 card-sky.jpg / card-sky2.jpg — 既有卡面（银河 / ALMA 射电望远镜剪影），沿用此前来源记录。
   #1 字母启程卡用 card-sky.jpg，#2 初试通过卡用 card-sky2.jpg，两张保持不变。
 
-skies/n03.jpg - n99.jpg — 尊名系列 97 张卡（#3-#99）各自专属的星空底图，一卡一图、互不重复：
+skies/n03.jpg - n99.jpg — 星名系列 97 张卡（#3-#99）各自专属的星空底图，一卡一图、互不重复：
 均为 NASA / ESA / 哈勃 / 韦伯 / ESO 等公有领域或 CC 授权照片，经 Wikimedia Commons 取得，
 按卡面 63:88 竖版裁剪、轻微压暗后使用。每张的原始条目与授权如下：
 

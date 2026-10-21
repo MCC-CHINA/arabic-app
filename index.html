@@ -6,9 +6,6 @@
     <meta name="color-scheme" content="light dark" />
     <link rel="icon" href="data:," />
     <title>阿拉伯语学习 App</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cairo:wght@500;600;700&family=Noto+Naskh+Arabic:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;700;900&family=Noto+Serif+SC:wght@700;900&display=swap" rel="stylesheet" />
     <style>
       :root{
         color-scheme: light dark;
@@ -81,19 +78,31 @@
       }
       *{box-sizing:border-box;}
       html{scroll-behavior:smooth;}
-      /* self-hosted Amiri Arabic subset (assets/fonts/, the same face
-         the Google Fonts sheet serves for Arabic): with this @font-face
-         in the page, Arabic - and its tashkeel - still renders in Amiri
-         when the Google Fonts CDN is unreachable (offline / blocked),
-         instead of dropping to a system font whose vowel marks sit
-         differently. Latin ranges keep coming from the CDN sheet. */
-      @font-face{font-family:"Amiri";font-style:normal;font-weight:400;font-display:swap;src:url("assets/fonts/amiri-arabic-400.woff2") format("woff2");unicode-range:U+0600-06FF,U+0750-077F,U+0870-0891,U+0897-08E1,U+08E3-08FF,U+FB50-FDFF,U+FE70-FE74,U+FE76-FEFC;}
-      @font-face{font-family:"Amiri";font-style:normal;font-weight:700;font-display:swap;src:url("assets/fonts/amiri-arabic-700.woff2") format("woff2");unicode-range:U+0600-06FF,U+0750-077F,U+0870-0891,U+0897-08E1,U+08E3-08FF,U+FB50-FDFF,U+FE70-FE74,U+FE76-FEFC;}
-      body{margin:0;background:var(--bg);color:var(--ink);font-family:"Noto Sans SC","Amiri","Noto Naskh Arabic",system-ui,-apple-system,"PingFang SC",sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;}
+      /* ALL fonts are self-hosted (assets/fonts/) since v1.1 - no
+         Google Fonts, no CDN: the page renders identically offline
+         and in networks where the CDN is unreachable, instead of
+         dropping Arabic to a system font whose tashkeel marks sit
+         differently (the detached-vowels bug). Noto Naskh Arabic is
+         the Arabic workhorse (subset to the Arabic blocks, full
+         shaping tables kept); Noto Sans SC is subset to the exact
+         characters this app uses; the Amiri Arabic subset stays
+         ONLY for the collect-card face art (watermarks / glyph
+         stacks), whose measureText fit code is calibrated to it.
+         Fallback order - Arabic: "Noto Naskh Arabic" -> "Amiri" ->
+         serif. Chinese: "Noto Sans SC" -> system fonts. */
+      @font-face{font-family:"Noto Naskh Arabic";font-style:normal;font-weight:400;font-display:swap;src:url("assets/fonts/noto-naskh-arabic-400.woff2") format("woff2");unicode-range:U+0600-06FF,U+0750-077F,U+08A0-08FF,U+FB50-FDFF,U+FE70-FEFC;}
+      @font-face{font-family:"Noto Naskh Arabic";font-style:normal;font-weight:700;font-display:swap;src:url("assets/fonts/noto-naskh-arabic-700.woff2") format("woff2");unicode-range:U+0600-06FF,U+0750-077F,U+08A0-08FF,U+FB50-FDFF,U+FE70-FEFC;}
+      @font-face{font-family:"Noto Sans SC";font-style:normal;font-weight:400;font-display:swap;src:url("assets/fonts/noto-sans-sc-400.woff2") format("woff2");}
+      @font-face{font-family:"Noto Sans SC";font-style:normal;font-weight:500;font-display:swap;src:url("assets/fonts/noto-sans-sc-500.woff2") format("woff2");}
+      @font-face{font-family:"Noto Sans SC";font-style:normal;font-weight:700;font-display:swap;src:url("assets/fonts/noto-sans-sc-700.woff2") format("woff2");}
+      @font-face{font-family:"Noto Sans SC";font-style:normal;font-weight:900;font-display:swap;src:url("assets/fonts/noto-sans-sc-900.woff2") format("woff2");}
+      @font-face{font-family:"Amiri";font-style:normal;font-weight:400;font-display:swap;src:url("assets/fonts/amiri-arabic-400.woff2") format("woff2");unicode-range:U+0020-007E,U+0100-017F,U+02B0-02FF,U+1E00-1EFF,U+2000-206F,U+0600-06FF,U+0750-077F,U+0870-0891,U+0897-08E1,U+08E3-08FF,U+FB50-FDFF,U+FE70-FE74,U+FE76-FEFC;}
+      @font-face{font-family:"Amiri";font-style:normal;font-weight:700;font-display:swap;src:url("assets/fonts/amiri-arabic-700.woff2") format("woff2");unicode-range:U+0020-007E,U+0100-017F,U+02B0-02FF,U+1E00-1EFF,U+2000-206F,U+0600-06FF,U+0750-077F,U+0870-0891,U+0897-08E1,U+08E3-08FF,U+FB50-FDFF,U+FE70-FE74,U+FE76-FEFC;}
+      body{margin:0;background:var(--bg);color:var(--ink);font-family:"Noto Sans SC","Noto Naskh Arabic",system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;}
       button{-webkit-tap-highlight-color:transparent;}
       button:focus-visible,[tabindex]:focus-visible{outline:3px solid rgba(110,116,124,.6);outline-offset:3px;}
       ::selection{background:var(--surface-soft);color:var(--ink);}
-      .ar{font-family:"Amiri","Noto Naskh Arabic",serif;direction:rtl;unicode-bidi:isolate;line-height:2.2;letter-spacing:0;word-spacing:0;text-rendering:optimizeLegibility;}
+      .ar{font-family:"Noto Naskh Arabic","Amiri",serif;direction:rtl;unicode-bidi:isolate;line-height:2.2;letter-spacing:0;word-spacing:0;text-rendering:optimizeLegibility;}
       .wrap{max-width:900px;margin:0 auto;padding:0 24px calc(128px + env(safe-area-inset-bottom));}
 
       /* bottom navigation - ONE car on one road: a single Liquid Glass bar
@@ -256,7 +265,7 @@
       .back-text{font-size:13.5px;line-height:1.9;color:var(--ink-mid);}
 
       .lname{font-size:32px;font-weight:700;line-height:2.2;padding-top:16px;}
-      .ltrans{font-family:"Cairo","Noto Sans SC",sans-serif;color:var(--ink-soft);font-size:16px;font-weight:500;letter-spacing:.02em;}
+      .ltrans{font-family:"Noto Sans SC","Amiri",sans-serif;color:var(--ink-soft);font-size:16px;font-weight:500;letter-spacing:.02em;}
       .key-badge{background:var(--gold-soft);color:var(--gold-ink);border:1px solid var(--line-strong);font-size:11px;font-weight:700;letter-spacing:.06em;padding:5px 10px;border-radius:999px;}
       .forms{display:flex;gap:8px;justify-content:flex-start;margin-top:16px;flex-wrap:wrap;flex:0 0 auto;}
       .form-cell{text-align:center;min-width:68px;}
@@ -269,8 +278,8 @@
       .letter-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(64px,1fr));gap:11px;}
       .lcell{position:relative;appearance:none;cursor:pointer;background:var(--surface);border:1px solid var(--line);border-radius:21px;padding:13px 2px 10px;min-height:86px;font:inherit;display:flex;flex-direction:column;align-items:center;box-shadow:0 3px 12px rgba(25,27,30,.025);transition:transform .18s var(--ease),border-color .18s var(--ease),background .18s var(--ease),box-shadow .18s var(--ease);}
       .lcell:hover{transform:translateY(-2px);border-color:var(--line-strong);}
-      .lcell .lg{font-family:"Amiri","Noto Naskh Arabic",serif;font-size:34px;line-height:2.2;letter-spacing:0;color:var(--ink);}
-      .lcell .ln{font-family:"Cairo","Noto Sans SC",sans-serif;font-size:11px;color:var(--ink-soft);margin-top:2px;}
+      .lcell .lg{font-family:"Noto Naskh Arabic","Amiri",serif;font-size:34px;line-height:2.2;letter-spacing:0;color:var(--ink);}
+      .lcell .ln{font-family:"Noto Sans SC","Amiri",sans-serif;font-size:11px;color:var(--ink-soft);margin-top:2px;}
       .lcell.key{border-color:var(--ink);}
       .lcell.key::after{content:"";position:absolute;top:9px;inset-inline-end:9px;width:6px;height:6px;border-radius:50%;background:var(--ink);}
       .lcell.selected{background:var(--ink);border-color:var(--ink);box-shadow:0 12px 24px rgba(25,27,30,.16);}
@@ -288,11 +297,6 @@
       .chip:hover{color:var(--ink);border-color:var(--line-strong);}
       .chip:active{transform:scale(.97);}
       .chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink);box-shadow:0 6px 16px rgba(25,27,30,.13);}
-      /* PRO-locked category chips: greyed, with the one Lucide lock -
-         tapping one only raises the paywall toast, it never selects */
-      .chip.locked{display:inline-flex;align-items:center;gap:5px;opacity:.55;}
-      .chip.locked .ic{width:14px;height:14px;}
-      .chip.locked:hover{color:var(--ink-soft);border-color:var(--line);}
       /* the review-only toggle lives in the same filter row as the category chips, set apart by a dashed edge */
       .chips-gen{display:contents;}
       .filter-chip{display:inline-flex;align-items:center;gap:4px;border-style:dashed;}
@@ -330,7 +334,7 @@
       .flash-ar{font-size:60px;line-height:2.2;font-weight:700;margin-top:12px;padding:14px 6px 4px;overflow:visible;}
       /* long phrases (the greeting, colour pairs) drop a size and stay on one line instead of wrapping into space the card does not have */
       .flash-ar.long{font-size:46px;white-space:nowrap;}
-      .flash-trans{font-family:"Cairo","Noto Sans SC",sans-serif;font-size:14px;color:var(--ink-mid);margin-top:12px;margin-bottom:10px;letter-spacing:.01em;}
+      .flash-trans{font-family:"Noto Sans SC","Amiri",sans-serif;font-size:14px;color:var(--ink-mid);margin-top:12px;margin-bottom:10px;letter-spacing:.01em;}
       /* the hint pill is pinned to the bottom INSIDE the card: auto top margin absorbs the free space above it, the transliteration's bottom margin guarantees a minimum gap when the card is tight */
       .flash-hint{font-size:12px;color:var(--ink-soft);margin-top:auto;letter-spacing:.04em;background:var(--surface-soft);border-radius:999px;padding:5px 11px;}
       .flash-zh{font-size:40px;font-weight:900;line-height:1.3;letter-spacing:-.025em;margin-top:8px;}
@@ -341,7 +345,7 @@
       .color-back{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:4px;}
       .color-zh{font-size:64px;font-weight:900;line-height:1.2;letter-spacing:.02em;}
       .color-ar{font-size:46px;line-height:2.2;font-weight:700;padding-top:16px;}
-      .color-tr{font-family:"Cairo","Noto Sans SC",sans-serif;font-size:15px;opacity:.78;letter-spacing:.02em;}
+      .color-tr{font-family:"Noto Sans SC","Amiri",sans-serif;font-size:15px;opacity:.78;letter-spacing:.02em;}
       @media(max-width:520px){.color-zh{font-size:54px;} .color-ar{font-size:40px;}}
       /* photo words (food, time, people, nature, daily, greetings, numbers): the back IS the photo — full-bleed real photo, small caption along the bottom */
       .flash-back.food-mode{padding:0;background:var(--surface);}
@@ -350,7 +354,7 @@
       .food-cap{position:absolute;left:0;right:0;bottom:0;padding:52px 20px 22px;background:linear-gradient(transparent,rgba(8,9,11,.74));color:#fff;display:flex;align-items:baseline;justify-content:center;gap:11px;flex-wrap:wrap;text-align:center;}
       .food-zh{font-size:25px;font-weight:900;letter-spacing:.02em;line-height:1.25;}
       .food-ar{font-size:27px;line-height:2.2;font-weight:700;}
-      .food-tr{font-family:"Cairo","Noto Sans SC",sans-serif;font-size:13.5px;opacity:.88;letter-spacing:.02em;}
+      .food-tr{font-family:"Noto Sans SC","Amiri",sans-serif;font-size:13.5px;opacity:.88;letter-spacing:.02em;}
       /* flashcard controls - one column the same width as the card, three aligned rows, 8pt rhythm */
       /* the 1/135 counter gets its own centred line between the card and the buttons - never inside a button row, never overlapped */
       .card-progress{max-width:560px;margin:16px auto 0;text-align:center;}
@@ -366,7 +370,7 @@
       .nav-btn:hover,.mini-speak:hover{border-color:var(--line-strong);transform:translateY(-1px);}
       .nav-btn:active,.mini-speak:active{transform:scale(.97);}
       .nav-btn.primary{background:var(--ink);border-color:var(--ink);color:var(--bg);box-shadow:0 10px 22px rgba(25,27,30,.14);}
-      .counter{font-family:"Cairo","Noto Sans SC",sans-serif;font-size:13px;color:var(--ink-soft);font-variant-numeric:tabular-nums;min-width:74px;text-align:center;}
+      .counter{font-family:"Noto Sans SC","Amiri",sans-serif;font-size:13px;color:var(--ink-soft);font-variant-numeric:tabular-nums;min-width:74px;text-align:center;}
       .mini-speak{appearance:none;cursor:pointer;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;font:inherit;font-size:13px;font-weight:700;padding:10px 16px;box-shadow:0 4px 14px rgba(25,27,30,.04);transition:transform .18s var(--ease),border-color .18s var(--ease);display:inline-flex;align-items:center;justify-content:center;gap:6px;}
       /* one icon system site-wide: Lucide inline SVG, currentColor, no emoji characters */
       .ic{width:18px;height:18px;flex:0 0 auto;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
@@ -387,6 +391,14 @@
          element's background colour) */
       img.img-dead{display:none!important;}
       .cf-slot{position:absolute;top:0;left:50%;height:100%;width:min(76%,430px);will-change:transform,opacity;}
+      /* while another tab is active the coverflow strip is fully
+         hidden: its slots keep compositor layers (will-change +
+         3D transforms), and a translucent photo layer could bleed
+         through over the incoming panel (the ghost flashcard seen
+         on the sentences tab). !important beats cfPaint's inline
+         visibility writes; coming back removes the class and the
+         strip repaints from its own state. */
+      #panel-cards.cf-away .cf-slot{visibility:hidden !important;}
       .cf-slot .flash{position:absolute;inset:0;width:100%;height:100%;}
       /* the centre card carries no ring and no glow - it is the plain
          .flash card with its one standard shadow, same as any other card */
@@ -395,18 +407,18 @@
       .cf-shade{position:absolute;inset:0;border-radius:36px;background:#14100a;opacity:0;pointer-events:none;}
       /* mastery count: one quiet line of small text under the control rows - a readout of quiz-driven mastery, no marking happens on the card itself */
       .mastery-line{max-width:560px;margin:8px auto 0;text-align:center;font-size:12.5px;color:var(--ink-soft);font-variant-numeric:tabular-nums;}
-      .mastery-line b{font-family:"Cairo","Noto Sans SC",sans-serif;color:var(--ink);}
+      .mastery-line b{font-family:"Noto Sans SC","Amiri",sans-serif;color:var(--ink);}
 
       /* quiz - one contained practice surface, with a single segmented score strip */
       .quiz-score{display:flex;gap:0;justify-content:center;flex-wrap:wrap;width:fit-content;max-width:100%;margin:0 auto 22px;background:var(--surface-soft);border:1px solid var(--line);border-radius:999px;padding:5px;}
       .quiz-score span{padding:6px 13px;font-size:12.5px;color:var(--ink-soft);}
       .quiz-score span+span{border-left:1px solid var(--line);}
-      .quiz-score b{font-family:"Cairo","Noto Sans SC",sans-serif;color:var(--ink);font-size:14px;}
+      .quiz-score b{font-family:"Noto Sans SC","Amiri",sans-serif;color:var(--ink);font-size:14px;}
       .quiz-card{max-width:560px;margin:0 auto;text-align:center;background:var(--surface);border:1px solid var(--line);border-radius:36px;box-shadow:var(--shadow-lg);padding:22px;}
       /* the quiz shows no picture and no category label — either would give the meaning away; the card opens straight on the word */
       .quiz-ar{font-size:58px;line-height:2.2;font-weight:700;margin-top:8px;padding-top:16px;padding-bottom:6px;overflow:visible;}
       .quiz-ar.long{font-size:46px;white-space:nowrap;}
-      .quiz-trans{font-family:"Cairo","Noto Sans SC",sans-serif;color:var(--ink-mid);font-size:16px;margin-top:10px;}
+      .quiz-trans{font-family:"Noto Sans SC","Amiri",sans-serif;color:var(--ink-mid);font-size:16px;margin-top:10px;}
       .quiz-opts{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-top:22px;text-align:left;}
       @media(max-width:520px){.quiz-opts{grid-template-columns:1fr;} .quiz-card{padding:16px;} .quiz-ar{font-size:50px;} .quiz-score{width:100%;justify-content:space-between;} .quiz-score span{padding:6px 8px;}}
       .opt{appearance:none;cursor:pointer;font:inherit;font-size:16px;font-weight:500;background:var(--bg-soft);border:1px solid var(--line);color:var(--ink);border-radius:19px;padding:16px 18px;text-align:left;transition:transform .16s var(--ease),border-color .16s var(--ease),background .16s var(--ease);}
@@ -414,6 +426,17 @@
       .opt.right{border-color:var(--mint-strong);background:var(--mint);font-weight:800;}
       .opt.wrong{border-color:var(--rose-strong);background:var(--rose);}
       .opt:disabled{cursor:default;transform:none;}
+      /* Arabic inside quiz controls always takes the Naskh stack
+         with letter-spacing:0. .opt's font:inherit shorthand used
+         to override .ar and hand Arabic to the CJK font's fallback
+         chain, whose mark positioning detaches the tashkeel from
+         its letters on some devices （سترة / فلفل）. The word also
+         always stays ONE text node in ONE element - never split
+         per letter - so the Arabic font composes the marks itself. */
+      .opt.ar,#tq-word.ar{font-family:"Noto Naskh Arabic","Amiri",serif;letter-spacing:0;}
+      /* an Arabic word quoted inside a Chinese line reads ~1.3x
+         the Chinese size, or its tashkeel crushes at text size */
+      .ar-inline{font-family:"Noto Naskh Arabic","Amiri",serif;font-size:1.3em;line-height:1.9;letter-spacing:0;direction:rtl;unicode-bidi:isolate;}
       .quiz-msg{min-height:28px;font-weight:700;margin-top:16px;font-size:15px;line-height:1.9;display:flex;align-items:center;justify-content:center;gap:7px;flex-wrap:wrap;}
       .quiz-msg.good{color:#1f8a5b;}
       .quiz-msg.bad{color:#d64550;}
@@ -430,7 +453,7 @@
       .srs-bar-txt{flex:1;min-width:0;display:flex;flex-direction:column;}
       .srs-bar-t{font-size:14.5px;font-weight:800;line-height:1.35;}
       .srs-bar-s{font-size:12.5px;color:var(--ink-soft);line-height:1.45;}
-      .srs-badge{background:var(--gold);color:var(--bg);font-family:"Cairo","Noto Sans SC",sans-serif;font-weight:800;border-radius:999px;min-width:25px;height:25px;display:inline-flex;align-items:center;justify-content:center;font-size:13.5px;padding:0 8px;flex:0 0 auto;}
+      .srs-badge{background:var(--gold);color:var(--bg);font-family:"Noto Sans SC","Amiri",sans-serif;font-weight:800;border-radius:999px;min-width:25px;height:25px;display:inline-flex;align-items:center;justify-content:center;font-size:13.5px;padding:0 8px;flex:0 0 auto;}
       .srs-badge[hidden]{display:none;}
       /* per-word next-review line under the mastery count */
       .srs-line{max-width:560px;margin:6px auto 0;text-align:center;font-size:12px;color:var(--gold-ink);font-variant-numeric:tabular-nums;}
@@ -458,7 +481,7 @@
       /* letters intro path (inside 字母入门）: level rows reuse
          .lesson-row; the right side carries the level's own x / y
          progress readout */
-      .phon-prog{flex:0 0 auto;font-family:"Cairo","Noto Sans SC",sans-serif;font-size:13px;font-weight:700;color:var(--ink-soft);font-variant-numeric:tabular-nums;white-space:nowrap;}
+      .phon-prog{flex:0 0 auto;font-family:"Noto Sans SC","Amiri",sans-serif;font-size:13px;font-weight:700;color:var(--ink-soft);font-variant-numeric:tabular-nums;white-space:nowrap;}
       .phon-prog b{color:var(--ink);font-size:15px;}
       /* phonetics sheet (字母入门 L2-L5): vowel cards, short-vs-long
          pairs, articulation group chips, key-letter rows */
@@ -466,7 +489,7 @@
       .vow-card{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:14px 12px 13px;text-align:center;box-shadow:0 1px 2px rgba(25,27,30,.04);}
       .vow-big{font-size:46px;line-height:1.9;font-weight:700;}
       .vow-name{font-size:14.5px;font-weight:800;margin-top:2px;}
-      .vow-tr{font-family:"Cairo","Noto Sans SC",sans-serif;font-size:12.5px;color:var(--ink-soft);font-weight:600;}
+      .vow-tr{font-family:"Noto Sans SC","Amiri",sans-serif;font-size:12.5px;color:var(--ink-soft);font-weight:600;}
       .vow-note{font-size:12.5px;color:var(--ink-soft);line-height:1.75;margin:7px 0 0;}
       .vow-card .mini-speak{margin-top:10px;}
       .vow-pair{display:flex;gap:10px;}
@@ -477,8 +500,8 @@
       .lchip{appearance:none;cursor:pointer;font:inherit;background:var(--surface);border:1px solid var(--line);border-radius:14px;min-width:52px;padding:5px 8px 3px;display:flex;flex-direction:column;align-items:center;transition:transform .16s var(--ease),border-color .16s var(--ease);}
       .lchip:hover{border-color:var(--line-strong);}
       .lchip:active{transform:scale(.96);}
-      .lchip .cg{font-family:"Amiri","Noto Naskh Arabic",serif;font-size:26px;line-height:1.7;}
-      .lchip .cn{font-size:10px;color:var(--ink-soft);font-family:"Cairo","Noto Sans SC",sans-serif;}
+      .lchip .cg{font-family:"Noto Naskh Arabic","Amiri",serif;font-size:26px;line-height:1.7;}
+      .lchip .cn{font-size:10px;color:var(--ink-soft);font-family:"Noto Sans SC","Amiri",sans-serif;}
       .lchip.key{border-color:var(--ink);}
       .grp-head{display:flex;align-items:baseline;gap:9px;margin:22px 0 2px;flex-wrap:wrap;}
       .grp-head.first{margin-top:2px;}
@@ -487,7 +510,7 @@
       .grp-pass{margin-inline-start:auto;font-size:11.5px;font-weight:800;color:var(--gold-ink);background:var(--gold-tint);border:1px solid var(--gold-soft);border-radius:999px;padding:3px 10px;flex:0 0 auto;}
       .grp-quiz-start{margin-top:9px;}
       .key-row{display:flex;align-items:center;gap:12px;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:10px 13px;margin-bottom:8px;}
-      .key-g{font-family:"Amiri","Noto Naskh Arabic",serif;font-size:34px;line-height:1.8;font-weight:700;flex:0 0 auto;min-width:40px;text-align:center;}
+      .key-g{font-family:"Noto Naskh Arabic","Amiri",serif;font-size:34px;line-height:1.8;font-weight:700;flex:0 0 auto;min-width:40px;text-align:center;}
       .key-main{flex:1 1 auto;min-width:0;}
       .key-name{font-weight:800;font-size:14.5px;}
       .key-name .ltrans{font-size:12.5px;margin-inline-start:7px;}
@@ -505,7 +528,7 @@
       /* review session (inside the 间隔复习 sheet): progress line, gold
          mode tag, one big round play button for the listen rounds */
       .rv-progress{text-align:center;font-size:13px;color:var(--ink-soft);font-variant-numeric:tabular-nums;margin-bottom:10px;}
-      .rv-progress b{color:var(--ink);font-family:"Cairo","Noto Sans SC",sans-serif;}
+      .rv-progress b{color:var(--ink);font-family:"Noto Sans SC","Amiri",sans-serif;}
       .rv-card{max-width:560px;margin:0 auto;text-align:center;background:var(--surface);border:1px solid var(--line);border-radius:36px;box-shadow:var(--shadow-lg);padding:22px;}
       .rv-mode{display:inline-block;font-size:12px;font-weight:800;letter-spacing:.08em;color:var(--gold-ink);background:var(--gold-tint);border-radius:999px;padding:4px 12px;}
       .rv-play{appearance:none;cursor:pointer;width:78px;height:78px;margin:18px auto 4px;border-radius:50%;border:1px solid var(--gold);background:var(--gold-tint);color:var(--gold-ink);display:flex;align-items:center;justify-content:center;transition:transform .18s var(--ease);}
@@ -534,7 +557,7 @@
 
       /* mastery count - centre column of the third control row */
       .mastery-count{flex:1 1 0;min-width:0;font-size:13px;color:var(--ink-soft);font-variant-numeric:tabular-nums;text-align:center;}
-      .mastery-count b{font-family:"Cairo","Noto Sans SC",sans-serif;color:var(--ink);}
+      .mastery-count b{font-family:"Noto Sans SC","Amiri",sans-serif;color:var(--ink);}
       .nav-btn.known-on{background:var(--mint);border-color:var(--mint-strong);}
       .nav-btn.review-on{background:var(--rose);border-color:var(--rose-strong);}
 
@@ -547,18 +570,18 @@
       .sent-ar{position:relative;font-size:31px;line-height:2.2;font-weight:700;text-align:right;padding-top:16px;padding-bottom:8px;overflow:visible;}
       /* karaoke layer: an identical red copy of the sentence sits exactly over the black original; a clip-path inset hides it from the left, and playback shrinks that inset so the red is revealed from the right edge (Arabic reading order), deliberately slower than the voice (the sweep takes duration x 1.25, eased out). The generous negative vertical insets keep tall tashkeel marks from ever being clipped */
       .sent-ar-fill{position:absolute;top:0;left:0;right:0;padding-top:16px;padding-bottom:8px;color:var(--sent-red);clip-path:inset(-30% 0 -30% 100%);pointer-events:none;}
-      .sent-trans{font-family:"Cairo","Noto Sans SC",sans-serif;font-size:15px;color:var(--ink-mid);margin-top:10px;letter-spacing:.01em;}
+      .sent-trans{font-family:"Noto Sans SC","Amiri",sans-serif;font-size:15px;color:var(--ink-mid);margin-top:10px;letter-spacing:.01em;}
       .sent-zh{font-size:18px;font-weight:800;letter-spacing:-.01em;margin-top:8px;}
       .sent-note{margin:6px 0 0;color:var(--ink-soft);font-size:13.5px;line-height:1.9;}
       @media(max-width:520px){.sent-ar{font-size:27px;}}
 
       /* me - one stats card + one list card, same surface language as the quiz:
-         big Cairo numerals over small labels, Lucide line icons in neutral
+         big numerals over small labels, Lucide line icons in neutral
          warm-gray tiles, hairline rows, chevron on the right. No emoji anywhere. */
       .me-stats{display:flex;width:100%;max-width:560px;margin:0 auto 16px;background:var(--surface);border:1px solid var(--line);border-radius:28px;box-shadow:var(--shadow);padding:18px 6px;}
       .me-stat{flex:1 1 0;min-width:0;text-align:center;display:flex;flex-direction:column;align-items:center;gap:2px;}
       .me-stat+.me-stat{border-left:1px solid var(--line);}
-      .me-stat b{font-family:"Cairo","Noto Sans SC",sans-serif;font-size:25px;font-weight:700;line-height:1.3;color:var(--ink);font-variant-numeric:tabular-nums;}
+      .me-stat b{font-family:"Noto Sans SC","Amiri",sans-serif;font-size:25px;font-weight:700;line-height:1.3;color:var(--ink);font-variant-numeric:tabular-nums;}
       .me-stat b small{font-size:14px;color:var(--ink-soft);font-weight:600;}
       .me-stat>span{font-size:12px;color:var(--ink-soft);letter-spacing:.05em;}
       .me-list{max-width:560px;margin:0 auto;background:var(--surface);border:1px solid var(--line);border-radius:28px;box-shadow:var(--shadow);overflow:hidden;}
@@ -628,49 +651,22 @@
       .letters-body{flex:1 1 auto;min-height:0;width:100%;max-width:600px;margin:0 auto;padding:6px 20px 22px;display:flex;flex-direction:column;overflow-y:auto;overscroll-behavior:contain;}
       .letters-body .panel-head{flex:0 0 auto;}
       .letters-body .course-progress{flex:0 0 auto;width:100%;}
-      /* group-buy banner: warm sand card, ink pill action */
-      .vip-group{display:flex;align-items:center;gap:12px;background:var(--sand);border:1px solid var(--line);border-radius:24px;padding:16px;}
-      .vip-group .me-ic{background:var(--surface);color:var(--gold-ink);}
-      .vip-group-txt{flex:1;min-width:0;}
-      .vip-group-t{font-size:15px;font-weight:800;line-height:1.55;}
-      .vip-group-s{font-size:12.5px;color:var(--ink-soft);margin-top:2px;}
-      .vip-group-btn{flex:0 0 auto;appearance:none;cursor:pointer;font:inherit;font-size:13.5px;font-weight:700;background:var(--ink);color:var(--bg);border:0;border-radius:999px;padding:10px 15px;display:inline-flex;align-items:center;gap:4px;transition:transform .18s var(--ease);}
-      .vip-group-btn:active{transform:scale(.96);}
-      .vip-group-btn .ic{width:15px;height:15px;}
-      .vip-h{font-size:17.5px;font-weight:800;letter-spacing:-.01em;margin:24px 0 12px;}
-      /* plan grid: two columns of white cards; the selected one takes a
-         gold edge, a pale gold tint and an inset gold ring */
-      .vip-plans{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
-      .vip-plan{appearance:none;cursor:pointer;font:inherit;background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:18px 8px 14px;text-align:center;color:var(--ink);transition:border-color .18s var(--ease),background .18s var(--ease),transform .18s var(--ease);}
-      .vip-plan:active{transform:scale(.98);}
-      .vip-plan.sel{border-color:var(--gold);background:var(--gold-tint);box-shadow:inset 0 0 0 1px var(--gold);}
-      .vip-plan-name{font-size:14.5px;font-weight:700;white-space:nowrap;}
-      .vip-plan-price{font-family:"Cairo","Noto Sans SC",sans-serif;font-size:34px;font-weight:800;line-height:1.3;color:var(--gold-price);margin-top:4px;font-variant-numeric:tabular-nums;}
-      .vip-plan-price small{font-size:17px;font-weight:700;}
-      .vip-plan-days{font-size:12.5px;color:var(--ink-soft);margin-top:2px;}
-      /* privileges: one grouped list card, hairline rows, neutral icon
-         tiles - the same row language as the 我的 lists */
-      .vip-perks{background:var(--surface);border:1px solid var(--line);border-radius:24px;overflow:hidden;}
-      .vip-perk{display:flex;align-items:center;gap:12px;padding:14px 16px;border-bottom:1px solid var(--line);}
-      .vip-perk:last-child{border-bottom:0;}
-      .vip-perk-t{font-size:15px;font-weight:700;}
-      .vip-perk-s{font-size:12.5px;color:var(--ink-soft);margin-top:1px;line-height:1.6;}
-      .vip-note{text-align:center;font-size:12.5px;color:var(--ink-soft);margin:18px 0 0;line-height:1.8;}
-      .vip-coupon{display:flex;gap:10px;margin-top:16px;}
-      .vip-coupon input{flex:1;min-width:0;font:inherit;font-size:14px;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:12px 16px;outline:none;transition:border-color .18s var(--ease);}
-      .vip-coupon input:focus{border-color:var(--gold);}
-      .vip-coupon input::placeholder{color:var(--ink-soft);}
-      .vip-coupon button{flex:0 0 auto;appearance:none;cursor:pointer;font:inherit;font-size:14.5px;font-weight:700;background:var(--ink);color:var(--bg);border:0;border-radius:16px;padding:0 24px;transition:transform .18s var(--ease);}
-      .vip-coupon button:active{transform:scale(.96);}
-      /* pinned checkout bar: total on the left follows the selected
-         plan, the gold buy pill on the right */
-      .vip-bar{flex:0 0 auto;background:var(--surface);border-top:1px solid var(--line);padding:12px 20px calc(14px + env(safe-area-inset-bottom));}
-      .vip-bar-in{max-width:600px;margin:0 auto;display:flex;align-items:center;gap:14px;}
-      .vip-total{font-family:"Cairo","Noto Sans SC",sans-serif;font-size:26px;font-weight:800;font-variant-numeric:tabular-nums;white-space:nowrap;}
-      .vip-total small{font-family:"Noto Sans SC",sans-serif;font-size:13px;font-weight:500;color:var(--ink-soft);margin-right:6px;}
-      .vip-buy{margin-inline-start:auto;flex:0 0 auto;appearance:none;cursor:pointer;font:inherit;font-size:16px;font-weight:800;background:var(--gold);color:var(--bg);border:0;border-radius:999px;padding:14px 36px;box-shadow:0 10px 22px rgba(25,27,30,.25);transition:transform .18s var(--ease);}
-      .vip-buy:active{transform:scale(.97);}
-      @media(max-width:520px){.vip-inner{padding:6px 16px 20px;} .vip-plan-price{font-size:30px;} .vip-buy{padding:13px 28px;} .lp-steps{margin:0 -16px 8px;padding:10px 16px 9px;}}
+      /* camp registration form: quiet fields on white cards, ink
+         submit - the same surface language as the rest of the app */
+      .camp-intro{font-size:14.5px;line-height:1.9;color:var(--ink-mid);margin:6px 0 18px;}
+      .camp-field{display:block;margin-bottom:14px;}
+      .camp-label{display:block;font-size:13px;font-weight:700;color:var(--ink-soft);margin-bottom:7px;}
+      .camp-input{width:100%;font:inherit;font-size:15.5px;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:13px 16px;outline:none;appearance:none;-webkit-appearance:none;transition:border-color .18s var(--ease);}
+      .camp-input:focus{border-color:var(--ink);}
+      .camp-input::placeholder{color:var(--ink-soft);}
+      select.camp-input{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23666c74' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:40px;}
+      .camp-consent{display:flex;align-items:flex-start;gap:10px;font-size:14px;line-height:1.7;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:13px 16px;cursor:pointer;margin:18px 0 14px;}
+      .camp-consent input{width:19px;height:19px;flex:0 0 auto;margin-top:2px;accent-color:var(--ink);}
+      .camp-submit{width:100%;appearance:none;cursor:pointer;font:inherit;font-size:16px;font-weight:800;background:var(--ink);color:var(--bg);border:0;border-radius:999px;padding:14px 0;transition:transform .18s var(--ease),opacity .18s var(--ease);}
+      .camp-submit:active{transform:scale(.98);}
+      .camp-submit:disabled{opacity:.35;cursor:default;transform:none;}
+      .camp-done{margin:14px 0 0;text-align:center;font-size:14px;font-weight:700;color:var(--ink);background:var(--surface-soft);border:1px solid var(--line);border-radius:16px;padding:12px 16px;line-height:1.8;}
+      @media(max-width:520px){.vip-inner{padding:6px 16px 20px;} .lp-steps{margin:0 -16px 8px;padding:10px 16px 9px;}}
 
       /* collect-a-card: one activity card directly under the me stats -
          progress toward the 字母启程卡, then the card itself once earned.
@@ -757,7 +753,7 @@
          NO .tcard-holo blend layer - its tilt iridescence is painted
          into the canvas itself, source-over */
       .tcard-sky.vid{background-image:url("assets/card-sky2.webp");background-size:cover;background-position:50% 50%;}
-      /* skies for the 99-Names cards: NO rotation and NO sharing -
+      /* skies for the 99 star-name cards: NO rotation and NO sharing -
          every one of the 97 carries its own universe photograph
          (assets/skies/n03.jpg - n99.jpg, one file per card number,
          public-domain NASA/ESA/Hubble shots, pre-cropped to the
@@ -813,7 +809,7 @@
       /* the stack's typeface follows its glyph: an Arabic letter in
          Amiri, a Chinese glyph (初试通过's 试) in a Songti serif -
          same six-layer extrusion, same gold top layer */
-      .bstack.cjk span{font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;font-weight:700;}
+      .bstack.cjk span{font-family:"Noto Sans SC","Songti SC","STSong",serif;font-weight:900;}
       .tcard.anim .bstack span{transition:transform .6s var(--ease);}
       /* top أ layer: the bright gold gradient text carries a restrained
          rainbow wash clipped to the glyph; its background-position
@@ -827,7 +823,7 @@
       .tcard-back-name{position:absolute;top:9%;left:0;right:0;z-index:1;font-size:11px;font-weight:700;letter-spacing:.3em;text-indent:.3em;color:rgba(233,205,133,.75);}
       .tcard-back-sub{position:absolute;bottom:8.5%;left:0;right:0;z-index:1;font-size:12px;letter-spacing:.14em;color:rgba(236,231,219,.78);}
       .tcard-back-sub .ar{font-family:"Amiri","Noto Naskh Arabic",serif;font-size:15px;letter-spacing:0;}
-      /* 99-Names card front: BOTH big displays are FAINT, in the
+      /* star-name card front: BOTH big displays are FAINT, in the
          first card's watermark register - الله rides the shared
          .tcard-wm slot (pale gold .11, centred, whole-face ground)
          and the name itself, set large at the top, takes the same
@@ -840,19 +836,17 @@
       .tcard-arname{position:relative;z-index:1;font-family:"Amiri","Noto Naskh Arabic",serif;font-size:27px;font-weight:700;line-height:1.55;color:rgba(233,205,133,.11);margin-top:2px;white-space:nowrap;}
       .tcard-nameid{position:relative;z-index:1;font-family:"Amiri","Noto Naskh Arabic",serif;font-size:17px;font-weight:700;line-height:1.55;color:#e9cd85;white-space:nowrap;margin-bottom:2px;}
       .tcard-allah-wrap{position:relative;z-index:1;flex:1;display:flex;align-items:center;justify-content:center;width:100%;}
-      .tcard-allah{font-family:"Amiri","Noto Naskh Arabic",serif;font-size:118px;line-height:1.35;background:linear-gradient(112deg,hsla(4,70%,64%,.26),hsla(48,80%,60%,.18) 24%,hsla(140,60%,58%,.20) 46%,hsla(198,75%,64%,.24) 68%,hsla(282,65%,70%,.22) 88%,hsla(340,70%,64%,.26)),linear-gradient(165deg,#f7e7b0 5%,#e9cd85 32%,#c99a2e 62%,#9a741f 88%,#e5c878 100%);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent;}
       .tcard-namezh{position:relative;z-index:1;font-size:14px;font-weight:700;letter-spacing:.12em;text-indent:.12em;color:#ece7db;white-space:nowrap;margin-bottom:10px;}
       .tcard-namezh .no{color:#e9cd85;font-variant-numeric:tabular-nums;}
-      /* a Names back stack is ONE pale layer, no extrusion: the
+      /* a star-card back stack is ONE pale layer, no extrusion: the
          giant name at the same .11 pale gold as every watermark,
          so it reads like the first card's أكبر ground, not a
          solid gold relief */
       .bstack.pale span{color:rgba(233,205,133,.11);}
       .tcard.mini .tcard-arname{font-size:12.5px;line-height:1.5;}
       .tcard.mini .tcard-nameid{display:none;}
-      .tcard.mini .tcard-allah{font-size:44px;}
       .tcard.mini .tcard-namezh{font-size:8.5px;letter-spacing:.05em;text-indent:.05em;margin-bottom:4px;}
-      /* a Names back stack carries a whole word (or four), not one
+      /* a star-card back stack carries a whole word (or four), not one
          glyph: never wrap it - fitStack shrinks it onto one line */
       .bstack.nowrap span{white-space:nowrap;}
       .cthumb{appearance:none;background:none;border:0;padding:0;cursor:pointer;width:108px;flex:0 0 auto;border-radius:14px;box-shadow:0 10px 22px rgba(25,27,30,.18);transition:transform .18s var(--ease),box-shadow .35s var(--ease);}
@@ -908,15 +902,6 @@
       .collect-bar{height:3px;border-radius:2px;background:var(--line);margin-top:12px;overflow:hidden;}
       .collect-bar i{display:block;height:100%;width:0;background:var(--ink);border-radius:2px;transition:width .5s var(--ease);}
       .collect-info{max-height:118px;overflow-y:auto;overscroll-behavior:contain;padding-right:2px;}
-      /* redemption tiers: four quiet chips under the info list -
-         a tier lights gold once the collection reaches it; tapping
-         any tier is the placeholder toast until the APP build wires
-         real redemption */
-      .collect-tiers{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px;}
-      .tier-chip{appearance:none;cursor:pointer;border:1px solid var(--line);background:var(--surface);color:var(--ink-mid);border-radius:999px;padding:6px 11px;font-size:12px;font-weight:700;letter-spacing:.02em;display:inline-flex;align-items:center;gap:6px;transition:transform .18s var(--ease);}
-      .tier-chip:active{transform:scale(.96);}
-      .tier-chip .ic{width:14px;height:14px;}
-      .tier-chip.on{border-color:var(--line-strong);color:var(--ink);background:var(--surface-soft);}
       @media (prefers-reduced-motion: reduce){
         .tcard.anim .tcard-tilt,.tcard.anim .tcard-flip,.tcard.anim .bstack span{transition:none;}
         /* reduced motion: the rain canvas paints a single still
@@ -937,19 +922,6 @@
       .award-sub{font-size:13.5px;color:var(--ink-soft);line-height:1.9;margin:6px 0 0;}
       .award-btns{display:flex;gap:8px;margin-top:18px;}
       .award-btns .nav-btn{flex:1 1 0;}
-      /* developer panel: NO visible entry - five quick taps on the
-         集卡活动 title (see the JS by the collect handlers) open it.
-         Same modal language as the award overlay; it only flips the
-         two cards' grant records in the local store so every card
-         state can be checked without replaying the quizzes */
-      .dev-modal{z-index:76;}
-      .dev-card{text-align:left;}
-      .dev-head{display:flex;align-items:center;gap:9px;}
-      .dev-head .ic{width:19px;height:19px;color:var(--gold);}
-      .dev-title{font-size:17px;font-weight:800;letter-spacing:-.01em;}
-      .dev-sub{font-size:13px;color:var(--ink-soft);line-height:1.8;margin:8px 0 0;}
-      .dev-card .award-btns{margin-top:16px;}
-      .dev-close{width:100%;margin-top:8px;}
       /* the enlarged-card stage shared by the award overlay and the card
          viewer: a perspective wrapper, the card, and a tools row with a
          Lucide repeat flip button so the flip is discoverable */
@@ -971,7 +943,6 @@
       @media(max-width:680px){
         .award-modal{padding:10px 10px calc(114px + env(safe-area-inset-bottom));}
         .card-modal{padding:10px 10px calc(114px + env(safe-area-inset-bottom));}
-        .dev-modal{padding:10px 10px calc(114px + env(safe-area-inset-bottom));}
         .collect{border-radius:24px;}
         .bstack span{font-size:150px;}
       }
@@ -989,13 +960,15 @@
       .lq-modal.show .lq-backdrop{opacity:1;}
       .lq-modal.show .lq-card{opacity:1;transform:none;}
       .lq-title{font-size:19px;font-weight:800;letter-spacing:-.01em;margin:0 0 14px;}
+      .io-note{font-size:13.5px;color:var(--ink-soft);line-height:1.9;text-align:left;margin:0 0 6px;}
+      .io-cancel{width:100%;margin-top:8px;}
       .lq-card .quiz-score{margin-bottom:6px;}
       .lq-card .quiz-ar{font-size:76px;margin-top:0;}
       .lq-card .quiz-opts{margin-top:18px;}
       .lq-card .opt.ar{font-size:23px;text-align:center;line-height:2;}
       .lq-progress{height:4px;border-radius:999px;background:var(--line);overflow:hidden;margin:2px 0 6px;}
       .lq-progress-fill{height:100%;width:0;border-radius:999px;background:var(--gold);transition:width .35s var(--ease);}
-      .lq-result-score{font-family:"Cairo","Noto Sans SC",sans-serif;font-size:46px;font-weight:800;line-height:1.2;margin:12px 0 0;}
+      .lq-result-score{font-family:"Noto Sans SC","Amiri",sans-serif;font-size:46px;font-weight:800;line-height:1.2;margin:12px 0 0;}
       .lq-result-note{font-size:14.5px;color:var(--ink-soft);line-height:1.9;margin:8px 0 0;}
       @media(max-width:680px){
         .lq-modal{padding:10px 10px calc(114px + env(safe-area-inset-bottom));}
@@ -1004,7 +977,7 @@
       }
 
       /* numbered badge reused by the sentence list */
-      .fix-num{width:28px;height:28px;flex:0 0 auto;border-radius:50%;background:var(--gold-soft);color:var(--gold-ink);box-shadow:inset 0 0 0 1px rgba(25,27,30,.16);display:inline-flex;align-items:center;justify-content:center;font-family:"Cairo","Noto Sans SC",sans-serif;font-size:13px;font-weight:700;transform:translateY(4px);}
+      .fix-num{width:28px;height:28px;flex:0 0 auto;border-radius:50%;background:var(--gold-soft);color:var(--gold-ink);box-shadow:inset 0 0 0 1px rgba(25,27,30,.16);display:inline-flex;align-items:center;justify-content:center;font-family:"Noto Sans SC","Amiri",sans-serif;font-size:13px;font-weight:700;transform:translateY(4px);}
       @media(max-width:520px){
         .wrap{padding:0 24px calc(64px + env(safe-area-inset-bottom));}
         .panel-head h2{font-size:24px;}
@@ -1094,7 +1067,7 @@
       .sym-n{font-size:13px;font-weight:700;line-height:1.5;}
       .sym-d{font-size:12px;color:var(--ink-soft);line-height:1.55;}
       .ex-q{font-weight:700;font-size:14.5px;margin:16px 0 8px;line-height:1.7;}
-      .ex-q .ar{font-size:17px;}
+      .ex-q .ar{font-size:1.3em;}
       .ex-opts{display:grid;gap:8px;}
       .ex-opts .opt{font-size:15px;padding:12px 15px;border-radius:15px;}
       .ex-opts .opt.ar{text-align:right;font-size:18px;line-height:1.9;}
@@ -1115,16 +1088,11 @@
       .listen-opts .opt .ar{display:block;font-size:30px;line-height:1.8;}
       .listen-opts .opt .nm{display:block;font-size:12px;color:var(--ink-soft);margin-top:2px;}
       /* ===== topic lessons (主题课程): the course panel's lesson rows
-         gain a locked PRO state; inside a lesson the five steps are
+         rows; inside a lesson the five steps are
          headed by numbered gold badges, step 1 carries a compact
          flip-card (photo front / meaning back, tap to flip, swipe
          or buttons to move), step 5 shows the course-series card
          this lesson grants ===== */
-      .lesson-row.locked{cursor:pointer;}
-      .lesson-row.locked .lesson-main,.lesson-row.locked .lesson-no{opacity:.55;}
-      .lesson-lock{flex:0 0 auto;display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:800;padding:4px 10px;border-radius:999px;background:var(--gold-tint);color:var(--gold-ink);border:1px solid var(--gold-soft);}
-      .lesson-lock .ic{width:12px;height:12px;}
-      .lesson-free{flex:0 0 auto;font-size:11px;font-weight:700;padding:4px 9px;border-radius:999px;background:var(--surface-soft);color:var(--ink-mid);border:1px solid var(--line);}
       .lesson-no .ic{width:17px;height:17px;}
       .step-no{flex:0 0 auto;width:22px;height:22px;border-radius:50%;background:var(--gold);color:var(--bg);font-size:12.5px;font-weight:800;display:inline-flex;align-items:center;justify-content:center;}
       .tfc-zone{perspective:1200px;}
@@ -1204,10 +1172,8 @@
 
       /* ===== course levels （三级）: the course panel groups its rows
          under three level cards - 初级 (letters prerequisite row +
-         lessons 1-3), 中级 (lessons 4-8), 高级 (lessons 9-14). While
-         PRO_GATE is off (current strategy: everything open, membership
-         page is a labelled preview) no row locks; at launch the gate
-         returns with lessons 1-3 as the free trial and 4-14 PRO.
+         lessons 1-3), 中级 (lessons 4-8), 高级 (lessons 9-14).
+         All lessons are open - there is no paywall (v1.1).
          A level card expands with the house expand
          motion: the body height follows its content (grid rows
          0fr -> 1fr on the main curve), the chevron rotates 180deg,
@@ -1310,7 +1276,14 @@
         /* sentences: one sentence at a time, pager + progress dots below */
         .sent-list{flex:1 1 auto;min-height:0;width:100%;display:flex;}
         .sent{display:none;}
-        .sent.current{display:flex;flex-direction:column;justify-content:center;width:100%;border-bottom:0;padding:12px 4px;}
+        .sent.current{display:flex;flex-direction:column;justify-content:center;width:100%;border-bottom:0;padding:12px 4px;overflow-y:auto;scrollbar-width:none;}
+        .sent.current::-webkit-scrollbar{display:none;}
+        /* auto-margin spacers: content centres when it fits, and
+           scrolls from the top when it does not - plain
+           justify-content:center would clip the card's bottom
+           (and top) on narrow / short screens with no way back */
+        .sent.current::before{content:"";margin-top:auto;}
+        .sent.current::after{content:"";margin-bottom:auto;}
         .sent-ar{font-size:26px;}
         .sent-nav{display:flex;align-items:center;gap:8px;width:100%;max-width:640px;margin:14px auto 0;}
         .sent-nav .nav-btn{flex:1 1 0;height:44px;padding:0 16px;}
@@ -1391,10 +1364,10 @@
          stand-in, so a missing photo degrades to a plain dark band */
       .me-hero::before{content:"";position:absolute;inset:0 0 auto 0;height:92px;background:#14161d url("assets/card-sky.webp") 50% 36%/cover no-repeat;}
       .me-hero-mark{position:absolute;top:-26px;inset-inline-end:12px;font-size:110px;line-height:1.6;font-weight:700;color:#fff;opacity:.2;pointer-events:none;}
-      .me-hero-in{position:absolute;left:0;right:0;bottom:0;padding:12px 20px 26px;background:var(--surface);}
+      .me-hero-in{position:absolute;left:0;right:0;bottom:0;padding:12px 20px 42px;background:var(--surface);}
       .me-hero-sub{margin:0 0 2px;font-size:12.5px;color:var(--ink-mid);}
       .me-hero-title{margin:0;font-size:23px;line-height:1.3;font-weight:900;letter-spacing:.01em;}
-      .me-stats-top{position:sticky;top:64px;z-index:5;margin-top:-24px;}
+      .me-stats-top{position:sticky;top:78px;z-index:5;margin-top:-24px;}
       .me-cal{width:100%;max-width:560px;margin:0 auto 12px;background:var(--surface);border:1px solid var(--line);border-radius:28px;box-shadow:var(--shadow);padding:16px 16px 10px;}
       .me-cal-head{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
       .me-cal-head .me-ic{color:var(--gold-ink);}
@@ -1435,7 +1408,7 @@
       .ring-track{stroke:var(--line);}
       .ring-prog{stroke:var(--gold);stroke-linecap:round;}
       .ring-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;}
-      .ring-center b{font-family:"Cairo","Noto Sans SC",sans-serif;font-size:42px;font-weight:800;line-height:1.15;color:var(--ink);font-variant-numeric:tabular-nums;}
+      .ring-center b{font-family:"Noto Sans SC","Amiri",sans-serif;font-size:42px;font-weight:800;line-height:1.15;color:var(--ink);font-variant-numeric:tabular-nums;}
       .ring-center b small{font-size:15px;font-weight:700;color:var(--ink-soft);}
       .ring-center>span{font-size:11.5px;color:var(--ink-soft);letter-spacing:.14em;}
       .ring-sub{margin:12px 0 16px;font-size:13.5px;color:var(--ink-soft);font-variant-numeric:tabular-nums;}
@@ -1463,9 +1436,9 @@
       .quiz-round-track{flex:1 1 auto;min-width:34px;height:4px;border-radius:999px;background:var(--line);overflow:hidden;}
       .quiz-round-fill{display:block;height:100%;width:0%;border-radius:999px;background:var(--gold);}
       .quiz-status-n{font-size:11.5px;color:var(--ink-soft);white-space:nowrap;font-variant-numeric:tabular-nums;}
-      .quiz-status-n b{font-family:"Cairo","Noto Sans SC",sans-serif;color:var(--ink);font-size:13px;}
+      .quiz-status-n b{font-family:"Noto Sans SC","Amiri",sans-serif;color:var(--ink);font-size:13px;}
       .quiz-status-stats{font-size:12.5px;color:var(--ink-soft);white-space:nowrap;font-variant-numeric:tabular-nums;}
-      .quiz-status-stats b{font-family:"Cairo","Noto Sans SC",sans-serif;color:var(--ink);font-size:13.5px;}
+      .quiz-status-stats b{font-family:"Noto Sans SC","Amiri",sans-serif;color:var(--ink);font-size:13.5px;}
       .quiz-speak-row{margin-top:10px;}
       /* lesson steps: five segments across the top of the lesson sheet;
          done segments fill gold, the current step is named in gold ink
@@ -1515,15 +1488,13 @@
            earlier lessons, listen-and-pick, a mixed quiz, and the
            completion check-in that enrols the lesson's words into
            SRS and grants the lesson's course-series collect card.
-           Paywall strategy (dormant while PRO_GATE = false, the
-           current all-open phase): free = the full 28 letters, the
-           问候 / 数字 flashcard categories and topic lessons 1-3 as
-           a trial; PRO = topic lessons 4-14 and the full word bank.
-           Flip PRO_GATE true at launch to restore the locks. -->
+           All content is open: the full 28 letters, all 500 words
+           and all 34 lessons (topic 14 + morph 10 + grammar 10) -
+           v1.1 removed the paywall entirely. -->
       <section class="panel active" id="panel-course" role="tabpanel">
         <div class="panel-head">
           <h2>课程</h2>
-          <p id="course-head-p">十四个主题课，用的就是闪卡里那 500 个词：一课学一个主题，先学词，再在对话里把词用起来。前三课免费试学。</p>
+          <p id="course-head-p">十四个主题课，用的就是闪卡里那 500 个词：一课学一个主题，先学词，再在对话里把词用起来。十四课全部开放，想学哪课学哪课。</p>
         </div>
         <div class="track-switch" role="group" aria-label="课程赛道">
           <button class="track-btn on" type="button" data-track="topic" aria-pressed="true">主题课程</button>
@@ -1537,7 +1508,7 @@
         </div>
         <div class="course-scroll" id="course-scroll">
           <div id="course-body"></div>
-          <p class="course-src" id="course-src-p">课程与闪卡是同一套词：每课的对话只用本课和前面学过的词造句，学完一课，这课的词自动进入「间隔复习」。第 1-3 课免费试学，第 4-14 课为 PRO 内容。</p>
+          <p class="course-src" id="course-src-p">课程与闪卡是同一套词：每课的对话只用本课和前面学过的词造句，学完一课，这课的词自动进入「间隔复习」。全部 14 课与 500 个词都已开放。</p>
         </div>
         </div>
         <div class="track-view" id="track-morph" hidden>
@@ -1635,7 +1606,7 @@
       <!-- QUIZ -->
       <section class="panel" id="panel-quiz" role="tabpanel">
         <div class="panel-head">
-          <p id="quiz-head-p">看词选意思，答对点亮，连对计数。题目从已解锁的词里随机抽，先听一遍发音，凭记忆选意思。切到「听音选词」，就只凭耳朵认词。</p>
+          <p id="quiz-head-p">看词选意思，答对点亮，连对计数。题目从全部 500 个词里随机抽，先听一遍发音，凭记忆选意思。切到「听音选词」，就只凭耳朵认词。</p>
         </div>
         <div class="quiz-modes" role="group" aria-label="测验模式">
           <button class="qmode on" id="qm-read" type="button" aria-pressed="true"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>看词选义</button>
@@ -1687,7 +1658,7 @@
         <div class="collect" id="collect-card">
           <button class="collect-head" id="collect-head" type="button" aria-expanded="false" aria-controls="collect-body">
             <span class="me-ic"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg></span>
-            <span class="collect-title" id="collect-title" onclick="devTitleTap()">集卡活动</span>
+            <span class="collect-title" id="collect-title">集卡活动</span>
             <span class="collect-count" id="collect-count">0/99</span>
             <span class="collect-chev" aria-hidden="true"><svg class="ic" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></span>
           </button>
@@ -1696,14 +1667,7 @@
           <div class="collect-inner">
           <div class="collect-fan" id="collect-fan"></div>
           <div class="collect-info" id="collect-info"></div>
-          <div class="collect-tiers" id="collect-tiers">
-            <button class="tier-chip" type="button" data-tier="10"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12v10H4V12"/><path d="M2 7h20v5H2z"/><path d="M12 22V7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>集齐 10 张 · 兑换小礼品</button>
-            <button class="tier-chip" type="button" data-tier="30"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12v10H4V12"/><path d="M2 7h20v5H2z"/><path d="M12 22V7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>集齐 30 张 · 兑换中礼品</button>
-            <button class="tier-chip" type="button" data-tier="60"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12v10H4V12"/><path d="M2 7h20v5H2z"/><path d="M12 22V7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>集齐 60 张 · 兑换大礼品</button>
-            <button class="tier-chip" type="button" data-tier="99"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12v10H4V12"/><path d="M2 7h20v5H2z"/><path d="M12 22V7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>集齐 99 张 · 终极大礼</button>
-          </div>
           <button class="nav-btn primary" id="collect-go" type="button">去测验</button>
-          <button class="nav-btn primary" id="collect-redeem" type="button" hidden>兑换礼品</button>
           </div>
           </div>
         </div>
@@ -1716,7 +1680,8 @@
           </button>
           <button class="me-row" id="me-vip" type="button">
             <span class="me-ic"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M11.562 3.266a.5.5 0 0 1 .876 0L15.39 8.87a1 1 0 0 0 1.516.294L21.183 5.5a.5.5 0 0 1 .798.519l-2.834 10.246a1 1 0 0 1-.956.735H5.81a1 1 0 0 1-.957-.735L2.02 6.02a.5.5 0 0 1 .798-.519l4.276 3.664a1 1 0 0 0 1.516-.294z"/><path d="M5 21h14"/></svg></span>
-            <span class="me-row-title">会员购买（预览版）</span>
+            <span class="me-row-title">新编阿语同步打卡营</span>
+            <span class="me-row-sub">意向登记</span>
             <svg class="ic me-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
           </button>
           <button class="me-row me-soon" id="me-orders" type="button">
@@ -1727,8 +1692,8 @@
           </button>
           <button class="me-row me-soon" id="me-share" type="button">
             <span class="me-ic"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13"/><path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/><path d="M7.5 8a2.5 2.5 0 0 1 0-5A4.8 8 0 0 1 12 8a4.8 8 0 0 1 4.5-5 2.5 2.5 0 0 1 0 5"/></svg></span>
-            <span class="me-row-title">分享领会员</span>
-            <span class="me-row-sub">即将上线</span>
+            <span class="me-row-title">分享给好友</span>
+            <span class="me-row-sub">邀好友一起学阿拉伯语</span>
             <svg class="ic me-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
           </button>
           <button class="me-row" id="me-checkin" type="button">
@@ -1781,6 +1746,19 @@
             <div id="me-wrong-items"></div>
             <p class="me-wrong-empty" id="me-wrong-empty">还没有错题。测验里答错的词会自动收进来，方便回头再练。</p>
           </div>
+          <button class="me-row" id="me-export" type="button">
+            <span class="me-ic"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/><path d="M12 15V3"/></svg></span>
+            <span class="me-row-title">导出学习进度</span>
+            <span class="me-row-sub">存成 JSON 文件</span>
+            <svg class="ic me-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+          </button>
+          <button class="me-row" id="me-import" type="button">
+            <span class="me-ic"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m17 8-5-5-5 5"/><path d="M12 3v12"/></svg></span>
+            <span class="me-row-title">导入学习进度</span>
+            <span class="me-row-sub">从导出的文件恢复</span>
+            <svg class="ic me-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+          </button>
+          <input type="file" id="io-file" accept="application/json,.json" hidden />
           <button class="me-row" id="me-about" type="button" aria-expanded="false">
             <span class="me-ic"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg></span>
             <span class="me-row-title">关于</span>
@@ -1824,6 +1802,23 @@
     </div>
 
     <div class="me-toast" id="me-toast" role="status"></div>
+
+    <!-- IMPORT CHOOSER: after a progress file passes validation,
+         the learner picks overwrite or merge before anything is
+         applied; the current store is auto-backed up first -->
+    <div class="lq-modal" id="io-modal" hidden>
+      <div class="lq-backdrop" id="io-backdrop"></div>
+      <div class="lq-card" role="dialog" aria-modal="true" aria-label="导入学习进度">
+        <p class="lq-title">导入学习进度</p>
+        <p class="io-note" id="io-note"></p>
+        <div class="award-btns">
+          <button class="nav-btn" id="io-merge" type="button">合并导入</button>
+          <button class="nav-btn primary" id="io-overwrite" type="button">覆盖导入</button>
+        </div>
+        <button class="nav-btn io-cancel" id="io-cancel" type="button">取消</button>
+        <p class="io-note">合并：已学单词、打卡、集卡取两边并集；间隔复习按每词的更新时间取较新的一条；课程步骤取完成过的。覆盖：用文件里的进度整体替换当前进度。两种方式在执行前都会把当前进度自动备份到本机（备份键带时间戳）。</p>
+      </div>
+    </div>
 
     <!-- RING SHEET: check-in feedback - rises from the bottom over a
          40% dim after a successful check-in; the gold ring draws
@@ -1915,7 +1910,7 @@
          the 28-letter grid (tap a letter for the FLIP zoom overlay
          with its articulation photo and briefing) and the 字母测验
          entry (28/28 earns the 字母启程卡， and the letter-series
-         Names cards #3-30 hang off this level's quiz). Reached only
+         Star cards #3-30 hang off this level's quiz). Reached only
          from the L1 row of the 字母入门 path above. -->
     <div class="vip-page letters-page" id="letters-l1-page" aria-hidden="true">
       <div class="vip-head">
@@ -1934,107 +1929,60 @@
       </div>
     </div>
 
-    <!-- VIP PAGE: full-screen membership sheet opened from the 我的
-         会员中心 row - the reference app's page rebuilt in this app's own
-         style (warm ivory, white cards, ink accents, Lucide line icons,
-         no emoji). While PRO_GATE is off the sheet is a labelled
-         预览版 (preview): plan selection is live and the checkout total
-         follows it, but group-buy, coupon and purchase stay honest
-         placeholders that only raise the shared toast - no fake
-         payment flow, and the copy states real content counts only -->
+    <!-- CAMP PAGE: the 新编阿语同步打卡营 intent-registration sheet,
+         opened from the 我的 page's 打卡营 row (the same .vip-page
+         shell the old membership preview used - the id and shell
+         classes stay so openVip()/closeVip() and every sheet style
+         keep working). There is no membership and no payment here
+         any more: all app content is free. The form collects only a
+         parent's phone, the child's grade and the 《新编阿拉伯语》
+         volume in use; submission saves to THIS device only and
+         sends nothing anywhere. -->
     <div class="vip-page" id="vip-page" aria-hidden="true">
       <div class="vip-head">
         <button class="vip-back" id="vip-back" type="button" aria-label="返回">
           <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
         </button>
-        <div class="vip-title">会员购买（预览版）</div>
+        <div class="vip-title">新编阿语同步打卡营</div>
         <div class="vip-head-spacer" aria-hidden="true"></div>
       </div>
       <div class="vip-scroll" id="vip-scroll">
         <div class="vip-inner">
-          <div class="vip-group">
-            <span class="me-ic"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
-            <div class="vip-group-txt">
-              <div class="vip-group-t">拼团价 99 元/人，满 12 人成团，全员开通永久会员</div>
-              <div class="vip-group-s">12 人 2.5 折，每人只付自己那份</div>
-            </div>
-            <button class="vip-group-btn" id="vip-group-btn" type="button">开团 / 加入<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></button>
-          </div>
-
-          <h3 class="vip-h">选择套餐</h3>
-          <div class="vip-plans">
-            <button class="vip-plan sel" type="button" data-price="399" aria-pressed="true">
-              <div class="vip-plan-name">永久畅享PRO会员</div>
-              <div class="vip-plan-price"><small>¥</small>399</div>
-              <div class="vip-plan-days">永久</div>
-            </button>
-            <button class="vip-plan" type="button" data-price="299" aria-pressed="false">
-              <div class="vip-plan-name">4年PRO会员</div>
-              <div class="vip-plan-price"><small>¥</small>299</div>
-              <div class="vip-plan-days">1460 天</div>
-            </button>
-            <button class="vip-plan" type="button" data-price="199" aria-pressed="false">
-              <div class="vip-plan-name">2年PRO会员</div>
-              <div class="vip-plan-price"><small>¥</small>199</div>
-              <div class="vip-plan-days">730 天</div>
-            </button>
-            <button class="vip-plan" type="button" data-price="119" aria-pressed="false">
-              <div class="vip-plan-name">1年PRO会员</div>
-              <div class="vip-plan-price"><small>¥</small>119</div>
-              <div class="vip-plan-days">365 天</div>
-            </button>
-            <button class="vip-plan" type="button" data-price="59" aria-pressed="false">
-              <div class="vip-plan-name">3个月PRO会员</div>
-              <div class="vip-plan-price"><small>¥</small>59</div>
-              <div class="vip-plan-days">90 天</div>
-            </button>
-            <button class="vip-plan" type="button" data-price="29" aria-pressed="false">
-              <div class="vip-plan-name">1个月PRO会员</div>
-              <div class="vip-plan-price"><small>¥</small>29</div>
-              <div class="vip-plan-days">30 天</div>
-            </button>
-          </div>
-
-          <h3 class="vip-h">PRO 专属特权</h3>
-          <div class="vip-perks">
-            <div class="vip-perk">
-              <span class="me-ic"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect width="8" height="18" x="3" y="3" rx="1"/><path d="M7 3v18"/><path d="M16.4 3.13a2 2 0 0 1 2.83.63l2.44 6.1a2 2 0 0 1-1.23 2.6l-6.1 2.44a2 2 0 0 1-2.6-1.23L9.3 7.57A2 2 0 0 1 10.53 5Z"/></svg></span>
-              <div><div class="vip-perk-t">全部词库</div><div class="vip-perk-s">全量 500 词，带标准发音音频与真实配图</div></div>
-            </div>
-            <div class="vip-perk">
-              <span class="me-ic"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 13a2 2 0 0 0 2-2V7a2 2 0 0 1 4 0v13a2 2 0 0 0 4 0V4a2 2 0 0 1 4 0v13a2 2 0 0 0 4 0v-4a2 2 0 0 1 2-2"/></svg></span>
-              <div><div class="vip-perk-t">标准发音音频</div><div class="vip-perk-s">单词 + 例句全部配标准发音音频</div></div>
-            </div>
-            <div class="vip-perk">
-              <span class="me-ic"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></span>
-              <div><div class="vip-perk-t">智能测评</div><div class="vip-perk-s">按范围出题，错题自动复习</div></div>
-            </div>
-            <div class="vip-perk">
-              <span class="me-ic"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><path d="M12 19v3"/></svg></span>
-              <div><div class="vip-perk-t">跟读评分</div><div class="vip-perk-s">即将上线 · 逐字母比对，标出读偏的音</div></div>
-            </div>
-            <div class="vip-perk">
-              <span class="me-ic"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></span>
-              <div><div class="vip-perk-t">课文语法</div><div class="vip-perk-s">主题 14 课 + 词法 10 课 + 语法 10 课，逐句精讲</div></div>
-            </div>
-            <div class="vip-perk">
-              <span class="me-ic"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/></svg></span>
-              <div><div class="vip-perk-t">多端同步</div><div class="vip-perk-s">即将上线 · 目前学习进度保存在本机</div></div>
-            </div>
-          </div>
-
-          <p class="vip-note">预览版：支付功能尚未开通，本页为会员方案预览，正式上线后另行通知。</p>
-
-          <div class="vip-coupon">
-            <input id="vip-coupon-input" type="text" placeholder="输入优惠码（如有）" autocomplete="off" />
-            <button id="vip-coupon-btn" type="button">使用</button>
-          </div>
-        </div>
-      </div>
-      <div class="vip-bar">
-        <div class="vip-bar-in">
-          <div class="vip-total"><small>总计</small><span id="vip-total">¥399</span></div>
-          <button class="vip-buy" id="vip-buy" type="button">立即购买</button>
+          <p class="camp-intro">跟着《新编阿拉伯语》的进度一起学：每天一小节，老师在群里带读、纠音、答疑。先登记意向，开营前我们会按登记的手机号联系你确认。</p>
+          <form id="camp-form" novalidate>
+            <label class="camp-field">
+              <span class="camp-label">家长手机号</span>
+              <input class="camp-input" id="camp-phone" type="tel" inputmode="numeric" autocomplete="tel" maxlength="11" placeholder="11 位手机号" />
+            </label>
+            <label class="camp-field">
+              <span class="camp-label">孩子年级</span>
+              <select class="camp-input" id="camp-grade">
+                <option value="">请选择年级</option>
+                <option>小学一年级</option><option>小学二年级</option><option>小学三年级</option>
+                <option>小学四年级</option><option>小学五年级</option><option>小学六年级</option>
+                <option>初一</option><option>初二</option><option>初三</option>
+                <option>高一</option><option>高二</option><option>高三</option>
+                <option>其他</option>
+              </select>
+            </label>
+            <label class="camp-field">
+              <span class="camp-label">正在用的《新编阿拉伯语》</span>
+              <select class="camp-input" id="camp-volume">
+                <option value="">请选择册数</option>
+                <option>尚未开始</option>
+                <option>第 1 册</option><option>第 2 册</option><option>第 3 册</option>
+                <option>第 4 册</option><option>第 5 册</option><option>第 6 册</option>
+                <option>不确定</option>
+              </select>
+            </label>
+            <label class="camp-consent">
+              <input type="checkbox" id="camp-consent-box" />
+              <span>我是家长，已同意孩子参加「新编阿语同步打卡营」</span>
+            </label>
+            <button class="camp-submit" id="camp-submit" type="submit" disabled>提交登记</button>
+            <p class="camp-done" id="camp-done" hidden>已登记。我们会在开营前联系你，请留意电话。</p>
+          </form>
+          <p class="vip-note">隐私说明：登记信息只保存在这台设备的浏览器本地，不会上传到任何服务器，仅用于打卡营的联系与人数统计。如需删除，清除本页面的浏览器数据即可。App 的全部学习内容免费开放，登记与否不影响使用。</p>
         </div>
       </div>
     </div>
@@ -2129,22 +2077,6 @@
       </div>
     </div>
 
-    <!-- DEV PANEL: hidden - five quick taps on the 集卡活动 title in 我的 open it; lights or clears all 99 cards' grant records so every card state can be checked -->
-    <div class="award-modal dev-modal" id="dev-modal" hidden>
-      <div class="award-backdrop" id="dev-backdrop"></div>
-      <div class="award-card dev-card" role="dialog" aria-modal="true" aria-label="开发者模式">
-        <div class="dev-head">
-          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="m16 18 6-6-6-6"/><path d="m8 6-6 6 6 6"/></svg>
-          <span class="dev-title">开发者模式</span>
-        </div>
-        <p class="dev-sub">仅供开发调试：点亮后全部 99 张卡立即变为可查看状态；熄灭则清除全部卡的获得记录，恢复未获得状态。</p>
-        <div class="award-btns">
-          <button class="nav-btn" id="dev-off" type="button"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>全部熄灭</button>
-          <button class="nav-btn primary" id="dev-on" type="button"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>全部点亮</button>
-        </div>
-        <button class="nav-btn dev-close" id="dev-close" type="button">关闭</button>
-      </div>
-    </div>
 
     <!-- LETTER ZOOM OVERLAY: grows from the tapped grid cell; big articulation photo + full briefing in one card -->
     <div class="letter-modal" id="letter-modal" hidden>
@@ -3151,8 +3083,10 @@
            stays. The typeof guard keeps this safe if a settle ever
            lands before the quiz section below has run (var hoisting
            leaves qRoundCount undefined until then, never an error) */
-        if (name !== "quiz" && typeof qRoundCount === "number"){ qRoundCount = 0; var qrfEl = document.getElementById("q-roundfill"); if (qrfEl){ if (qrfEl._spRaf) cancelAnimationFrame(qrfEl._spRaf); qrfEl._spRaf = 0; qrfEl._spSt = null; qrfEl._spVal = 0; qrfEl.style.width = "0%"; } var qrnEl = document.getElementById("q-round-n"); if (qrnEl) qrnEl.textContent = "0"; }
+        if (name !== "quiz" && typeof qRoundCount === "number"){ qRoundCount = 0; if (typeof qSeen === "object") qSeen = {}; var qrfEl = document.getElementById("q-roundfill"); if (qrfEl){ if (qrfEl._spRaf) cancelAnimationFrame(qrfEl._spRaf); qrfEl._spRaf = 0; qrfEl._spSt = null; qrfEl._spVal = 0; qrfEl.style.width = "0%"; } var qrnEl = document.getElementById("q-round-n"); if (qrnEl) qrnEl.textContent = "0"; }
         var idx = TAB_ORDER.indexOf(name);
+        if (panelEls.cards) panelEls.cards.classList.toggle("cf-away", name !== "cards");
+        track("tab_switch", { tab: name });
         sliderEl.setAttribute("aria-valuenow", String(idx));
         sliderEl.setAttribute("aria-valuetext", TAB_LABELS[idx]);
         TAB_ORDER.forEach(function(n){ if (panelEls[n]) panelEls[n].classList.toggle("active", n === name); });
@@ -3745,7 +3679,19 @@
          under the finger (a letter cell would open its overlay, a tab would
          re-select) - swallow exactly that one click, in the capture phase */
       wrapEl.addEventListener("click", function(e){ if (tabSwipeSuppress){ e.preventDefault(); e.stopPropagation(); } }, true);
-      window.addEventListener("resize", function(){ slotGeom = null; render(); });
+      /* viewport changes (window resize, phone rotation) re-measure
+         EVERYTHING the layout cached: the slider geometry, the
+         panel track transform, the coverflow step (a slot offset
+         width) and the card watermark fits. orientationchange
+         fires before the new dimensions settle, so it re-runs
+         once more after a beat. */
+      function relayout(){
+        slotGeom = null;
+        render();
+        if (typeof cfSync === "function") cfSync();
+      }
+      window.addEventListener("resize", relayout);
+      window.addEventListener("orientationchange", function(){ relayout(); window.setTimeout(relayout, 350); });
       /* if the window loses focus mid-gesture, settle both trackers - no
          gesture may ever be left half-owned */
       window.addEventListener("blur", function(){ if (navDrag) navEnd(); if (tabDrag) tabDragEnd(); });
@@ -4227,7 +4173,7 @@
          write is guarded - a blocked store simply degrades to the old
          session-only behaviour instead of breaking the page. */
       var STORE_KEY = "arabic-study-v1";
-      var store = { known: [], quizTotal: 0, quizScore: 0, wrong: [], checkins: [], cards: [], cardDates: {}, courseDone: [], topicDone: [], srs: {}, freeze: 0, freezeDays: [], freezeMilestones: null, letterHits: {}, phon: {}, morph: {}, gram: {} };
+      var store = { known: [], quizTotal: 0, quizScore: 0, wrong: [], checkins: [], cards: [], cardDates: {}, courseDone: [], topicDone: [], srs: {}, freeze: 0, freezeDays: [], freezeMilestones: null, letterHits: {}, phon: {}, morph: {}, gram: {}, cardThemeV: 0 };
       try {
         var rawStore = window.localStorage.getItem(STORE_KEY);
         if (rawStore){
@@ -4250,76 +4196,62 @@
             if (parsedStore.phon) store.phon = parsedStore.phon;
             if (parsedStore.morph) store.morph = parsedStore.morph;
             if (parsedStore.gram) store.gram = parsedStore.gram;
+            if (parsedStore.cardThemeV) store.cardThemeV = parsedStore.cardThemeV;
           }
         }
       } catch (e) {}
-      function saveStore(){ try { window.localStorage.setItem(STORE_KEY, JSON.stringify(store)); } catch (e) {} }
+      /* ---- progress meta (v1.1, a SECOND localStorage key; the
+         store key and its fields are untouched): deviceId is minted
+         once on this device and persisted; updatedAt moves with
+         every saveStore(); srsUpdatedAt stamps each srs record
+         whose step/due changed since the previous save - the
+         import merge arbitrates per-word freshness on these. */
+      var META_KEY = "arabic-study-meta";
+      var meta = { deviceId: "", updatedAt: 0, srsUpdatedAt: {} };
+      try {
+        var rawMeta = window.localStorage.getItem(META_KEY);
+        if (rawMeta){
+          var parsedMeta = JSON.parse(rawMeta);
+          if (parsedMeta){
+            if (parsedMeta.deviceId) meta.deviceId = parsedMeta.deviceId;
+            if (parsedMeta.updatedAt) meta.updatedAt = parsedMeta.updatedAt;
+            if (parsedMeta.srsUpdatedAt) meta.srsUpdatedAt = parsedMeta.srsUpdatedAt;
+          }
+        }
+      } catch (e) {}
+      if (!meta.deviceId) meta.deviceId = "dev-" + Date.now().toString(36) + "-" + Math.random().toString(36).slice(2, 9);
+      function saveMeta(){ try { window.localStorage.setItem(META_KEY, JSON.stringify(meta)); } catch (e) {} }
+      var srsSnapshot = {};
+      Object.keys(store.srs).forEach(function(k){ var r = store.srs[k]; srsSnapshot[k] = r.step + ":" + r.due; });
+      function saveStore(){
+        try { window.localStorage.setItem(STORE_KEY, JSON.stringify(store)); } catch (e) {}
+        var now = Date.now();
+        meta.updatedAt = now;
+        Object.keys(store.srs).forEach(function(k){
+          var sig = store.srs[k].step + ":" + store.srs[k].due;
+          if (srsSnapshot[k] !== sig){ meta.srsUpdatedAt[k] = now; srsSnapshot[k] = sig; }
+        });
+        Object.keys(srsSnapshot).forEach(function(k){ if (!store.srs[k]){ delete srsSnapshot[k]; delete meta.srsUpdatedAt[k]; } });
+        saveMeta();
+      }
+      /* ---- analytics hook (v1.1): a stable no-op sink. It only
+         logs to the console - it MUST NOT send network requests.
+         When a real reporter arrives, replace the body; every call
+         site (tab switch, lesson start / complete, quiz complete,
+         check-in, camp open / submit) stays exactly as it is. */
+      function track(event, params){
+        try { console.log("[track]", event, params || {}); } catch (e) {}
+      }
       function syncKnownToStore(){ store.known = Object.keys(knownSet).filter(function(k){ return knownSet[k]; }); }
 
-      /* ---- the paywall: free plan vs PRO ----
-         The agreed free plan: the 问候 + 数字 flashcard categories
-         (29 words) are free; the other six categories （颜色 / 食物 /
-         时间 / 人与家庭 / 自然 / 日常） are PRO - the same line the
-         course draws at launch (lessons 1-3 free trial, 4-14 PRO).
-         CURRENT PHASE: PRO_GATE below is false, so every gate in
-         this section is dormant and ALL content is open; the split
-         described here only takes effect when the gate flips true
-         at launch. When it does, the gates apply at every surface
-         where a word can be studied: the flashcard
-         deck and its category chips, the quiz question pool, and
-         the SRS review queue / plan list / due counts.
-         One legitimate exception: a FREE course lesson enrols its
-         words into SRS itself (lesson step 5), so words of a free
-         lesson the learner has COMPLETED （颜色 via lesson 3) stay
-         reviewable even though their category chip is locked -
-         the course is a legal source for them. Locked-category
-         words learned any other way stay hidden from review.
+      /* ---- open content (v1.1) ----
+         There is no paywall: every word, category and lesson is
+         open to everyone. freeWords() / wordReviewable() keep
+         their names (a dozen call sites read naturally through
+         them) and simply return the whole bank now. */
+      function freeWords(){ return WORDS.slice(); }
+      function wordReviewable(w){ return true; }
 
-         MASTER SWITCH: PRO_GATE is false until launch, so every
-         gate below (and every lesson / chip / pool check elsewhere
-         in this file) is dormant and ALL content is open. Flip it
-         to true at launch and the whole paywall returns exactly as
-         designed - no other line needs to change. */
-      var PRO_GATE = false;
-      var FREE_CATS = ["问候", "数字"];
-      var PAYWALL_LOCK_SVG = '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>';
-      function catLocked(cat){ return PRO_GATE && FREE_CATS.indexOf(cat) === -1; }
-      function freeWords(){ return WORDS.filter(function(w){ return !PRO_GATE || (!catLocked(w.cat) && !w.pro); }); }
-      function wordReviewable(w){
-        if (PRO_GATE && w.pro) return false;
-        if (!catLocked(w.cat)) return true;
-        /* a locked category's words become reviewable once the
-           lesson that teaches that category is completed - the
-           course is a legal source for them. TLESSONS is declared
-           later in this script; by the time any caller runs, it
-           exists. Lessons map 1:1 onto categories, in order. */
-        var no = CATS.indexOf(w.cat) + 1;
-        return no >= 1 && store.topicDone.indexOf(no) !== -1;
-      }
-
-      /* ---- open-state copy while the gate is off ----
-         With PRO_GATE false nothing is locked, so no surface may
-         still speak the paywall's language: the PRO pills, the
-         免费试学 badges and the free-vs-PRO sentences in the static
-         markup all swap to open-state wording here (the rendered
-         surfaces - level pills, lesson-row badges, the 会员购买
-         row's tap - branch on PRO_GATE at their own call sites).
-         Flip PRO_GATE true at launch and every string below stays
-         exactly as authored in the markup. */
-      if (!PRO_GATE){
-        document.getElementById("course-head-p").textContent = "十四个主题课，用的就是闪卡里那 500 个词：一课学一个主题，先学词，再在对话里把词用起来。十四课全部开放，想学哪课学哪课。";
-        document.getElementById("course-src-p").textContent = "课程与闪卡是同一套词：每课的对话只用本课和前面学过的词造句，学完一课，这课的词自动进入「间隔复习」。全部 14 课与 500 个词都已开放。";
-        document.getElementById("quiz-head-p").textContent = "看词选意思，答对点亮，连对计数。题目从全部 500 个词里随机抽，先听一遍发音，凭记忆选意思。切到「听音选词」，就只凭耳朵认词。";
-        var vipRow = document.getElementById("me-vip");
-        vipRow.querySelector(".me-row-title").textContent = "会员中心";
-        var vipSub = document.createElement("span");
-        vipSub.className = "me-row-sub";
-        vipSub.textContent = "全部内容已开放";
-        vipRow.insertBefore(vipSub, vipRow.querySelector(".me-chev"));
-        var shareRow = document.getElementById("me-share");
-        shareRow.querySelector(".me-row-title").textContent = "分享给好友";
-        shareRow.querySelector(".me-row-sub").textContent = "即将上线";
-      }
 
       /* ---- spaced repetition (the Memrise public ladder) ----
          One record per word in store.srs, keyed by the Arabic word:
@@ -4444,37 +4376,38 @@
          grantCard() call at that feature's success moment. */
       function hasCard(id){ return store.cards.indexOf(id) !== -1; }
       var CARDS = [
-        { id: "letters28", name: "字母启程卡", glyph: "الله", sub: "字母测验 28 题全对，第一张卡已经放进你的卡册。", pass: "28/28 全对通过", backGlyph: "أ", backName: "اَلْهَمْزَةُ عَلَى الْأَلِف", backLabel: "首字母", meteor: true, tab: "letters", lockSub: "28 个字母测验全对可获得", lockToast: "28 个字母测验全对可获得「字母启程卡」" },
-        { id: "chushi", name: "初试通过", glyph: "الله", sub: "单词测验完整做完一轮，第二张卡已经放进你的卡册。", pass: "", mid: "单词测验 · 完整一轮", backGlyph: "试", backName: "单词测验", backLabel: "初试", backWm: "الرحمن", rain: true, poster: "assets/card-chushi-poster.webp", cjk: true, tab: 3, lockSub: "单词「测验」完整做完一次可获得「初试通过」", lockToast: "单词「测验」完整做完一次可获得「初试通过」", earnedPrefix: "单词测验 · 完成于 " },
+        { id: "letters28", name: "字母启程卡", glyph: "الدَّبَرَانُ", sub: "字母测验 28 题全对，第一张卡已经放进你的卡册。", pass: "28/28 全对通过", backGlyph: "أ", backName: "اَلْهَمْزَةُ عَلَى الْأَلِف", backLabel: "首字母", meteor: true, tab: "letters", lockSub: "28 个字母测验全对可获得", lockToast: "28 个字母测验全对可获得「字母启程卡」" },
+        { id: "chushi", name: "初试通过", glyph: "النَّسْرُ الْوَاقِعُ", sub: "单词测验完整做完一轮，第二张卡已经放进你的卡册。", pass: "", mid: "单词测验 · 完整一轮", backGlyph: "试", backName: "单词测验", backLabel: "初试", backWm: "النَّسْرُ الْوَاقِعُ", rain: true, poster: "assets/card-chushi-poster.webp", cjk: true, tab: 3, lockSub: "单词「测验」完整做完一次可获得「初试通过」", lockToast: "单词「测验」完整做完一次可获得「初试通过」", earnedPrefix: "单词测验 · 完成于 " },
         /* the course series: one card per topic lesson, granted by
            the lesson's step-5 completion (see the course module).
            They live in the same catalogue and the same store.cards,
-           so the award modal and the dev panel treat them exactly
+           so the award modal treats them exactly
            like the two hero cards; the me-panel fan keeps showing
            the two hero cards (COLLECT_ROWS is unchanged). */
-        { id: "course-1", name: "课程卡 · 问候", glyph: "الله", sub: "主题课程第 1 课「问候」已学完，这张课程卡已经放进你的卡册。", pass: "第 1 课 · 问候 · 已完成", mid: "主题课程 · 问候 · 29 词", backGlyph: "سَلَامٌ", backName: "salām", backLabel: "课程系列", tab: 0, lockSub: "完成主题课程第 1 课「问候」可获得", lockToast: "完成主题课程第 1 课「问候」可获得这张课程卡", earnedPrefix: "主题课程 · 完成于 " },
-        { id: "course-2", name: "课程卡 · 数字", glyph: "الله", sub: "主题课程第 2 课「数字」已学完，这张课程卡已经放进你的卡册。", pass: "第 2 课 · 数字 · 已完成", mid: "主题课程 · 数字 · 35 词", backGlyph: "وَاحِدٌ", backName: "wāḥid", backLabel: "课程系列", tab: 0, lockSub: "完成主题课程第 2 课「数字」可获得", lockToast: "完成主题课程第 2 课「数字」可获得这张课程卡", earnedPrefix: "主题课程 · 完成于 " },
-        { id: "course-3", name: "课程卡 · 颜色", glyph: "الله", sub: "主题课程第 3 课「颜色」已学完，这张课程卡已经放进你的卡册。", pass: "第 3 课 · 颜色 · 已完成", mid: "主题课程 · 颜色 · 33 词", backGlyph: "أَزْرَقُ", backName: "azraq", backLabel: "课程系列", tab: 0, lockSub: "完成主题课程第 3 课「颜色」可获得", lockToast: "完成主题课程第 3 课「颜色」可获得这张课程卡", earnedPrefix: "主题课程 · 完成于 " },
-        { id: "course-4", name: "课程卡 · 食物", glyph: "الله", sub: "主题课程第 4 课「食物」已学完，这张课程卡已经放进你的卡册。", pass: "第 4 课 · 食物 · 已完成", mid: "主题课程 · 食物 · 42 词", backGlyph: "خُبْزٌ", backName: "khubz", backLabel: "课程系列", tab: 0, lockSub: "完成主题课程第 4 课「食物」可获得", lockToast: "完成主题课程第 4 课「食物」可获得这张课程卡", earnedPrefix: "主题课程 · 完成于 " },
-        { id: "course-5", name: "课程卡 · 时间", glyph: "الله", sub: "主题课程第 5 课「时间」已学完，这张课程卡已经放进你的卡册。", pass: "第 5 课 · 时间 · 已完成", mid: "主题课程 · 时间 · 33 词", backGlyph: "سَاعَةٌ", backName: "sāʿa", backLabel: "课程系列", tab: 0, lockSub: "完成主题课程第 5 课「时间」可获得", lockToast: "完成主题课程第 5 课「时间」可获得这张课程卡", earnedPrefix: "主题课程 · 完成于 " },
-        { id: "course-6", name: "课程卡 · 人与家庭", glyph: "الله", sub: "主题课程第 6 课「人与家庭」已学完，这张课程卡已经放进你的卡册。", pass: "第 6 课 · 人与家庭 · 已完成", mid: "主题课程 · 人与家庭 · 41 词", backGlyph: "عَائِلَةٌ", backName: "ʿāʾila", backLabel: "课程系列", tab: 0, lockSub: "完成主题课程第 6 课「人与家庭」可获得", lockToast: "完成主题课程第 6 课「人与家庭」可获得这张课程卡", earnedPrefix: "主题课程 · 完成于 " },
-        { id: "course-7", name: "课程卡 · 自然", glyph: "الله", sub: "主题课程第 7 课「自然」已学完，这张课程卡已经放进你的卡册。", pass: "第 7 课 · 自然 · 已完成", mid: "主题课程 · 自然 · 38 词", backGlyph: "شَمْسٌ", backName: "shams", backLabel: "课程系列", tab: 0, lockSub: "完成主题课程第 7 课「自然」可获得", lockToast: "完成主题课程第 7 课「自然」可获得这张课程卡", earnedPrefix: "主题课程 · 完成于 " },
-        { id: "course-8", name: "课程卡 · 日常", glyph: "الله", sub: "主题课程第 8 课「日常」已学完，这张课程卡已经放进你的卡册。", pass: "第 8 课 · 日常 · 已完成", mid: "主题课程 · 日常 · 39 词", backGlyph: "كِتَابٌ", backName: "kitāb", backLabel: "课程系列", tab: 0, lockSub: "完成主题课程第 8 课「日常」可获得", lockToast: "完成主题课程第 8 课「日常」可获得这张课程卡", earnedPrefix: "主题课程 · 完成于 " }
+        { id: "course-1", name: "课程卡 · 问候", glyph: "سَلَامٌ", sub: "主题课程第 1 课「问候」已学完，这张课程卡已经放进你的卡册。", pass: "第 1 课 · 问候 · 已完成", mid: "主题课程 · 问候 · 29 词", backGlyph: "سَلَامٌ", backName: "salām", backLabel: "课程系列", tab: 0, lockSub: "完成主题课程第 1 课「问候」可获得", lockToast: "完成主题课程第 1 课「问候」可获得这张课程卡", earnedPrefix: "主题课程 · 完成于 " },
+        { id: "course-2", name: "课程卡 · 数字", glyph: "وَاحِدٌ", sub: "主题课程第 2 课「数字」已学完，这张课程卡已经放进你的卡册。", pass: "第 2 课 · 数字 · 已完成", mid: "主题课程 · 数字 · 35 词", backGlyph: "وَاحِدٌ", backName: "wāḥid", backLabel: "课程系列", tab: 0, lockSub: "完成主题课程第 2 课「数字」可获得", lockToast: "完成主题课程第 2 课「数字」可获得这张课程卡", earnedPrefix: "主题课程 · 完成于 " },
+        { id: "course-3", name: "课程卡 · 颜色", glyph: "أَزْرَقُ", sub: "主题课程第 3 课「颜色」已学完，这张课程卡已经放进你的卡册。", pass: "第 3 课 · 颜色 · 已完成", mid: "主题课程 · 颜色 · 33 词", backGlyph: "أَزْرَقُ", backName: "azraq", backLabel: "课程系列", tab: 0, lockSub: "完成主题课程第 3 课「颜色」可获得", lockToast: "完成主题课程第 3 课「颜色」可获得这张课程卡", earnedPrefix: "主题课程 · 完成于 " },
+        { id: "course-4", name: "课程卡 · 食物", glyph: "خُبْزٌ", sub: "主题课程第 4 课「食物」已学完，这张课程卡已经放进你的卡册。", pass: "第 4 课 · 食物 · 已完成", mid: "主题课程 · 食物 · 42 词", backGlyph: "خُبْزٌ", backName: "khubz", backLabel: "课程系列", tab: 0, lockSub: "完成主题课程第 4 课「食物」可获得", lockToast: "完成主题课程第 4 课「食物」可获得这张课程卡", earnedPrefix: "主题课程 · 完成于 " },
+        { id: "course-5", name: "课程卡 · 时间", glyph: "سَاعَةٌ", sub: "主题课程第 5 课「时间」已学完，这张课程卡已经放进你的卡册。", pass: "第 5 课 · 时间 · 已完成", mid: "主题课程 · 时间 · 33 词", backGlyph: "سَاعَةٌ", backName: "sāʿa", backLabel: "课程系列", tab: 0, lockSub: "完成主题课程第 5 课「时间」可获得", lockToast: "完成主题课程第 5 课「时间」可获得这张课程卡", earnedPrefix: "主题课程 · 完成于 " },
+        { id: "course-6", name: "课程卡 · 人与家庭", glyph: "عَائِلَةٌ", sub: "主题课程第 6 课「人与家庭」已学完，这张课程卡已经放进你的卡册。", pass: "第 6 课 · 人与家庭 · 已完成", mid: "主题课程 · 人与家庭 · 41 词", backGlyph: "عَائِلَةٌ", backName: "ʿāʾila", backLabel: "课程系列", tab: 0, lockSub: "完成主题课程第 6 课「人与家庭」可获得", lockToast: "完成主题课程第 6 课「人与家庭」可获得这张课程卡", earnedPrefix: "主题课程 · 完成于 " },
+        { id: "course-7", name: "课程卡 · 自然", glyph: "شَمْسٌ", sub: "主题课程第 7 课「自然」已学完，这张课程卡已经放进你的卡册。", pass: "第 7 课 · 自然 · 已完成", mid: "主题课程 · 自然 · 38 词", backGlyph: "شَمْسٌ", backName: "shams", backLabel: "课程系列", tab: 0, lockSub: "完成主题课程第 7 课「自然」可获得", lockToast: "完成主题课程第 7 课「自然」可获得这张课程卡", earnedPrefix: "主题课程 · 完成于 " },
+        { id: "course-8", name: "课程卡 · 日常", glyph: "كِتَابٌ", sub: "主题课程第 8 课「日常」已学完，这张课程卡已经放进你的卡册。", pass: "第 8 课 · 日常 · 已完成", mid: "主题课程 · 日常 · 39 词", backGlyph: "كِتَابٌ", backName: "kitāb", backLabel: "课程系列", tab: 0, lockSub: "完成主题课程第 8 课「日常」可获得", lockToast: "完成主题课程第 8 课「日常」可获得这张课程卡", earnedPrefix: "主题课程 · 完成于 " }
       ];
-      /* ---- the 99 Names of Allah series ----
-         The catalogue grows from 10 cards to the full 99: the two
-         hero cards stay #1 (الله, the front of every card in the
-         series) and #2 (الرحمن, already the 初试通过 back), and the
-         remaining 97 names of the Tirmidhi list become cards #3-#99
-         here - generated from the compact table below so the data
-         stays auditable in one place. Every Names card shares the
-         hero cards' build: universe-photo ground (each card its
-         own sky, assets/skies/n<no>.jpg - no two alike), foil
-         layer, gold frame - but its big type is
-         all FAINT, in the first card's watermark register: الله
-         and the name itself pale gold .11 on the front (identified
-         by small solid-gold lines at the foot), the name again as
-         one pale layer on the back, never a solid extrusion.
+      /* ---- the 99 Arabic star-name cards ----
+         The catalogue is the full 99: the two hero cards stay
+         slots #1 / #2 (their achievement identities unchanged),
+         and slots #3-#99 are generated from the compact table
+         below so the data stays auditable in one place. Every
+         entry is a real star name of Arabic origin (the source
+         of Aldebaran, Vega, Betelgeuse...) with its Chinese star
+         name. Every star card shares the hero cards' build:
+         universe-photo ground (each card its own sky,
+         assets/skies/n<no>.jpg - no two alike), foil layer, gold
+         frame - and its big type is all FAINT, in the first
+         card's watermark register: the star's own Arabic name as
+         the pale-gold .11 watermark on the front (identified by
+         small solid-gold lines at the foot) and as one pale
+         layer on the back, never a solid extrusion.
          Earn rules by number: #3-30 letter series (each
          letter answered correctly 3 times in the letter quiz),
          #31-54 word series (8 categories x 50%/80%/100% mastery),
@@ -4482,18 +4415,28 @@
          (streak milestones), #71-82 quiz series (cumulative word-
          quiz totals), #83-99 achievement series (learning
          milestones) - all granted through the same grantCard(). */
-      var NAME99 = [
-        ["الرَّحِيمُ","至慈的"],["الْمَلِكُ","主权的"],["الْقُدُّوسُ","圣洁的"],["السَّلَامُ","和平的"],["الْمُؤْمِنُ","赐安的"],["الْمُهَيْمِنُ","监护的"],["الْعَزِيزُ","万能的"],["الْجَبَّارُ","独尊的"],["الْمُتَكَبِّرُ","至大的"],["الْخَالِقُ","创造的"],
-        ["الْبَارِئُ","造化的"],["الْمُصَوِّرُ","赋形的"],["الْغَفَّارُ","至赦的"],["الْقَهَّارُ","独制的"],["الْوَهَّابُ","博施的"],["الرَّزَّاقُ","给养的"],["الْفَتَّاحُ","开解的"],["الْعَلِيمُ","全知的"],["الْقَابِضُ","紧握的"],["الْبَاسِطُ","舒展的"],
-        ["الْخَافِضُ","降低的"],["الرَّافِعُ","升高的"],["الْمُعِزُّ","使尊贵的"],["الْمُذِلُّ","使卑贱的"],["السَّمِيعُ","全聪的"],["الْبَصِيرُ","明察的"],["الْحَكَمُ","裁判的"],["الْعَدْلُ","公正的"],["اللَّطِيفُ","温柔的"],["الْخَبِيرُ","彻知的"],
-        ["الْحَلِيمُ","容忍的"],["الْعَظِيمُ","伟大的"],["الْغَفُورُ","至宥的"],["الشَّكُورُ","嘉纳的"],["الْعَلِيُّ","至高的"],["الْكَبِيرُ","宏大的"],["الْحَفِيظُ","护佑的"],["الْمُقِيتُ","供养的"],["الْحَسِيبُ","明算的"],["الْجَلِيلُ","尊严的"],
-        ["الْكَرِيمُ","慷慨的"],["الرَّقِيبُ","监察的"],["الْمُجِيبُ","应答的"],["الْوَاسِعُ","宽宏的"],["الْحَكِيمُ","至睿的"],["الْوَدُودُ","至爱的"],["الْمَجِيدُ","荣耀的"],["الْبَاعِثُ","复活的"],["الشَّهِيدُ","见证的"],["الْحَقُّ","真实的"],
-        ["الْوَكِيلُ","受托的"],["الْقَوِيُّ","至强的"],["الْمَتِينُ","坚定的"],["الْوَلِيُّ","保护的"],["الْحَمِيدُ","可颂的"],["الْمُحْصِي","统计的"],["الْمُبْدِئُ","首创的"],["الْمُعِيدُ","再造的"],["الْمُحْيِي","赋生的"],["الْمُمِيتُ","致死的"],
-        ["الْحَيُّ","永生的"],["الْقَيُّومُ","自立的"],["الْوَاجِدُ","富足的"],["الْمَاجِدُ","尊贵的"],["الْوَاحِدُ","独一的"],["الصَّمَدُ","永存的"],["الْقَادِرُ","大能的"],["الْمُقْتَدِرُ","全能的"],["الْمُقَدِّمُ","前定的"],["الْمُؤَخِّرُ","后置的"],
-        ["الْأَوَّلُ","最初的"],["الْآخِرُ","最后的"],["الظَّاهِرُ","明显的"],["الْبَاطِنُ","隐微的"],["الْوَالِي","治理的"],["الْمُتَعَالِي","超绝的"],["الْبَرُّ","至善的"],["التَّوَّابُ","纳悔的"],["الْمُنْتَقِمُ","复仇的"],["الْعَفُوُّ","宽恕的"],
-        ["الرَّؤُوفُ","怜悯的"],["مَالِكُ الْمُلْكِ","权柄之主"],["ذُو الْجَلَالِ وَالْإِكْرَامِ","尊严恩惠之主"],["الْمُقْسِطُ","公平的"],["الْجَامِعُ","集合的"],["الْغَنِيُّ","无求的"],["الْمُغْنِي","使富足的"],["الْمَانِعُ","拦阻的"],["الضَّارُّ","使受害的"],["النَّافِعُ","施益的"],
-        ["النُّورُ","光明的"],["الْهَادِي","引导的"],["الْبَدِيعُ","独创的"],["الْبَاقِي","长存的"],["الْوَارِثُ","继承的"],["الرَّشِيدُ","正道的"],["الصَّبُورُ","坚忍的"]
+      var STARS99 = [
+        ["الدَّبَرَانُ","毕宿五"],["النَّسْرُ الْوَاقِعُ","织女星"],["مَنْكِبُ الْجَوْزَاءِ","参宿四"],["رِجْلُ الْجَوْزَاءِ","参宿七"],["الشِّعْرَى الْيَمَانِيَّةُ","天狼星"],["قَلْبُ الْعَقْرَبِ","心宿二"],["النَّسْرُ الطَّائِرُ","牛郎星"],["ذَنَبُ الدَّجَاجَةِ","天津四"],["فَمُ الْحُوتِ","北落师门"],["قَلْبُ الْأَسَدِ","轩辕十四"],
+        ["السِّمَاكُ الْأَعْزَلُ","角宿一"],["السِّمَاكُ الرَّامِحُ","大角星"],["الشِّعْرَى الْغُمَيْصَاءُ","南河三"],["رَأْسُ التَّوْأَمِ الْمُؤَخَّرُ","北河三"],["رَأْسُ التَّوْأَمِ الْمُقَدَّمُ","北河二"],["الْعَيُّوقُ","五车二"],["رَأْسُ الْغُولِ","大陵五"],["ذَنَبُ الْأَسَدِ","五帝座一"],["النِّطَاقُ","参宿一"],["النِّظَامُ","参宿二"],
+        ["الْمِنْطَقَةُ","参宿三"],["سَيْفُ الْجَبَّارِ","参宿六"],["النَّاجِذُ","参宿五"],["سُرَّةُ الْفَرَسِ","壁宿二"],["الثُّرَيَّا","昴宿星团"],["الْوَزْنُ","弧矢一"],["صَدْرُ الدَّجَاجَةِ","天津一"],["الشِّلْيَاقُ","渐台二"],["السُّلَحْفَاةُ","渐台三"],["الشَّاهِينُ","河鼓一"],
+        ["رَأْسُ الْحَوَّاءِ","候"],["رَأْسُ الْجَاثِي","帝席"],["جَبْهَةُ الْعَقْرَبِ","房宿三"],["الشَّوْلَةُ","尾宿八"],["لَسْعَةُ الْعَقْرَبِ","尾宿九"],["النَّصْلُ","箕宿一"],["الْقَوْسُ","箕宿三"],["رَأْسُ الْحَمَلِ","娄宿三"],["الشَّرَطَانِ","娄宿一"],["الْمِرْفَقُ","天船三"],
+        ["ظَهْرُ الدُّبِّ الْأَكْبَرِ","天枢"],["الْمَرَاقُّ","天璇"],["فَخْذُ الدُّبِّ الْأَكْبَرِ","天玑"],["مِغْرَزُ الذَّنَبِ","天权"],["أَلْيَةُ الْحَمَلِ","玉衡"],["الْمِئْزَرُ","开阳"],["الْقَائِدُ","摇光"],["السُّهَى","辅星"],["الثُّعْبَانُ","右枢"],["الْجَدْيُ","勾陈一"],
+        ["الْفَرْقَدُ الْأَكْبَرُ","帝"],["الْفَرْقَدُ الْأَصْغَرُ","太子"],["أَخْفَى الْفَرْقَدَيْنِ","勾陈四"],["أَنْوَرُ الْفَرْقَدَيْنِ","勾陈五"],["الْفَرْدُ","星宿一"],["الْأَنْفُ","危宿三"],["سَرْجُ الْفَرَسِ","室宿一"],["مَنْكِبُ الْفَرَسِ","室宿二"],["جَنَاحُ الْفَرَسِ","壁宿一"],["الْعَنَاقُ","天大将军一"],
+        ["الْكَفُّ الْخَضِيبُ","王良一"],["صَدْرُ ذَاتِ الْكُرْسِيِّ","王良四"],["الْفِرْقُ","天钩五"],["سَعْدُ الْمَلِكِ","危宿一"],["سَعْدُ السُّعُودِ","虚宿一"],["سَعْدُ الذَّابِحِ","牛宿一"],["الْقَفْزَةُ الْأُولَى الشَّمَالِيَّةُ","下台一"],["الْقَفْزَةُ الْأُولَى الْجَنُوبِيَّةُ","下台二"],["الْقَفْزَةُ الثَّانِيَةُ الشَّمَالِيَّةُ","中台一"],["الْقَفْزَةُ الثَّانِيَةُ الْجَنُوبِيَّةُ","中台二"],
+        ["الْقَفْزَةُ الثَّالِثَةُ","上台一"],["آخِرُ النَّهْرِ","水委一"],["الْمَيْسَانُ","觜宿一"],["الْهَنْعَةُ","井宿三"],["الْمَعْلِفُ","积尸气"],["النَّثْرَةُ","鬼宿四"],["الْفَكَّةُ","贯索一"],["الزُّبَانَى الشَّمَالِيَّةُ","氐宿四"],["الزُّبَانَى الْجَنُوبِيَّةُ","氐宿一"],["جَنَاحُ الْغُرَابِ","轸宿二"],
+        ["مِنْخَرُ الْغُرَابِ","右辖"],["الْغُرَابُ","轸宿三"],["النَّائِرُ","鹤一"],["مِنْخَرُ الْقَيْطَسِ","天囷一"],["ذَنَبُ الْقَيْطَسِ","土司空"],["الْأَرْنَبُ","厕一"],["رَأْسُ الْأَسَدِ الشَّمَالِيُّ","轩辕七"],["ظَهْرُ الْأَسَدِ","西上将"],["الزَّاوِيَةُ","左执法"],["زَاوِيَةُ الْعَوَّاءِ","右执法"],
+        ["الْإِزَارُ","梗河一"],["الذِّيخُ","左枢"],["التِّنِّينُ","天棓四"],["رَأْسُ الثُّعْبَانِ","天棓三"],["سُهَيْلُ الْيَمَانِيُّ","老人星"],["سُهَيْلُ الْوَزْنِ","天记"],["فَمُ السَّمَكَةِ","霹雳一"],["الْعَقْرَبُ","房宿四"],["الْجَبْهَةُ","键闭"]
       ];
+      /* slots #1 / #2 keep their achievement identities (the 28-letter
+         grid + holo foil + meteors on #1, the 初试通过 rain card on
+         #2) - only their watermark face changes to the slot's star
+         name, like every other card in the set. The course cards'
+         fronts take their own theme word as the watermark. No card
+         face anywhere in the collection carries a religious word
+         any more. */
+      CARDS[0].glyph = STARS99[0][0]; CARDS[0].backWm = STARS99[0][0];
+      CARDS[1].glyph = STARS99[1][0]; CARDS[1].backWm = STARS99[1][0];
+      CARDS.forEach(function(c){ if (c.id.indexOf("course-") === 0){ c.glyph = c.backGlyph; c.backWm = c.backGlyph; } });
       var CHECKIN_MILESTONES = [3, 7, 14, 30, 60, 100, 180, 365];
       var QUIZ_TOTAL_MILESTONES = [10, 30, 60, 100, 200, 400];
       var QUIZ_SCORE_MILESTONES = [10, 30, 60, 100, 200, 300];
@@ -4502,8 +4445,11 @@
       var ACH_CARDS = [10, 30, 60, 90];
       var ACH_LESSONS = [4, 8];
       var NAME_CARDS = {};
-      NAME99.forEach(function(pair, i){
-        var no = i + 3, ar = pair[0], zh = pair[1];
+      /* slots #3-#99 only: the pair for slot N is STARS99[N - 1];
+         slots #1 / #2 live on the two hero cards defined above */
+      for (var nci = 3; nci <= 99; nci++){
+        var pair = STARS99[nci - 1];
+        var no = nci, ar = pair[0], zh = pair[1];
         var seriesLabel, rule, tab;
         if (no <= 30){ seriesLabel = "字母系列"; rule = "字母测验中「" + LETTERS[no - 3].g + "」累计答对 3 次"; tab = "letters"; }
         else if (no <= 54){ var wi = no - 31; seriesLabel = "单词系列"; rule = "「" + CATS[Math.floor(wi / 3)] + "」分类单词掌握 " + [50, 80, 100][wi % 3] + "%"; tab = 1; }
@@ -4515,27 +4461,27 @@
         else if (no <= 97){ seriesLabel = "成就系列"; rule = "集齐 " + ACH_CARDS[no - 94] + " 张集卡"; tab = 4; }
         else { seriesLabel = "成就系列"; rule = "完成 " + ACH_LESSONS[no - 98] + " 节主题课程"; tab = 0; }
         var entry = {
-          id: "name-" + no, no: no, series: "names", arName: ar,
-          name: zh, glyph: "الله",
-          sub: "安拉的尊名第 " + no + " 名「" + ar + "」——" + zh + "。这张尊名卡已经放进你的卡册。",
+          id: "name-" + no, no: no, series: "stars", arName: ar,
+          name: zh, glyph: ar,
+          sub: "星名卡第 " + no + " 张「" + ar + "」——" + zh + "。这张星名卡已经放进你的卡册。",
           pass: seriesLabel,
           backGlyph: ar, backWm: ar, backName: zh, backZh: true,
-          backLabel: "安拉的尊名 · 第 " + no + " 名",
+          backLabel: "星名卡 · 第 " + no + " 张",
           tab: tab,
           lockSub: rule + "可获得",
-          lockToast: rule + "可获得这张尊名卡",
+          lockToast: rule + "可获得这张星名卡",
           earnedPrefix: seriesLabel + " · 获得于 "
         };
         NAME_CARDS[no] = entry;
         CARDS.push(entry);
-      });
-      /* the collection itself: the 99 of the Names series - the two
-         hero cards (#1 الله, #2 الرحمن) plus the 97 generated above.
+      }
+      /* the collection itself: the 99 of the star-name series - the
+         two hero cards (slots #1 / #2) plus the 97 generated above.
          The eight course cards live in the same catalogue and the
          same store - their home is the lesson page and the award
          overlay - but they are not part of the 99 count, the fan,
          or the x/99 progress */
-      var COLLECT_SET = [CARDS[0], CARDS[1]].concat(NAME99.map(function(p, i){ return NAME_CARDS[i + 3]; }));
+      var COLLECT_SET = [CARDS[0], CARDS[1]].concat(Object.keys(NAME_CARDS).map(function(k){ return NAME_CARDS[k]; }));
       function collectOwned(){ var n = 0; COLLECT_SET.forEach(function(c){ if (hasCard(c.id)) n++; }); return n; }
       function grantCard(card){
         if (!card || hasCard(card.id)) return false;
@@ -4544,14 +4490,14 @@
         saveStore(); refreshCards();
         return true;
       }
-      /* the Names series earn engine: every rule is a pure function
+      /* the star series earn engine: every rule is a pure function
          of the store, so one sweep grants whatever the learner's
          current state has earned - called after each event that can
          move a number (a letter-quiz answer, a flashcard grade, a
          word-quiz answer, a check-in, a lesson completion) and once
          at startup, which is also what backfills existing learners:
          a finished lesson, a mastered category or a long streak
-         lights its Names cards on first open, silently, exactly as
+         lights its star cards on first open, silently, exactly as
          if the rule had fired when it was met. Course cards keep
          their original grant dates through the migration below.
          Returns the newly granted cards so callers that own a
@@ -4590,7 +4536,7 @@
       }
       /* migration: a learner who already owns a course card (or has
          the lesson marked done) owns the matching course-series
-         Names card too - with the course card's own grant date, so
+         star card too - with the course card's own grant date, so
          the album reads exactly as it did before the series grew */
       function migrateNameCards(){
         var changed = false;
@@ -4604,6 +4550,19 @@
           }
         }
         if (changed) saveStore();
+      }
+
+      /* one-time card-theme migration (v1.1): the collection's theme
+         changed from the 99 Names to Arabic star names. Slot ids,
+         skies and earn rules did NOT change, so store.cards needs
+         no rewrite at all - a card lit under the old theme is lit
+         under the new one. The cardThemeV flag (a NEW store field,
+         nothing existing was touched) records the crossover and
+         makes this run exactly once per device. */
+      function migrateCardTheme(){
+        if (store.cardThemeV) return;
+        store.cardThemeV = 1;
+        saveStore();
       }
 
       var curCat = "全部"; var deck = freeWords(); var cardIdx = 0; var flipped = false;
@@ -4642,7 +4601,7 @@
         window.setTimeout(function(){ if (token === masteryFlipToken) box.innerHTML = masteryHTML(n); }, 730);
       }
       var chipsBox = document.getElementById("cat-chips");
-      ["全部"].concat(CATS).forEach(function(c){ var b = document.createElement("button"); b.type = "button"; b.className = "chip"; var locked = c !== "全部" && catLocked(c); if (c === "全部"){ b.textContent = "全部 " + freeWords().length; } else if (locked){ b.classList.add("locked"); b.innerHTML = PAYWALL_LOCK_SVG + "<span>" + c + "</span>"; b.setAttribute("aria-label", c + "，PRO 内容"); } else { b.textContent = c; } b.setAttribute("aria-pressed", c === "全部" ? "true" : "false"); b.addEventListener("click", function(){ if (locked){ meToast("「" + c + "」分类是 PRO 内容，开通会员后解锁"); return; } curCat = c; chipsBox.querySelectorAll(".chip").forEach(function(x){ x.setAttribute("aria-pressed","false"); }); b.setAttribute("aria-pressed","true"); applyDeck(); }); chipsBox.appendChild(b); });
+      ["全部"].concat(CATS).forEach(function(c){ var b = document.createElement("button"); b.type = "button"; b.className = "chip"; if (c === "全部"){ b.textContent = "全部 " + freeWords().length; } else { b.textContent = c; } b.setAttribute("aria-pressed", c === "全部" ? "true" : "false"); b.addEventListener("click", function(){ curCat = c; chipsBox.querySelectorAll(".chip").forEach(function(x){ x.setAttribute("aria-pressed","false"); }); b.setAttribute("aria-pressed","true"); applyDeck(); }); chipsBox.appendChild(b); });
 
       /* colour words flip into a solid colour card; keys ordered longest-first so 宝蓝色 wins over 蓝色 */
       var COLOR_MAP = [["深红色","#B91C1C"],["浅黄色","#FDE68A"],["浅粉色","#FBCFE8"],["浅棕色","#C89B6D"],["深灰色","#4B5563"],["浅灰色","#D1D5DB"],["橄榄绿","#808000"],["松石绿","#40E0D0"],["藏青","#1B2A4A"],["宝蓝色","#1D4ED8"],["浅蓝色","#7DD3FC"],["深蓝色","#1E3A8A"],["天蓝色","#38BDF8"],["艳粉色","#EC4899"],["酒红色","#9B1B30"],["红色","#E63946"],["蓝色","#2563EB"],["浅绿色","#86EFAC"],["深绿色","#15803D"],["绿色","#22A06B"],["黄色","#FACC15"],["黑色","#111111"],["白色","#FFFFFF"],["粉色","#F472B6"],["紫色","#7E57C2"],["橙色","#FB923C"],["棕色","#92400E"],["灰色","#9CA3AF"],["米色","#E3D3AC"],["卡其色","#B7A06A"],["金色","#D4AF37"],["银色","#C0C0C0"]];
@@ -5427,8 +5386,15 @@
          earned, is what persists */
       var QUIZ_ROUND = 20, qRoundCount = 0;
       function shuffle(a){ for (var i = a.length - 1; i > 0; i--){ var j = Math.floor(Math.random() * (i + 1)); var t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
-      function newQuestion(){ qLocked = false; var quizPool = freeWords(); var w = quizPool[Math.floor(Math.random() * quizPool.length)]; qCurrent = w; var pool = quizPool.filter(function(x){ return x.zh !== w.zh; }); var sameCat = shuffle(pool.filter(function(x){ return x.cat === w.cat; }).slice()); var others = shuffle(pool.filter(function(x){ return x.cat !== w.cat; }).slice()); var opts = sameCat.concat(others).slice(0, 3); opts.push(w); shuffle(opts); var qarEl = document.getElementById("q-ar"); qarEl.textContent = w.ar; qarEl.classList.toggle("long", w.ar.length >= 15); document.getElementById("q-trans").textContent = w.tr; document.getElementById("q-msg").textContent = ""; document.getElementById("q-msg").className = "quiz-msg"; document.getElementById("q-next").hidden = true; var box = document.getElementById("q-opts"); box.innerHTML = ""; opts.forEach(function(o){ var b = document.createElement("button"); b.type = "button"; if (qMode === "listen"){ b.className = "opt ar"; b.textContent = o.ar; } else { b.className = "opt"; b.textContent = o.zh; } b.addEventListener("click", function(){ answer(b, o, w); }); box.appendChild(b); }); /* listen mode does NOT auto-play the clip: it waits for the q-speak button - audio follows a user tap only (house rule) */ }
-      function answer(btn, chosen, correct){ if (qLocked) return; qLocked = true; qTotal++; var msg = document.getElementById("q-msg"); document.querySelectorAll("#q-opts .opt").forEach(function(b){ b.disabled = true; if (b.textContent === correct.zh || b.textContent === correct.ar) b.classList.add("right"); }); if (chosen.zh === correct.zh){ qScore++; qStreak++; if (qStreak > qBest) qBest = qStreak; msg.innerHTML = IC.check + "<span>答对了！" + (qStreak >= 3 ? " 已连对 " + qStreak + " 题" : "") + "</span>"; msg.className = "quiz-msg good"; speakWordFeedback(correct); } else { qStreak = 0; btn.classList.add("wrong"); msg.innerHTML = IC.x + "<span>不对。「" + correct.ar + "」是「" + correct.zh + "」" + (correct.note ? "——" + correct.note : "") + "</span>"; msg.className = "quiz-msg bad"; } document.getElementById("q-score").textContent = qScore; document.getElementById("q-rate").textContent = qTotal ? Math.round(qScore / qTotal * 100) + "%" : "—"; document.getElementById("q-streak").textContent = qStreak; document.getElementById("q-next").hidden = false; srsGrade(correct, chosen.zh === correct.zh, true); store.quizTotal = qTotal; store.quizScore = qScore; if (chosen.zh !== correct.zh){ var wi = WORDS.indexOf(correct); if (wi >= 0 && store.wrong.indexOf(wi) === -1) store.wrong.push(wi); } saveStore(); checkNameSeries(); qRoundCount++; paintQuizRound(); if (qRoundCount >= QUIZ_ROUND){ qRoundCount = 0; window.setTimeout(paintQuizRound, 1250); if (grantCard(CARDS[1])){ window.setTimeout(function(){ showAward(CARDS[1]); }, 1000); } } refreshMe(); }
+      /* a Chinese gloss minus its parenthetical qualifier: two
+         words whose glosses share a base （你好 vs 你好（日常）)
+         must never appear as rival options - the learner cannot
+         tell which one the question means, so the correct answer
+         would not be unique */
+      function zhBase(z){ return (z || "").split(/[（(]/)[0].trim(); }
+      var qSeen = {};
+      function newQuestion(){ qLocked = false; var quizPool = freeWords(); var fresh = quizPool.filter(function(x){ return !qSeen[x.ar]; }); if (!fresh.length){ qSeen = {}; fresh = quizPool; } var w = fresh[Math.floor(Math.random() * fresh.length)]; qSeen[w.ar] = true; qCurrent = w; var pool = quizPool.filter(function(x){ return x.zh !== w.zh && zhBase(x.zh) !== zhBase(w.zh); }); var sameCat = shuffle(pool.filter(function(x){ return x.cat === w.cat; }).slice()); var others = shuffle(pool.filter(function(x){ return x.cat !== w.cat; }).slice()); var opts = sameCat.concat(others).slice(0, 3); opts.push(w); shuffle(opts); var qarEl = document.getElementById("q-ar"); qarEl.textContent = w.ar; qarEl.classList.toggle("long", w.ar.length >= 15); document.getElementById("q-trans").textContent = w.tr; document.getElementById("q-msg").textContent = ""; document.getElementById("q-msg").className = "quiz-msg"; document.getElementById("q-next").hidden = true; var box = document.getElementById("q-opts"); box.innerHTML = ""; opts.forEach(function(o){ var b = document.createElement("button"); b.type = "button"; if (qMode === "listen"){ b.className = "opt ar"; b.textContent = o.ar; } else { b.className = "opt"; b.textContent = o.zh; } b.addEventListener("click", function(){ answer(b, o, w); }); box.appendChild(b); }); /* listen mode does NOT auto-play the clip: it waits for the q-speak button - audio follows a user tap only (house rule) */ }
+      function answer(btn, chosen, correct){ if (qLocked) return; qLocked = true; qTotal++; var msg = document.getElementById("q-msg"); document.querySelectorAll("#q-opts .opt").forEach(function(b){ b.disabled = true; if (b.textContent === correct.zh || b.textContent === correct.ar) b.classList.add("right"); }); if (chosen.zh === correct.zh){ qScore++; qStreak++; if (qStreak > qBest) qBest = qStreak; msg.innerHTML = IC.check + "<span>答对了！" + (qStreak >= 3 ? " 已连对 " + qStreak + " 题" : "") + "</span>"; msg.className = "quiz-msg good"; speakWordFeedback(correct); } else { qStreak = 0; btn.classList.add("wrong"); msg.innerHTML = IC.x + "<span>不对。「<span class=\"ar-inline\">" + correct.ar + "</span>」是「" + correct.zh + "」" + (correct.note ? "——" + correct.note : "") + "</span>"; msg.className = "quiz-msg bad"; } document.getElementById("q-score").textContent = qScore; document.getElementById("q-rate").textContent = qTotal ? Math.round(qScore / qTotal * 100) + "%" : "—"; document.getElementById("q-streak").textContent = qStreak; document.getElementById("q-next").hidden = false; srsGrade(correct, chosen.zh === correct.zh, true); store.quizTotal = qTotal; store.quizScore = qScore; if (chosen.zh !== correct.zh){ var wi = WORDS.indexOf(correct); if (wi >= 0 && store.wrong.indexOf(wi) === -1) store.wrong.push(wi); } saveStore(); checkNameSeries(); qRoundCount++; paintQuizRound(); if (qRoundCount >= QUIZ_ROUND){ qRoundCount = 0; qSeen = {}; track("quiz_complete", { type: "word_round", score: qScore, total: qTotal }); window.setTimeout(paintQuizRound, 1250); if (grantCard(CARDS[1])){ window.setTimeout(function(){ showAward(CARDS[1]); }, 1000); } } refreshMe(); }
       document.getElementById("q-next").addEventListener("click", newQuestion);
       document.getElementById("q-speak").addEventListener("click", function(){ if (qCurrent) speakWord(qCurrent); });
       newQuestion();
@@ -5529,6 +5495,7 @@
         var celeb = null;
         newCards.forEach(function(c){ if (c.pass === "打卡系列") celeb = c; });
         if (celeb) window.setTimeout(function(){ showAward(celeb); }, 1100);
+        track("checkin", { streak: st });
         /* the ring-count sheet is the check-in's feedback moment:
            the ring draws to the new streak while the number counts
            up to it (a card award, when one lands, layers above) */
@@ -5706,44 +5673,231 @@
          so a logout button would be a dead control - it was removed
          from the markup rather than left as a fake action */
 
-      /* ================= VIP PAGE =================
-         The 会员购买 row opens the full-screen membership sheet (it is
-         no longer a .me-soon toast row). Plan cards are single-select -
-         the gold highlight moves with the tap and the checkout total in
-         the pinned bar follows the selection. Group-buy, coupon and
-         purchase stay demo placeholders (shared toast only) until the
-         APP build wires real payment; nothing fakes a transaction. */
-      var vipPage = document.getElementById("vip-page");
+      /* ================= CAMP PAGE （打卡营意向登记） =================
+         The 我的 page's 打卡营 row opens this sheet. Registration is
+         local-only: the record lands in its own localStorage key on
+         THIS device, nothing is ever sent over the network. The
+         submit button stays disabled until the parent-consent box
+         is ticked; the phone must be an 11-digit mobile number and
+         grade + volume must be chosen. A saved registration
+         pre-fills the form on later opens and shows 已登记. */
+      var CAMP_KEY = "arabic-camp-signup-v1";
+      var campPage = document.getElementById("vip-page");
+      function campLoad(){
+        try { var r = window.localStorage.getItem(CAMP_KEY); return r ? JSON.parse(r) : null; } catch (e) { return null; }
+      }
+      function campPaint(){
+        var rec = campLoad();
+        var done = document.getElementById("camp-done");
+        if (rec){
+          document.getElementById("camp-phone").value = rec.phone || "";
+          document.getElementById("camp-grade").value = rec.grade || "";
+          document.getElementById("camp-volume").value = rec.volume || "";
+          document.getElementById("camp-consent-box").checked = true;
+          done.hidden = false;
+          done.textContent = "已登记（" + (rec.at || "") + "）。信息有变化时，改好后重新提交即可覆盖。";
+        } else {
+          done.hidden = true;
+        }
+        campGate();
+      }
+      function campGate(){
+        var ok = document.getElementById("camp-consent-box").checked;
+        document.getElementById("camp-submit").disabled = !ok;
+        document.getElementById("camp-submit").textContent = campLoad() ? "更新登记信息" : "提交登记";
+      }
       function openVip(){
         document.getElementById("vip-scroll").scrollTop = 0;
-        vipPage.classList.add("open");
-        vipPage.setAttribute("aria-hidden", "false");
+        campPaint();
+        campPage.classList.add("open");
+        campPage.setAttribute("aria-hidden", "false");
         document.body.style.overflow = "hidden";
+        track("camp_open", {});
       }
       function closeVip(){
-        vipPage.classList.remove("open");
-        vipPage.setAttribute("aria-hidden", "true");
+        campPage.classList.remove("open");
+        campPage.setAttribute("aria-hidden", "true");
         document.body.style.overflow = "";
       }
-      document.getElementById("me-vip").addEventListener("click", function(){
-        /* the 会员中心 row always opens the membership sheet: while
-           PRO_GATE is off the sheet is a labelled preview （预览版，
-           payment not wired yet), not a dead toast */
-        openVip();
-      });
+      document.getElementById("me-vip").addEventListener("click", openVip);
       document.getElementById("vip-back").addEventListener("click", closeVip);
-      document.addEventListener("keydown", function(e){ if (e.key === "Escape" && vipPage.classList.contains("open")) closeVip(); });
-      document.querySelectorAll(".vip-plan").forEach(function(p){
-        p.addEventListener("click", function(){
-          document.querySelectorAll(".vip-plan").forEach(function(x){ x.classList.remove("sel"); x.setAttribute("aria-pressed", "false"); });
-          p.classList.add("sel"); p.setAttribute("aria-pressed", "true");
-          document.getElementById("vip-total").textContent = "¥" + p.getAttribute("data-price");
-        });
+      document.addEventListener("keydown", function(e){ if (e.key === "Escape" && campPage.classList.contains("open")) closeVip(); });
+      document.getElementById("camp-consent-box").addEventListener("change", campGate);
+      document.getElementById("camp-form").addEventListener("submit", function(e){
+        e.preventDefault();
+        if (!document.getElementById("camp-consent-box").checked){ meToast("请先勾选家长同意"); return; }
+        var phone = document.getElementById("camp-phone").value.replace(/\s/g, "");
+        var grade = document.getElementById("camp-grade").value;
+        var volume = document.getElementById("camp-volume").value;
+        if (!/^1\d{10}$/.test(phone)){ meToast("请填写 11 位家长手机号"); return; }
+        if (!grade){ meToast("请选择孩子年级"); return; }
+        if (!volume){ meToast("请选择《新编阿拉伯语》册数"); return; }
+        var rec = { phone: phone, grade: grade, volume: volume, consent: true, at: dayKey(new Date()) };
+        try { window.localStorage.setItem(CAMP_KEY, JSON.stringify(rec)); } catch (err) {}
+        campPaint();
+        track("camp_submit", { grade: grade, volume: volume });
+        meToast("已登记");
       });
-      document.getElementById("vip-group-btn").addEventListener("click", function(){ meToast("拼团即将开启，敬请期待"); });
-      document.getElementById("vip-coupon-btn").addEventListener("click", function(){ meToast("预览版暂未开通优惠码"); });
-      document.getElementById("vip-buy").addEventListener("click", function(){ meToast("预览版暂未开通支付"); });
       refreshMe();
+
+      /* ================= PROGRESS EXPORT / IMPORT =================
+         Export: one JSON file {schemaVersion:1, deviceId,
+         exportedAt, store, meta} via a Blob download. Import:
+         file -> JSON parse -> schema validation -> the chooser
+         modal (overwrite / merge) -> an automatic timestamped
+         backup of the CURRENT store+meta -> apply -> saveStore ->
+         full reload, so every derived view (knownSet, decks,
+         streaks, the card fan) rebuilds from the imported state
+         in one pass. deviceId is never imported: it names THIS
+         device in future exports, not the progress itself. */
+      var ioPending = null;
+      var ioModal = document.getElementById("io-modal");
+      function ioOpen(){
+        ioModal.hidden = false;
+        document.body.style.overflow = "hidden";
+        requestAnimationFrame(function(){ requestAnimationFrame(function(){ ioModal.classList.add("show"); }); });
+      }
+      function ioClose(){
+        ioModal.classList.remove("show");
+        document.body.style.overflow = "";
+        setTimeout(function(){ ioModal.hidden = true; }, 260);
+      }
+      function ioNormalizeStore(s){
+        if (!s || typeof s !== "object" || Array.isArray(s)) return null;
+        var out = { known: [], quizTotal: 0, quizScore: 0, wrong: [], checkins: [], cards: [], cardDates: {}, courseDone: [], topicDone: [], srs: {}, freeze: 0, freezeDays: [], freezeMilestones: null, letterHits: {}, phon: {}, morph: {}, gram: {}, cardThemeV: 0 };
+        ["known", "wrong", "checkins", "cards", "courseDone", "topicDone", "freezeDays"].forEach(function(k){ if (Array.isArray(s[k])) out[k] = s[k].slice(); });
+        if (typeof s.quizTotal === "number") out.quizTotal = s.quizTotal;
+        if (typeof s.quizScore === "number") out.quizScore = s.quizScore;
+        if (typeof s.freeze === "number") out.freeze = s.freeze;
+        if (s.freezeMilestones != null && typeof s.freezeMilestones === "number") out.freezeMilestones = s.freezeMilestones;
+        ["cardDates", "srs", "letterHits", "phon", "morph", "gram"].forEach(function(k){ if (s[k] && typeof s[k] === "object" && !Array.isArray(s[k])) out[k] = s[k]; });
+        if (s.cardThemeV) out.cardThemeV = s.cardThemeV;
+        return out;
+      }
+      function ioUnion(a, b){ var out = (a || []).slice(); (b || []).forEach(function(x){ if (out.indexOf(x) === -1) out.push(x); }); return out; }
+      function ioMergeStores(cur, imp, curMeta, impMeta){
+        var out = ioNormalizeStore(cur);
+        ["known", "wrong", "checkins", "cards", "courseDone", "topicDone", "freezeDays"].forEach(function(k){ out[k] = ioUnion(cur[k], imp[k]); });
+        out.quizTotal = Math.max(cur.quizTotal || 0, imp.quizTotal || 0);
+        out.quizScore = Math.max(cur.quizScore || 0, imp.quizScore || 0);
+        out.freeze = Math.max(cur.freeze || 0, imp.freeze || 0);
+        out.freezeMilestones = Math.max(cur.freezeMilestones || 0, imp.freezeMilestones || 0) || null;
+        /* cardDates: imported fills gaps; on conflict the later
+           grant date (day strings sort chronologically) wins */
+        out.cardDates = {};
+        Object.keys(imp.cardDates || {}).forEach(function(k){ out.cardDates[k] = imp.cardDates[k]; });
+        Object.keys(cur.cardDates || {}).forEach(function(k){ if (!out.cardDates[k] || cur.cardDates[k] > out.cardDates[k]) out.cardDates[k] = cur.cardDates[k]; });
+        /* srs: per word, the record whose meta timestamp is newer
+           wins. When either side has NO timestamp for the word,
+           the IMPORTED record wins - the conservative rule pinned
+           here: an untimestamped record can only come from a
+           pre-meta build, and the file the user just picked is
+           the one they mean to trust. */
+        out.srs = {};
+        var srsWords = {};
+        Object.keys(cur.srs || {}).forEach(function(k){ srsWords[k] = 1; });
+        Object.keys(imp.srs || {}).forEach(function(k){ srsWords[k] = 1; });
+        Object.keys(srsWords).forEach(function(k){
+          var c = (cur.srs || {})[k], im = (imp.srs || {})[k];
+          if (!c){ out.srs[k] = im; return; }
+          if (!im){ out.srs[k] = c; return; }
+          var tc = (curMeta.srsUpdatedAt || {})[k] || 0, ti = (impMeta.srsUpdatedAt || {})[k] || 0;
+          out.srs[k] = (tc && ti) ? (ti > tc ? im : c) : im;
+        });
+        /* lesson step arrays (morph / gram): element-wise OR - a
+           step completed on either side stays completed */
+        ["morph", "gram"].forEach(function(k){
+          out[k] = {}; var keys = {};
+          Object.keys(cur[k] || {}).forEach(function(x){ keys[x] = 1; });
+          Object.keys(imp[k] || {}).forEach(function(x){ keys[x] = 1; });
+          Object.keys(keys).forEach(function(x){
+            var a = (cur[k] || {})[x] || [], b = (imp[k] || {})[x] || [], r = [];
+            for (var j = 0; j < Math.max(a.length, b.length); j++) r[j] = !!(a[j] || b[j]);
+            out[k][x] = r;
+          });
+        });
+        out.letterHits = {};
+        Object.keys(imp.letterHits || {}).forEach(function(k){ out.letterHits[k] = imp.letterHits[k]; });
+        Object.keys(cur.letterHits || {}).forEach(function(k){ out.letterHits[k] = Math.max(out.letterHits[k] || 0, cur.letterHits[k]); });
+        /* phon: numeric bests take the max; flags keep current,
+           imported fills what current never recorded */
+        out.phon = {};
+        Object.keys(imp.phon || {}).forEach(function(k){ out.phon[k] = imp.phon[k]; });
+        Object.keys(cur.phon || {}).forEach(function(k){
+          var a = cur.phon[k], b = out.phon[k];
+          out.phon[k] = (typeof a === "number" && typeof b === "number") ? Math.max(a, b) : a;
+        });
+        out.cardThemeV = 1;
+        return out;
+      }
+      function ioApply(mode){
+        if (!ioPending) return;
+        var impStore = ioNormalizeStore(ioPending.store);
+        var impMeta = (ioPending.meta && typeof ioPending.meta === "object") ? ioPending.meta : { srsUpdatedAt: {} };
+        /* automatic backup of the CURRENT state before anything
+           is applied - recoverable from the same localStorage */
+        var ts = new Date().toISOString().replace(/[:.]/g, "-");
+        try {
+          window.localStorage.setItem(STORE_KEY + "-backup-" + ts, JSON.stringify(store));
+          window.localStorage.setItem(META_KEY + "-backup-" + ts, JSON.stringify(meta));
+        } catch (e) {}
+        if (mode === "overwrite"){
+          store = impStore;
+          meta.srsUpdatedAt = impMeta.srsUpdatedAt || {};
+        } else {
+          var merged = ioMergeStores(store, impStore, meta, impMeta);
+          var mergedTs = {};
+          Object.keys(meta.srsUpdatedAt || {}).forEach(function(k){ mergedTs[k] = meta.srsUpdatedAt[k]; });
+          Object.keys(impMeta.srsUpdatedAt || {}).forEach(function(k){ mergedTs[k] = Math.max(mergedTs[k] || 0, impMeta.srsUpdatedAt[k]); });
+          store = merged;
+          meta.srsUpdatedAt = mergedTs;
+        }
+        store.cardThemeV = 1;
+        srsSnapshot = {};
+        Object.keys(store.srs).forEach(function(k){ srsSnapshot[k] = store.srs[k].step + ":" + store.srs[k].due; });
+        saveStore();
+        ioPending = null;
+        ioClose();
+        meToast(mode === "overwrite" ? "已覆盖导入，正在刷新" : "已合并导入，正在刷新");
+        window.setTimeout(function(){ window.location.reload(); }, 700);
+      }
+      document.getElementById("me-export").addEventListener("click", function(){
+        saveStore();
+        var payload = { schemaVersion: 1, deviceId: meta.deviceId, exportedAt: new Date().toISOString(), store: store, meta: meta };
+        var blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
+        var a = document.createElement("a");
+        a.href = URL.createObjectURL(blob);
+        a.download = "arabic-progress-" + dayKey(new Date()) + ".json";
+        document.body.appendChild(a);
+        a.click();
+        window.setTimeout(function(){ URL.revokeObjectURL(a.href); a.remove(); }, 400);
+        meToast("进度已导出为 JSON 文件");
+      });
+      var ioFile = document.getElementById("io-file");
+      document.getElementById("me-import").addEventListener("click", function(){ ioFile.click(); });
+      ioFile.addEventListener("change", function(){
+        var f = ioFile.files && ioFile.files[0];
+        ioFile.value = "";
+        if (!f) return;
+        var rd = new FileReader();
+        rd.onload = function(){
+          var data = null;
+          try { data = JSON.parse(rd.result); } catch (e) {}
+          if (!data || data.schemaVersion !== 1 || !ioNormalizeStore(data.store)){
+            meToast("导入失败：这不是本应用导出的进度文件");
+            return;
+          }
+          ioPending = data;
+          document.getElementById("io-note").textContent = "文件导出于 " + (data.exportedAt ? String(data.exportedAt).slice(0, 10) : "未知日期") + "：已点亮集卡 " + ((data.store.cards || []).length) + " 张、打卡 " + ((data.store.checkins || []).length) + " 天、已学单词 " + ((data.store.known || []).length) + " 个。请选择导入方式：";
+          ioOpen();
+        };
+        rd.onerror = function(){ meToast("导入失败：文件读取出错"); };
+        rd.readAsText(f);
+      });
+      document.getElementById("io-merge").addEventListener("click", function(){ ioApply("merge"); });
+      document.getElementById("io-overwrite").addEventListener("click", function(){ ioApply("overwrite"); });
+      document.getElementById("io-cancel").addEventListener("click", function(){ ioPending = null; ioClose(); });
+      document.getElementById("io-backdrop").addEventListener("click", function(){ ioPending = null; ioClose(); });
 
       /* ================= REVIEW PAGE =================
          The 间隔复习 sheet. Opening it deals a session from the due
@@ -5778,7 +5932,7 @@
       document.getElementById("review-back").addEventListener("click", closeReview);
       document.addEventListener("keydown", function(e){ if (e.key === "Escape" && reviewPage.classList.contains("open")) closeReview(); });
       function reviewOptions(w){
-        var pool = WORDS.filter(function(x){ return x.zh !== w.zh && wordReviewable(x); });
+        var pool = WORDS.filter(function(x){ return x.zh !== w.zh && zhBase(x.zh) !== zhBase(w.zh) && wordReviewable(x); });
         var sameCat = shuffle(pool.filter(function(x){ return x.cat === w.cat; }).slice());
         var others = shuffle(pool.filter(function(x){ return x.cat !== w.cat; }).slice());
         var opts = sameCat.concat(others).slice(0, 3);
@@ -5906,7 +6060,7 @@
          toast until the APP build wires a backend, same as the other
          account rows. */
       /* the fan and the info list are built once from COLLECT_SET
-         (the 99 Names cards in order): one overlapping thumbnail
+         (the 99 star-name cards in order): one overlapping thumbnail
          and one compact line per card, z-order climbing with the
          catalogue so later cards fan over earlier ones. The DOM is
          generated - 99 hand-written rows would be unmaintainable -
@@ -5937,7 +6091,7 @@
           line.className = "ccard-line";
           var nm = document.createElement("span");
           nm.className = "ccard-line-name";
-          nm.textContent = card.series === "names" ? "#" + card.no + " " + card.name : card.name;
+          nm.textContent = card.series === "stars" ? "#" + card.no + " " + card.name : card.name;
           var sep = document.createElement("span");
           sep.className = "ccard-line-sep";
           sep.setAttribute("aria-hidden", "true");
@@ -5955,9 +6109,7 @@
          this one variable, never written to the store, and the card
          starts folded: the head row (count + progress bar) shows, the
          fan stays shut until the user taps to open it. It never
-         re-opens on its own - every fresh visit finds it folded. The fan, viewer and dev-mode wiring below and
-         above are untouched; the title span keeps its own inline
-         dev-tap handler (its clicks bubble here like any head tap). */
+         re-opens on its own - every fresh visit finds it folded. */
       var collectOpen = false;
       document.getElementById("collect-head").addEventListener("click", function(){
         collectOpen = !collectOpen;
@@ -5985,15 +6137,10 @@
         if (count) count.textContent = owned + "/" + COLLECT_SET.length;
         var fill = document.getElementById("collect-bar-fill");
         if (fill) fill.style.width = (COLLECT_SET.length ? owned / COLLECT_SET.length * 100 : 0) + "%";
-        document.querySelectorAll("#collect-tiers .tier-chip").forEach(function(chip){
-          chip.classList.toggle("on", owned >= parseInt(chip.getAttribute("data-tier"), 10));
-        });
         collectGoCard = null;
         COLLECT_SET.forEach(function(c){ if (!collectGoCard && !hasCard(c.id)) collectGoCard = c; });
         var go = document.getElementById("collect-go");
-        var redeem = document.getElementById("collect-redeem");
         if (go) go.hidden = !collectGoCard;
-        if (redeem) redeem.hidden = !!collectGoCard;
       }
       /* the trading-card component. buildCardEl(card, mini) renders
          one catalogue card: the foil-framed front (name, the middle -
@@ -6263,8 +6410,8 @@
         var date = store.cardDates[card.id] || "";
         var depths = [[9.6, "#0a0702"], [8, "#120c03"], [6.4, "#1a1104"], [4.8, "#251806"], [3.2, "#332208"], [1.6, "#4a320c"]];
         var back = "";
-        if (card.series === "names"){
-          /* a Names back carries NO extrusion: one pale-gold layer
+        if (card.series === "stars"){
+          /* a star-card back carries NO extrusion: one pale-gold layer
              (the .bstack.pale colour, .11) so the giant name reads
              as a watermark like the first card's أكبر, never a
              solid gold relief - the small back-name / back-sub
@@ -6276,7 +6423,7 @@
           });
           back += '<span class="top" style="--ox:0px;--oy:0px;--d:0" data-depth="0">' + card.backGlyph + "</span>";
         }
-        var sky = card.series === "names"
+        var sky = card.series === "stars"
           ? '<div class="tcard-sky" style="background-image:url(assets/skies/n' + (card.no < 10 ? "0" : "") + card.no + '.jpg);background-size:cover;background-position:50% 50%"></div>'
           : card.rain
           ? '<div class="tcard-sky vid">' + (mini ? "" : '<canvas class="tcard-rain" aria-hidden="true"></canvas>') + "</div>"
@@ -6293,15 +6440,15 @@
           : card.cjk
           ? card.backLabel + " · " + card.backName
           : card.backLabel + ' · <span class="ar">' + card.backName + "</span>";
-        /* a Names front is the first card's watermark composition:
-           الله as the faint .tcard-wm ground, the name set large
-           but equally faint at the top, the rule - then the small
-           readable identifiers at the foot of the face (the name
-           again in small solid gold, the Chinese meaning + #N, and
-           the usual foot: series · grant date) */
-        var frontInner = card.series === "names"
+        /* a star-card front is the first card's watermark composition:
+           the star's Arabic name as the faint .tcard-wm ground,
+           the rule - then the small readable identifiers at the
+           foot of the face (the name again in small solid gold,
+           the Chinese star name + #N, and the usual foot:
+           series · grant date) */
+        var frontInner = card.series === "stars"
           ? '<div class="tcard-wm">' + card.glyph + '</div>' +
-            '<div class="tcard-arname">' + card.arName + '</div><div class="tcard-rule"></div>' +
+            '<div class="tcard-rule"></div>' +
             '<div class="tcard-allah-wrap"></div>' +
             '<div class="tcard-nameid">' + card.arName + '</div>' +
             '<div class="tcard-namezh">' + card.name + ' · <span class="no">#' + card.no + '</span></div>' + foot
@@ -6312,8 +6459,8 @@
           '<div class="tcard-tilt"><div class="tcard-flip">' +
           '<div class="tface tfront">' + sky + frontInner + holo + '</div>' +
           '<div class="tface tback">' + sky +
-            '<div class="tcard-wm-back">' + (card.backWm || "أكبر") + '</div>' +
-            '<div class="bglow"></div><div class="bstack' + (card.cjk ? " cjk" : "") + (card.series === "names" ? " nowrap fitme pale" : "") + '">' + back + '</div>' +
+            '<div class="tcard-wm-back">' + (card.backWm || "") + '</div>' +
+            '<div class="bglow"></div><div class="bstack' + (card.cjk ? " cjk" : "") + (card.series === "stars" ? " nowrap fitme pale" : "") + '">' + back + '</div>' +
             '<div class="tcard-back-name">' + card.name + '</div>' +
             '<div class="tcard-back-sub">' + backSub + '</div>' + holo + '</div>' +
           '</div></div>';
@@ -6355,7 +6502,7 @@
       /* the same shrink-only fit for the two places a whole NAME
          (not a single glyph) has to live on one line: the front
          title (.tcard-arname) and the extruded back stack
-         (.bstack.fitme - Names cards only, so the hero and course
+         (.bstack.fitme - star cards only, so the hero and course
          cards' backs keep their stock size untouched). Same rule
          as the watermarks: measure in Amiri at the stylesheet size,
          shrink - never grow - until the text sits within 88% of the
@@ -6513,9 +6660,6 @@
         setTimeout(function(){ cardModal.hidden = true; }, 320);
       }
       buildCollect();
-      document.querySelectorAll("#collect-tiers .tier-chip").forEach(function(chip){
-        chip.addEventListener("click", function(){ meToast("兑换功能将在 APP 版本开放，敬请期待"); });
-      });
       document.getElementById("card-close").addEventListener("click", closeCardViewer);
       document.getElementById("card-backdrop").addEventListener("click", closeCardViewer);
       document.addEventListener("keydown", function(e){ if (e.key === "Escape" && cardModal && !cardModal.hidden) closeCardViewer(); });
@@ -6527,70 +6671,15 @@
         if (t === "letters") openLettersPage();
         else goToTab(t);
       });
-      document.getElementById("collect-redeem").addEventListener("click", function(){ meToast("APP 版本开放，敬请期待"); });
       /* first-open backfill for the grown catalogue: course cards
-         already owned carry their Names twins over with the
+         already owned carry their star twins over with the
          original dates, then one silent sweep lights whatever the
          learner's existing state has already earned */
       migrateNameCards();
+      migrateCardTheme();
       checkNameSeries();
       refreshCards();
       refreshMe();
-
-      /* ---- hidden developer mode ----
-         Five taps on the 集卡活动 title within 1.5s toast 开发者模式已开启
-         and open a small panel: 全部点亮 writes all 99 cards' grant
-         records (dated today) into the store, 全部熄灭 clears them.
-         Both go through the same saveStore() + refreshCards() path as
-         a real grant, so the collect rows, the 去测验/兑换礼品 swap and
-         the lit/dim thumbnails update at once. No visible entry -
-         normal users never reach it. */
-      var devModal = document.getElementById("dev-modal");
-      var devTaps = [];
-      function openDevPanel(){
-        if (!devModal) return;
-        devModal.hidden = false;
-        document.body.style.overflow = "hidden";
-        requestAnimationFrame(function(){ requestAnimationFrame(function(){ devModal.classList.add("show"); }); });
-      }
-      function closeDevPanel(){
-        if (!devModal) return;
-        devModal.classList.remove("show");
-        document.body.style.overflow = "";
-        setTimeout(function(){ devModal.hidden = true; }, 320);
-      }
-      /* wired from the title's inline onclick so the entry stays a
-         plain span - no button chrome, no focus ring, nothing new
-         for a normal user to notice */
-      function devTitleTap(){
-        var now = Date.now();
-        devTaps = devTaps.filter(function(t){ return now - t < 1500; });
-        devTaps.push(now);
-        if (devTaps.length >= 5){
-          devTaps = [];
-          meToast("开发者模式已开启");
-          openDevPanel();
-        }
-      }
-      document.getElementById("dev-on").addEventListener("click", function(){
-        var today = dayKey(new Date());
-        CARDS.forEach(function(c){
-          if (!hasCard(c.id)) store.cards.push(c.id);
-          store.cardDates[c.id] = today;
-        });
-        saveStore(); refreshCards(); refreshMe(); closeDevPanel();
-        meToast("全部卡已点亮");
-      });
-      document.getElementById("dev-off").addEventListener("click", function(){
-        var ids = CARDS.map(function(c){ return c.id; });
-        store.cards = store.cards.filter(function(id){ return ids.indexOf(id) === -1; });
-        ids.forEach(function(id){ delete store.cardDates[id]; });
-        saveStore(); refreshCards(); refreshMe(); closeDevPanel();
-        meToast("全部卡已熄灭");
-      });
-      document.getElementById("dev-close").addEventListener("click", closeDevPanel);
-      document.getElementById("dev-backdrop").addEventListener("click", closeDevPanel);
-      document.addEventListener("keydown", function(e){ if (e.key === "Escape" && devModal && !devModal.hidden) closeDevPanel(); });
 
       /* ================= LETTER QUIZ =================
          Opened from the 字母测验 button in the letters panel head. All
@@ -6657,7 +6746,7 @@
           lqRight++;
           /* letter-series fuel: every correct recognition of a
              letter counts, across runs - the third one earns that
-             letter's Names card (#3-#30) via the sweep */
+             letter's star card (#3-#30) via the sweep */
           store.letterHits[lqCur] = (store.letterHits[lqCur] || 0) + 1;
           saveStore();
           checkNameSeries();
@@ -6667,7 +6756,7 @@
           speakLetterFeedback(lqCur);
         } else {
           btn.classList.add("wrong");
-          msg.innerHTML = IC.x + "<span>不对，这个字母是「" + L.name + "」（" + L.trans + "）</span>";
+          msg.innerHTML = IC.x + "<span>不对，这个字母是「<span class=\"ar-inline\">" + L.name + "</span>」（" + L.trans + "）</span>";
           msg.className = "quiz-msg bad";
         }
         document.getElementById("lq-right").textContent = lqRight;
@@ -6675,6 +6764,7 @@
         document.getElementById("lq-next").hidden = false;
       }
       function finishLetterQuiz(){
+        track("quiz_complete", { type: "letters", score: lqRight, total: LQ_TOTAL });
         var pass = lqRight === LQ_TOTAL;
         if (pass && grantCard(CARDS[0])){
           refreshMe();
@@ -6685,7 +6775,9 @@
         document.getElementById("lq-result-score").textContent = lqRight + " / " + LQ_TOTAL;
         document.getElementById("lq-result-note").textContent = pass
           ? "全对通过！「字母启程卡」你已经获得过了——去「我的 - 集卡活动」点开卡片，可以放大、翻转、拖动倾斜。"
-          : "差一点——错了 " + (LQ_TOTAL - lqRight) + " 题。28 题必须全对才算通过，再把字母认熟，重新挑战。";
+          : (lqRight === 0
+            ? "这一轮 0 分，完全没关系——第一次认 28 个字母本来就难。先回字母表把它们一个一个看一遍、听一遍，再回来挑战，你会发现它们一下子就亲切了。"
+            : "差一点——错了 " + (LQ_TOTAL - lqRight) + " 题。28 题必须全对才算通过，再把字母认熟，重新挑战。");
         lqShowMain(false);
       }
       function lqOpenQuiz(){
@@ -6704,6 +6796,10 @@
       document.getElementById("lq-backdrop").addEventListener("click", lqCloseQuiz);
       document.getElementById("lq-speak").addEventListener("click", function(){ if (lqCur >= 0) speakLetter(lqCur); });
       document.getElementById("lq-next").addEventListener("click", function(){
+        /* an unanswered question cannot be skipped: the button only
+           appears after an answer, and this guard keeps that true
+           even if the state is poked at - answer first, then move */
+        if (!lqLock){ meToast("先选一个答案，再进入下一题"); return; }
         if (lqIdx < LQ_TOTAL - 1){ lqIdx++; nextLetterQ(); }
         else finishLetterQuiz();
       });
@@ -6730,9 +6826,8 @@
          that is not pooled yet into SRS through srsGrade() and
          grants the lesson's course-series collect card. Completion
          lives in store.topicDone (lesson numbers 1-14) via the shared
-         saveStore(). While PRO_GATE is false (current phase) all
-         14 lessons are open; at launch lessons 1-3 stay a free
-         trial and 4-14 render locked (PRO). The 28 letters stay a
+         saveStore(). All 14 lessons are open (no paywall, v1.1).
+         The 28 letters stay a
          prerequisite row on top of 初级， opening the in-course
          字母入门 page (L1-L5 letter path). */
       var TLESSONS = [
@@ -6771,7 +6866,6 @@
           grammar: { t: "语法点 · 介词 إِلَىٰ / مِنْ / فِي / عَلَىٰ", b: "إِلَىٰ 表示去往（方向）、مِنْ 表示从（出发点）、فِي 表示在……里、 عَلَىٰ 表示在……上。有了 أَذْهَبُ إِلَى الْمَطَارِ（我去机场）这个骨架，换上任何地点都能开口问路、说行程。" },
           dlg: [["甲", "السَّلَامُ عَلَيْكُمْ، كَيْفَ حَالُكَ؟", "你好，你好吗？"], ["乙", "بِخَيْرٍ، شُكْرًا.", "很好，谢谢。"], ["甲", "أَذْهَبُ إِلَى الْمَطَارِ بِالْحَافِلَةِ.", "我坐公共汽车去机场。"], ["乙", "أَنَا أَذْهَبُ بِالْقِطَارِ إِلَى الْمَدِينَةِ.", "我坐火车去城里。"], ["甲", "هٰذَا مَوْقِفُ سَيَّارَاتٍ وَمَحَطَّةٌ.", "这是停车场和车站。"], ["乙", "هٰذِهِ إِشَارَةُ مُرُورٍ، وَهٰذَا تَقَاطُعٌ.", "这是红绿灯，这是十字路口。"], ["甲", "الطَّائِرَةُ كَبِيرَةٌ، وَالْقَارِبُ صَغِيرٌ.", "飞机大，小船小。"], ["乙", "عِنْدِي تَذْكِرَةٌ وَجَوَازُ سَفَرٍ وَخَرِيطَةٌ.", "我有车票、护照和地图。"], ["甲", "أَيْنَ الْمِينَاءُ وَالْجِسْرُ؟", "港口和桥在哪儿？"], ["乙", "هٰذَا الْمِينَاءُ، وَهٰذَا النَّفَقُ.", "这是港口，这是隧道。"], ["甲", "إِلَى الْيَسَارِ أَمْ إِلَى الْيَمِينِ؟", "向左还是向右？"], ["乙", "إِلَى الْيَمِينِ! مَعَ السَّلَامَةِ!", "向右！再见！"]] }
       ];
-      var LOCK_SVG = '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>';
       var BOOK_SVG = '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 7v14"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg>';
       var EAR_SVG = '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4V5Z"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>';
       var MEDAL_SVG = '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg>';
@@ -6804,20 +6898,14 @@
       var courseBody = document.getElementById("course-body");
       var lvlOpen = { basic: true, mid: false, adv: false };
       function lessonRow(L){
-        var words = (PRO_GATE && L.free) ? catWords(L.cat).filter(function(w){ return !w.pro; }) : catWords(L.cat);
+        var words = catWords(L.cat);
         var isDone = isTopicDone(L.no);
-        var locked = PRO_GATE && !L.free;
         var row = document.createElement("button");
         row.type = "button";
-        row.className = "lesson-row" + (isDone ? " done" : "") + (locked ? " locked" : "");
-        var right = isDone
-          ? '<span class="lesson-check">' + CHECK_SVG + "</span>"
-          : (locked ? '<span class="lesson-lock">' + LOCK_SVG + "PRO 解锁</span>" : (L.free && PRO_GATE ? '<span class="lesson-free">免费试学</span>' : ""));
+        row.className = "lesson-row" + (isDone ? " done" : "");
+        var right = isDone ? '<span class="lesson-check">' + CHECK_SVG + "</span>" : "";
         row.innerHTML = '<span class="lesson-no">' + L.no + '</span><span class="lesson-main"><span class="lesson-name">第' + L.no + "课 · " + L.cat + '</span><span class="lesson-sub" style="display:block;">' + words.length + " 个词 · 闪卡 → 对话 → 听音选词 → 测验 → 打卡集卡</span></span>" + right;
-        row.addEventListener("click", function(){
-          if (locked){ meToast("第 " + L.no + " 课「" + L.cat + "」是 PRO 内容，开通会员后解锁"); return; }
-          openTopicLesson(L.no);
-        });
+        row.addEventListener("click", function(){ openTopicLesson(L.no); });
         return row;
       }
       function levelCard(key, title, sub, pill, pillCls, doneN, totalN){
@@ -6858,7 +6946,7 @@
            字母入门 prerequisite is its own labelled row and is NOT
            part of the fraction, so the three levels add up to 14 */
         var basicDone = TLESSONS.slice(0, 3).filter(function(L){ return isTopicDone(L.no); }).length;
-        var basic = levelCard("basic", "初级课程", "从零开口", PRO_GATE ? "免费" : "", "", basicDone, 3);
+        var basic = levelCard("basic", "初级课程", "从零开口", "", "", basicDone, 3);
         var pre = document.createElement("button");
         pre.type = "button";
         pre.className = "lesson-row letters-pre";
@@ -6867,17 +6955,17 @@
         basic.rows.appendChild(pre);
         TLESSONS.slice(0, 3).forEach(function(L){ basic.rows.appendChild(lessonRow(L)); });
         courseBody.appendChild(basic.card);
-        /* 中级： lessons 4-8 (PRO-locked while the gate is on) */
+        /* 中级： lessons 4-8 */
         var midDone = TLESSONS.slice(3, 8).filter(function(L){ return isTopicDone(L.no); }).length;
-        var mid = levelCard("mid", "中级课程", "日常交流", PRO_GATE ? "PRO" : "", PRO_GATE ? "pro" : "", midDone, 5);
+        var mid = levelCard("mid", "中级课程", "日常交流", "", "", midDone, 5);
         TLESSONS.slice(3, 8).forEach(function(L){ mid.rows.appendChild(lessonRow(L)); });
         courseBody.appendChild(mid.card);
         /* 高级： lessons 9-14 - the six new categories (动物 / 职业 /
-           身体 / 衣服 / 天气 / 交通）, all PRO, longer dialogues
+           身体 / 衣服 / 天气 / 交通）, longer dialogues
            (12 lines) plus one grammar point per lesson - the
            placeholder's 长对话 · 语法精讲 promise, delivered */
         var advDone = TLESSONS.slice(8).filter(function(L){ return isTopicDone(L.no); }).length;
-        var adv = levelCard("adv", "高级课程", "长对话 · 语法精讲", PRO_GATE ? "PRO" : "", PRO_GATE ? "pro" : "", advDone, 6);
+        var adv = levelCard("adv", "高级课程", "长对话 · 语法精讲", "", "", advDone, 6);
         TLESSONS.slice(8).forEach(function(L){ adv.rows.appendChild(lessonRow(L)); });
         courseBody.appendChild(adv.card);
       }
@@ -7014,9 +7102,10 @@
       function openTopicLesson(no){
         var L = null;
         TLESSONS.forEach(function(x){ if (x.no === no) L = x; });
-        if (!L || (PRO_GATE && !L.free)) return;
+        if (!L) return;
         curTopic = L;
-        var words = catWords(L.cat).filter(function(w){ return !PRO_GATE || !w.pro || L.no > 3; });
+        track("lesson_start", { type: "topic", no: L.no });
+        var words = catWords(L.cat);
         var card = courseCard(L.no);
         document.getElementById("lesson-title").textContent = "第" + L.no + "课 · " + L.cat;
         document.getElementById("lesson-done-badge").hidden = !isTopicDone(L.no);
@@ -7343,12 +7432,12 @@
         });
         if (ok){
           tlq.right++;
-          msg.innerHTML = IC.check + "<span>答对了。「" + cur.ar + "」是「" + cur.zh + "」。</span>";
+          msg.innerHTML = IC.check + "<span>答对了。「<span class=\"ar-inline\">" + cur.ar + "</span>」是「" + cur.zh + "」。</span>";
           msg.className = "ex-msg good";
           speakWordFeedback(cur);
         } else {
           btn.classList.add("wrong");
-          msg.innerHTML = IC.x + "<span>不对，你听到的是「" + cur.ar + "」（" + cur.zh + "）。</span>";
+          msg.innerHTML = IC.x + "<span>不对，你听到的是「<span class=\"ar-inline\">" + cur.ar + "</span>」（" + cur.zh + "）。</span>";
           msg.className = "ex-msg bad";
         }
         document.getElementById("tl-count").textContent = "第 " + (tlq.idx + 1) + " / " + TLQ_TOTAL + " 题 · 已对 " + tlq.right + " 题";
@@ -7371,7 +7460,7 @@
         var qs = [];
         for (var i = 0; i < TQQ_TOTAL; i++){
           var w = order[i % order.length];
-          var others = shuffle(words.filter(function(x){ return x !== w; }).slice()).slice(0, 3);
+          var others = shuffle(words.filter(function(x){ return x !== w && zhBase(x.zh) !== zhBase(w.zh); }).slice()).slice(0, 3);
           qs.push({ w: w, mode: i % 2 === 0 ? "read" : "listen", opts: shuffle(others.concat([w])) });
         }
         tqq = { qs: qs, idx: 0, right: 0, lock: false };
@@ -7428,12 +7517,12 @@
         });
         if (ok){
           tqq.right++;
-          msg.innerHTML = IC.check + "<span>答对了！「" + q.w.ar + "」是「" + q.w.zh + "」。</span>";
+          msg.innerHTML = IC.check + "<span>答对了！「<span class=\"ar-inline\">" + q.w.ar + "</span>」是「" + q.w.zh + "」。</span>";
           msg.className = "ex-msg good";
           speakWordFeedback(q.w);
         } else {
           btn.classList.add("wrong");
-          msg.innerHTML = IC.x + "<span>不对。「" + q.w.ar + "」是「" + q.w.zh + "」" + (q.w.note ? "——" + q.w.note : "") + "</span>";
+          msg.innerHTML = IC.x + "<span>不对。「<span class=\"ar-inline\">" + q.w.ar + "</span>」是「" + q.w.zh + "」" + (q.w.note ? "——" + q.w.note : "") + "</span>";
           msg.className = "ex-msg bad";
         }
         document.getElementById("tq-count").textContent = "第 " + (tqq.idx + 1) + " / " + TQQ_TOTAL + " 题 · " + (q.mode === "read" ? "看词选义" : "听音选词") + " · 已对 " + tqq.right + " 题";
@@ -7447,6 +7536,7 @@
           var tqPass = tqq.right >= tqNeed;
           msg.innerHTML += "<br>本课测验 " + tqq.right + " / " + TQQ_TOTAL + "。" + (tqPass ? "达到及格线——去第 5 步打卡领卡吧。" : "未达及格线（至少答对 " + tqNeed + " 题），建议回第 1 步再看一遍，然后重测。");
           document.getElementById("tq-againwrap").hidden = false;
+          track("quiz_complete", { type: "topic", no: curTopic ? curTopic.no : 0, score: tqq.right, total: TQQ_TOTAL });
           if (tqPass) markLpStep(4);
         }
       }
@@ -7481,6 +7571,7 @@
           document.getElementById("lesson-done-badge").hidden = !now;
           paint();
           if (now){
+            track("lesson_complete", { type: "topic", no: L.no });
             var added = 0;
             words.forEach(function(w){ if (!store.srs[w.ar]){ srsGrade(w, true); added++; } });
             refreshSrsUI();
@@ -7490,7 +7581,7 @@
             } else {
               meToast("第 " + L.no + " 课已完成" + (added ? "，" + added + " 个词已进入间隔复习" : ""));
             }
-            /* the lesson's course-series Names twin (#55-#62) rides
+            /* the lesson's course-series star twin (#55-#62) rides
                the same completion through the sweep - silently, the
                course card owns this celebration */
             checkNameSeries();
@@ -7564,6 +7655,7 @@
         MLESSONS.forEach(function(x){ if (x.no === no) L = x; });
         if (!L) return;
         curMorph = L;
+        track("lesson_start", { type: "morph", no: L.no });
         document.getElementById("lesson-title").textContent = "第" + L.no + "课 · " + L.name;
         document.getElementById("lesson-done-badge").hidden = !isMorphDone(L.no);
         var h = '<p class="lp-note">' + L.intro + "</p>";
@@ -7713,6 +7805,7 @@
             var mqPass = right >= mqNeed;
             msg.innerHTML += "<br>本课小测 " + right + " / " + qs.length + "。" + (mqPass ? "达到及格线——去第 4 步打卡吧。" : "未达及格线（至少答对 " + mqNeed + " 题），建议回第 1、2 步再看一遍，然后重测。");
             againWrap.hidden = false;
+            track("quiz_complete", { type: "morph", no: L.no, score: right, total: qs.length });
             if (mqPass) morphMarkStep(L, 3);
           }
         }
@@ -7737,6 +7830,7 @@
         btn.addEventListener("click", function(){
           var now = !isMorphDone(L.no);
           if (now && !morphSteps(L.no)[2]){ meToast("先通过第 3 步辨析小测（答对至少 3 / 5 题）再打卡"); return; }
+          if (now) track("lesson_complete", { type: "morph", no: L.no });
           setMorphStep(L.no, 3, now);
           if (lpStepDone[3] !== now){ lpStepDone[3] = now; paintLpSteps(false); }
           paint();
@@ -7801,6 +7895,7 @@
         GLESSONS.forEach(function(x){ if (x.no === no) L = x; });
         if (!L) return;
         curGram = L;
+        track("lesson_start", { type: "gram", no: L.no });
         document.getElementById("lesson-title").textContent = "第" + L.no + "课 · " + L.name;
         document.getElementById("lesson-done-badge").hidden = !isGramDone(L.no);
         var h = '<p class="lp-note">' + L.intro + "</p>";
@@ -7942,6 +8037,7 @@
             var gqPass = right >= gqNeed;
             msg.innerHTML += "<br>本课小测 " + right + " / " + qs.length + "。" + (gqPass ? "达到及格线——去第 4 步打卡吧。" : "未达及格线（至少答对 " + gqNeed + " 题），建议回第 1、2 步再看一遍，然后重测。");
             againWrap.hidden = false;
+            track("quiz_complete", { type: "gram", no: L.no, score: right, total: qs.length });
             if (gqPass) gramMarkStep(L, 3);
           }
         }
@@ -7966,6 +8062,7 @@
         btn.addEventListener("click", function(){
           var now = !isGramDone(L.no);
           if (now && !gramSteps(L.no)[2]){ meToast("先通过第 3 步辨析小测（答对至少 3 / 5 题）再打卡"); return; }
+          if (now) track("lesson_complete", { type: "gram", no: L.no });
           setGramStep(L.no, 3, now);
           if (lpStepDone[3] !== now){ lpStepDone[3] = now; paintLpSteps(false); }
           paint();
