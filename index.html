@@ -2408,7 +2408,7 @@
         }
       }
       player.addEventListener("error", function(){ if (player.src) audioUnavailable(player.src); });
-      document.addEventListener("error", function(e){ var t = e.target; if (t && t.tagName === "IMG") t.classList.add("img-dead"); }, true);
+      /*[rf19]*/ document.addEventListener("error", function(e){ var t = e.target; if (!t || t.tagName !== "IMG") return; var s = t.getAttribute("src") || ""; if (/(^|\/)assets\/_sm\//.test(s)){ setTimeout(function(){ var c = t.getAttribute("src") || ""; if (/(^|\/)assets\/_sm\//.test(c) && t.complete && !t.naturalWidth) t.classList.add("img-dead"); }, 0); return; } t.classList.add("img-dead"); }, true); document.addEventListener("load", function(e){ var t = e.target; if (t && t.tagName === "IMG") t.classList.remove("img-dead"); }, true); /*[rf19]*/
       function wordMissing(w){ var i = WORDS.indexOf(w); return i >= 0 && !!AUDIO_MISSING["w" + padNum(i + 1, 3)]; }
       function tagNoAudio(el, missing){ if (!el) return; var t = el.querySelector(".lp-noaudio"); if (missing && !t){ t = document.createElement("span"); t.className = "lp-noaudio"; t.textContent = "机器朗读"; el.appendChild(t); } else if (!missing && t){ t.parentNode.removeChild(t); } }
       function clipMissing(src){ var id = String(src || "").split("/").pop().replace(/\.mp3$/, ""); return !!AUDIO_MISSING[id]; }
