@@ -1299,11 +1299,11 @@
 }
 @media (max-width:720px){
  #panel-quiz .quiz-msg{flex-shrink:0}
- #panel-quiz .quiz-card:has(.quiz-msg:not(:empty)){display:grid;grid-template-columns:minmax(0,1fr) auto;align-content:start;column-gap:8px}
- #panel-quiz .quiz-card:has(.quiz-msg:not(:empty))>*{grid-column:1/-1}
- #panel-quiz .quiz-card:has(.quiz-msg:not(:empty))>.quiz-ar{grid-column:1;grid-row:1;font-size:30px;line-height:1.35;overflow-wrap:anywhere;align-self:center}
- #panel-quiz .quiz-card:has(.quiz-msg:not(:empty))>.quiz-speak-row{grid-column:2;grid-row:1;align-self:center;margin:0}
- #panel-quiz .quiz-card:has(.quiz-msg:not(:empty))>.quiz-listen-hint{display:none}
+ #panel-quiz .quiz-card:has(.quiz-msg.r3-off){display:grid;grid-template-columns:minmax(0,1fr) auto;align-content:start;column-gap:8px}
+ #panel-quiz .quiz-card:has(.quiz-msg.r3-off)>*{grid-column:1/-1}
+ #panel-quiz .quiz-card:has(.quiz-msg.r3-off)>.quiz-ar{grid-column:1;grid-row:1;font-size:30px;line-height:1.35;overflow-wrap:anywhere;align-self:center}
+ #panel-quiz .quiz-card:has(.quiz-msg.r3-off)>.quiz-speak-row{grid-column:2;grid-row:1;align-self:center;margin:0}
+ #panel-quiz .quiz-card:has(.quiz-msg.r3-off)>.quiz-listen-hint{display:none}
 }
 /* F2 extreme short screens below the test matrix (QA P3: 375x548 minus a 56/90px address bar): compact grid, no panel scroll;
    at <=520 a very long note scrolls inside its own message box as the last resort. */
@@ -1314,7 +1314,7 @@
  #panel-quiz .quiz-card>.quiz-listen-hint{display:none}
  #panel-quiz .quiz-card>.quiz-ar{grid-column:1;grid-row:1;overflow-wrap:anywhere;align-self:center}
  #panel-quiz .quiz-card>.quiz-speak-row{grid-column:2;grid-row:1;align-self:center;margin:0}
- #panel-quiz .quiz-card:has(.quiz-msg:not(:empty))>.quiz-ar{font-size:26px}
+ #panel-quiz .quiz-card:has(.quiz-msg.r3-off)>.quiz-ar{font-size:26px}
  #panel-quiz .quiz-card>.quiz-trans{grid-row:2}
  #panel-quiz .quiz-card>.quiz-opts{grid-row:3}
  #panel-quiz .quiz-card>.quiz-msg{grid-row:4;align-self:start;max-height:100%}
@@ -1334,7 +1334,7 @@
  #panel-quiz .quiz-ar{font-size:30px;line-height:1.3}
  #panel-quiz .quiz-card{padding-top:4px;padding-bottom:6px}
  #panel-quiz .quiz-status{display:none}
- #panel-quiz .quiz-card:has(.quiz-msg:not(:empty))>.quiz-ar{font-size:24px;line-height:1.3}
+ #panel-quiz .quiz-card:has(.quiz-msg.r3-off)>.quiz-ar{font-size:24px;line-height:1.3}
 }
 /* F3 option wrap: JS splits options at ；/（）/ ／ into .opt-seg units, so lines break between units (卡里姆 | （人 / 名）), never inside a short name;
    overflow-wrap:anywhere is the safety net for a unit longer than the line. */
@@ -1528,9 +1528,10 @@ body:has(.vip-page.open) :is(.panel,.tabbar) :is(.tabslider,.flash-face,.tfc-fac
           <h2>测验</h2>
           <p id="quiz-head-p">看词选意思，答对点亮，连对计数。题目从全部 <span class="words-total">587</span> 个词里随机抽，先听一遍发音，凭记忆选意思。切到「听音选词」，就只凭耳朵认词。</p>
         </div>
-        <div class="quiz-modes" role="group" aria-label="测验模式">
-          <button class="qmode on" id="qm-read" type="button" aria-pressed="true"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-book-open"/></svg>看词选义</button>
-          <button class="qmode" id="qm-listen" type="button" aria-pressed="false"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-volume-2"/></svg>听音选词</button>
+        <!--[glass p5 r3]--><div class="quiz-modes track-switch" role="group" aria-label="测验模式">
+          <span class="track-pill" aria-hidden="true"></span>
+          <button class="qmode track-btn on" id="qm-read" type="button" aria-pressed="true"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-book-open"/></svg>看词选义</button>
+          <button class="qmode track-btn" id="qm-listen" type="button" aria-pressed="false"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-volume-2"/></svg>听音选词</button>
         </div>
         <div class="quiz-status">
           <div class="quiz-round-track"><div class="quiz-round-fill" id="q-roundfill"></div></div>
@@ -6992,7 +6993,7 @@ body:has(.vip-page.open) :is(.panel,.tabbar) :is(.tabslider,.flash-face,.tfc-fac
       }
       function setCourseTrack(t){
         courseTrack = t;
-        document.querySelectorAll(".track-btn").forEach(function(b){
+        document.querySelectorAll("#panel-course .track-btn").forEach(function(b){
           var on = b.getAttribute("data-track") === t;
           b.classList.toggle("on", on);
           b.setAttribute("aria-pressed", on ? "true" : "false");
@@ -7004,11 +7005,48 @@ body:has(.vip-page.open) :is(.panel,.tabbar) :is(.tabslider,.flash-face,.tfc-fac
         var cs = document.getElementById("course-scroll"); if (cs) cs.scrollTop = 0;
         moveTrackPill(true); /*[glass 1.3.2]*/
       }
-      document.querySelectorAll(".track-btn").forEach(function(b){
+      document.querySelectorAll("#panel-course .track-btn").forEach(function(b){
         b.addEventListener("click", function(){ setCourseTrack(b.getAttribute("data-track")); });
       });
       moveTrackPill(false); /*[glass 1.3.2]*/
       window.addEventListener("resize", function(){ moveTrackPill(false); }); /*[glass 1.3.2]*/
+      //[glass p5 r3] B: measure the .wrap bottom reserve that applies while a non-course tab is active (r2 zeroes it on the course tab)
+      (function(){ var wr = document.querySelector(".wrap"); if (!wr) return;
+        function m(){ try{ wr.classList.add("r3-m"); var v = getComputedStyle(wr).paddingBottom; wr.classList.remove("r3-m"); if (v && v !== "0px") document.documentElement.style.setProperty("--r3-wpb", v); else document.documentElement.style.removeProperty("--r3-wpb"); }catch(e){ try{ wr.classList.remove("r3-m"); }catch(_){} } }
+        m(); document.addEventListener("DOMContentLoaded", m); window.addEventListener("load", m); window.addEventListener("resize", m); window.addEventListener("orientationchange", m);
+        if (window.visualViewport) window.visualViewport.addEventListener("resize", m); })(); //[glass p5 r3]
+      //[glass p5 r3] C: sliding thumb for the 测验 / 我的 segs (same spring + webkit replay fix as moveTrackPill; handlers untouched, .on is observed)
+      document.addEventListener("DOMContentLoaded", function(){
+        function mv(sw, animate){
+          var pill = sw.querySelector(".track-pill"), btn = sw.querySelector(".track-btn.on");
+          if (!pill || !btn || !btn.offsetWidth) return;
+          var to = btn.offsetLeft - 4;
+          pill.style.width = btn.offsetWidth + "px";
+          var reduced = (typeof reduceMotion !== "undefined" && reduceMotion);
+          if (!animate || reduced || !pill.animate){
+            if (pill._an){ try{ pill._an.cancel(); }catch(e){} pill._an = null; }
+            pill.style.transition = "none"; pill.style.transform = "translateX(" + to + "px)"; void pill.offsetWidth; pill.style.transition = ""; pill._tx = to;
+            return;
+          }
+          var from = trackPillCurrentX(pill);
+          if (pill._an){ try{ pill._an.cancel(); }catch(e){} pill._an = null; }
+          var an = pill._an = pill.animate([
+            { transform: "translateX(" + from + "px) scaleX(1)" },
+            { transform: "translateX(" + ((from + to) / 2) + "px) scaleX(1.12)", offset: 0.5 },
+            { transform: "translateX(" + to + "px) scaleX(1)" }
+          ], { duration: 350, easing: "cubic-bezier(.175,.885,.32,1.15)" });
+          pill._tx = to;
+          an.onfinish = function(){ pill.style.transition = "none"; pill.style.transform = "translateX(" + to + "px)"; void pill.offsetWidth; pill.style.transition = ""; pill._tx = to; pill._an = null; };
+          an.oncancel = function(){ if (pill._an === an) pill._an = null; };
+        }
+        [["panel-quiz",".quiz-modes"],["panel-me",".me-seg"]].forEach(function(d){
+          var pn = document.getElementById(d[0]), sw = pn && pn.querySelector(d[1]); if (!sw) return;
+          new MutationObserver(function(){ mv(sw, true); }).observe(sw, {attributes:true, attributeFilter:["class"], subtree:true});
+          new MutationObserver(function(){ mv(sw, false); }).observe(pn, {attributes:true, attributeFilter:["class"]});
+          mv(sw, false);
+        });
+        window.addEventListener("resize", function(){ ["#panel-quiz .quiz-modes","#panel-me .me-seg"].forEach(function(q){ var s = document.querySelector(q); if (s) mv(s, false); }); });
+      });
 
       /* vowels: guide + callout */
       function vowelTipHTML(){ return '<div class="vow-tip" role="note"><svg class="ic vow-tip-ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-info"/></svg><p>易错提醒：开口符读「阿」，齐齿符才读「衣」；分长短靠的是读音的长短，不是把「阿」换成「衣」。短的开口音在 ب、ت、س 这类普通字母后面可能听起来稍微偏「诶」，但它仍然是开口符的音。</p></div>'; }
@@ -7737,7 +7775,7 @@ body:has(.vip-page.open) :is(.panel,.tabbar) :is(.tabslider,.flash-face,.tfc-fac
   var sc=document.querySelector("#panel-me .me-scroll"); if(!sc||sc.getAttribute("data-p2")) return; sc.setAttribute("data-p2","1");
   var head=sc.querySelector(".me-head");
   var defs=[["cal","打卡","i-calendar"],["col","集卡","i-award"],["more","更多","i-settings"]];
-  var seg=document.createElement("div"); seg.className="track-switch me-seg"; seg.setAttribute("role","group"); seg.setAttribute("aria-label","我的");
+  var seg=document.createElement("div"); seg.className="track-switch me-seg"; seg.setAttribute("role","group"); seg.setAttribute("aria-label","我的"); var pl=document.createElement("span"); pl.className="track-pill"; pl.setAttribute("aria-hidden","true"); seg.appendChild(pl); //[glass p5 r3]
   var panes={};
   defs.forEach(function(d,i){
     var b=document.createElement("button"); b.type="button"; b.className="track-btn"+(i?"":" on"); b.setAttribute("data-mepane",d[0]); b.setAttribute("aria-pressed",i?"false":"true");
@@ -8211,7 +8249,7 @@ html:not(.lowfx):not(.no-blur) body:not(.lowfx):not(.no-blur) .sub-page .vip-bac
 .vip-back,.vow-card .mini-speak,.vow-half .mini-speak{--press-scale:.94;--g-press-dur:.18s;--g-release-dur:.18s;}
 </style>
 <style>/*[glass 1.3.2]*/
-/* Muse Liquid Glass v1.3.2 patch, ported onto p4. Scope: top segmented bar (#panel-course .track-switch) + bottom tab bar (#tab-slider) only.
+/* Muse Liquid Glass v1.3.2 patch, ported onto p4. Scope: top segmented bar (:is(#panel-course,#panel-quiz,#panel-me) .track-switch) + bottom tab bar (#tab-slider) only.
    Values are copied verbatim from glass-v1.3.1-patch.md + glass-v1.3.2-patch.md / index-v1.3.2-glass.html. ID-scoped selectors are used only so the values beat glass-v13.css, the F6 blur-budget block and the dark twins already in p4; me-seg (.track-switch in 我的) is untouched. */
 /* HOOK: top selected-slider colour. ONE line, swap here only (light | dark-by-media | dark-by-data-theme). Default = patch values. */
 :root{--seg-thumb-bg:#FFFFFF;} @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--seg-thumb-bg:#636366;}} :root[data-theme="dark"]{--seg-thumb-bg:#636366;}
@@ -8219,7 +8257,7 @@ html:not(.lowfx):not(.no-blur) body:not(.lowfx):not(.no-blur) .sub-page .vip-bac
 #tab-slider{background:rgba(255,255,255,.60);-webkit-backdrop-filter:blur(25px) saturate(180%);backdrop-filter:blur(25px) saturate(180%);border:1px solid rgba(255,255,255,.5);box-shadow:inset 0 1px 1px rgba(255,255,255,.8),inset 0 -1px 0 rgba(0,0,0,.08),0 8px 24px rgba(0,0,0,.12);}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]) #tab-slider{background:rgba(28,28,30,.60);-webkit-backdrop-filter:blur(25px) saturate(180%);backdrop-filter:blur(25px) saturate(180%);border:1px solid rgba(255,255,255,.18);box-shadow:inset 0 1px 1px rgba(255,255,255,.18),inset 0 -1px 0 rgba(0,0,0,.35),0 8px 24px rgba(0,0,0,.35);}}
 :root[data-theme="dark"] #tab-slider{background:rgba(28,28,30,.60);-webkit-backdrop-filter:blur(25px) saturate(180%);backdrop-filter:blur(25px) saturate(180%);border:1px solid rgba(255,255,255,.18);box-shadow:inset 0 1px 1px rgba(255,255,255,.18),inset 0 -1px 0 rgba(0,0,0,.35),0 8px 24px rgba(0,0,0,.35);}
-#tab-slider::before,#panel-course .track-switch::before{content:none;}
+#tab-slider::before,:is(#panel-course,#panel-quiz,#panel-me) .track-switch::before{content:none;}
 .tabslider{transition:transform .35s cubic-bezier(.175,.885,.32,1.15);}
 .tabslider.barscale{transform:scale(1.04);transition:transform .18s cubic-bezier(.175,.885,.32,1.15);}
 .tabslider.barreturn{transform:scale(1);transition:transform .32s cubic-bezier(.175,.885,.32,1.15);}
@@ -8238,18 +8276,18 @@ html:not(.lowfx):not(.no-blur) body:not(.lowfx):not(.no-blur) .sub-page .vip-bac
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .tab-btn{color:#D1D1D6;}}
 :root[data-theme="dark"] .tab-btn{color:#D1D1D6;}
 /* S1/S2/S5 top segmented bar: fill .60, blur, 1px border, NO shadow (E), thumb = .track-pill via --seg-thumb-bg */
-#panel-course .track-switch{background:rgba(118,118,128,.12);-webkit-backdrop-filter:none;backdrop-filter:none;border:1px solid rgba(255,255,255,.5);box-shadow:none;}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) #panel-course .track-switch{background:rgba(118,118,128,.24);-webkit-backdrop-filter:none;backdrop-filter:none;border:1px solid rgba(255,255,255,.18);box-shadow:none;}}
-:root[data-theme="dark"] #panel-course .track-switch{background:rgba(118,118,128,.24);-webkit-backdrop-filter:none;backdrop-filter:none;border:1px solid rgba(255,255,255,.18);box-shadow:none;}
-#panel-course .track-pill{position:absolute;top:4px;bottom:4px;left:4px;width:0;z-index:0;pointer-events:none;border-radius:999px;background:var(--seg-thumb-bg);box-shadow:0 3px 8px rgba(0,0,0,.12),0 3px 1px rgba(0,0,0,.04);transition:transform .35s cubic-bezier(.175,.885,.32,1.15);}
-#panel-course .track-btn{position:relative;z-index:1;font-weight:400;color:#48484A;transition:color .35s ease,transform .15s cubic-bezier(.175,.885,.32,1.15);}
-#panel-course .track-btn:active,#panel-course .track-btn.is-pressed{transform:scale(1.06);}
-@media (prefers-reduced-motion: reduce){#panel-course .track-btn:active,#panel-course .track-btn.is-pressed{transform:none;}}
-#panel-course .track-btn.on{background:transparent;color:#2B2B2E;font-weight:600;}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) #panel-course .track-btn{color:#D1D1D6;}}
-:root[data-theme="dark"] #panel-course .track-btn{color:#D1D1D6;}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) #panel-course .track-btn.on{color:#F5F5F7;}}
-:root[data-theme="dark"] #panel-course .track-btn.on{color:#F5F5F7;}
+:is(#panel-course,#panel-quiz,#panel-me) .track-switch{background:rgba(118,118,128,.12);-webkit-backdrop-filter:none;backdrop-filter:none;border:1px solid rgba(255,255,255,.5);box-shadow:none;}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) :is(#panel-course,#panel-quiz,#panel-me) .track-switch{background:rgba(118,118,128,.24);-webkit-backdrop-filter:none;backdrop-filter:none;border:1px solid rgba(255,255,255,.18);box-shadow:none;}}
+:root[data-theme="dark"] :is(#panel-course,#panel-quiz,#panel-me) .track-switch{background:rgba(118,118,128,.24);-webkit-backdrop-filter:none;backdrop-filter:none;border:1px solid rgba(255,255,255,.18);box-shadow:none;}
+:is(#panel-course,#panel-quiz,#panel-me) .track-pill{position:absolute;top:4px;bottom:4px;left:4px;width:0;z-index:0;pointer-events:none;border-radius:999px;background:var(--seg-thumb-bg);box-shadow:0 3px 8px rgba(0,0,0,.12),0 3px 1px rgba(0,0,0,.04);transition:transform .35s cubic-bezier(.175,.885,.32,1.15);}
+:is(#panel-course,#panel-quiz,#panel-me) .track-btn{position:relative;z-index:1;font-weight:400;color:#48484A;transition:color .35s ease,transform .15s cubic-bezier(.175,.885,.32,1.15);}
+:is(#panel-course,#panel-quiz,#panel-me) .track-btn:active,:is(#panel-course,#panel-quiz,#panel-me) .track-btn.is-pressed{transform:scale(1.06);}
+@media (prefers-reduced-motion: reduce){:is(#panel-course,#panel-quiz,#panel-me) .track-btn:active,:is(#panel-course,#panel-quiz,#panel-me) .track-btn.is-pressed{transform:none;}}
+:is(#panel-course,#panel-quiz,#panel-me) .track-btn.on{background:transparent;color:#2B2B2E;font-weight:600;}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) :is(#panel-course,#panel-quiz,#panel-me) .track-btn{color:#D1D1D6;}}
+:root[data-theme="dark"] :is(#panel-course,#panel-quiz,#panel-me) .track-btn{color:#D1D1D6;}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) :is(#panel-course,#panel-quiz,#panel-me) .track-btn.on{color:#F5F5F7;}}
+:root[data-theme="dark"] :is(#panel-course,#panel-quiz,#panel-me) .track-btn.on{color:#F5F5F7;}
 /* P1 degradations, both bars. Patch: raise to (0,3,0) = tie with the dark rules, placed later. In p4 the bar rules above are ID-scoped, so each selector carries the ID and three :root (1,3,0) / html.no-blur:root:root (1,3,1) to out-rank the ID-scoped dark twins (1,2,0). Declarations as patch (@supports not now also writes -webkit-backdrop-filter:none). */
 /*[glass p5 r2] bar fallback: solid #FFFFFF / #1C1C1E (was var(--tab-solid)); track fallback lives in the ui-fix block */
 @supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
@@ -8286,22 +8324,22 @@ html:not(.lowfx):not(.no-blur) body:not(.lowfx):not(.no-blur) .sub-page .vip-bac
 <style>/*[glass 1.3.2 ui-fix]*/
 /* UI review fixes (parent-approved, authoritative overrides of the 1.3.2 flat track). */
 /* P4: top track = glass base + frost again, gray systemFill overlay on top. Thumb, text colours and shadows untouched. */
-#panel-course .track-switch{background:linear-gradient(rgba(118,118,128,.12),rgba(118,118,128,.12)),rgba(255,255,255,.60);-webkit-backdrop-filter:blur(25px) saturate(180%);backdrop-filter:blur(25px) saturate(180%);}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) #panel-course .track-switch{background:linear-gradient(rgba(118,118,128,.24),rgba(118,118,128,.24)),rgba(28,28,30,.60);-webkit-backdrop-filter:blur(25px) saturate(180%);backdrop-filter:blur(25px) saturate(180%);}}
-:root[data-theme="dark"] #panel-course .track-switch{background:linear-gradient(rgba(118,118,128,.24),rgba(118,118,128,.24)),rgba(28,28,30,.60);-webkit-backdrop-filter:blur(25px) saturate(180%);backdrop-filter:blur(25px) saturate(180%);}
+:is(#panel-course,#panel-quiz,#panel-me) .track-switch{background:linear-gradient(rgba(118,118,128,.12),rgba(118,118,128,.12)),rgba(255,255,255,.60);-webkit-backdrop-filter:blur(25px) saturate(180%);backdrop-filter:blur(25px) saturate(180%);}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) :is(#panel-course,#panel-quiz,#panel-me) .track-switch{background:linear-gradient(rgba(118,118,128,.24),rgba(118,118,128,.24)),rgba(28,28,30,.60);-webkit-backdrop-filter:blur(25px) saturate(180%);backdrop-filter:blur(25px) saturate(180%);}}
+:root[data-theme="dark"] :is(#panel-course,#panel-quiz,#panel-me) .track-switch{background:linear-gradient(rgba(118,118,128,.24),rgba(118,118,128,.24)),rgba(28,28,30,.60);-webkit-backdrop-filter:blur(25px) saturate(180%);backdrop-filter:blur(25px) saturate(180%);}
 /*[glass p5 r2] P4 fallback (no backdrop-filter / html.no-blur / reduced transparency): solid #FFFFFF (light) / #1C1C1E (dark) base, gray systemFill overlay kept on the track (white thumb must stay visible) */
 @supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
-:root:root:root #panel-course .track-switch{-webkit-backdrop-filter:none;backdrop-filter:none;background:linear-gradient(rgba(118,118,128,.12),rgba(118,118,128,.12)),#FFFFFF;}
-@media (prefers-color-scheme: dark){:root:root:root:not([data-theme="light"]) #panel-course .track-switch{-webkit-backdrop-filter:none;backdrop-filter:none;background:linear-gradient(rgba(118,118,128,.24),rgba(118,118,128,.24)),#1C1C1E;}}
-:root:root:root[data-theme="dark"] #panel-course .track-switch{-webkit-backdrop-filter:none;backdrop-filter:none;background:linear-gradient(rgba(118,118,128,.24),rgba(118,118,128,.24)),#1C1C1E;}
+:root:root:root :is(#panel-course,#panel-quiz,#panel-me) .track-switch{-webkit-backdrop-filter:none;backdrop-filter:none;background:linear-gradient(rgba(118,118,128,.12),rgba(118,118,128,.12)),#FFFFFF;}
+@media (prefers-color-scheme: dark){:root:root:root:not([data-theme="light"]) :is(#panel-course,#panel-quiz,#panel-me) .track-switch{-webkit-backdrop-filter:none;backdrop-filter:none;background:linear-gradient(rgba(118,118,128,.24),rgba(118,118,128,.24)),#1C1C1E;}}
+:root:root:root[data-theme="dark"] :is(#panel-course,#panel-quiz,#panel-me) .track-switch{-webkit-backdrop-filter:none;backdrop-filter:none;background:linear-gradient(rgba(118,118,128,.24),rgba(118,118,128,.24)),#1C1C1E;}
 }
-:root.no-blur:root:root #panel-course .track-switch{-webkit-backdrop-filter:none;backdrop-filter:none;background:linear-gradient(rgba(118,118,128,.12),rgba(118,118,128,.12)),#FFFFFF;}
-@media (prefers-color-scheme: dark){:root.no-blur:root:root:not([data-theme="light"]) #panel-course .track-switch{-webkit-backdrop-filter:none;backdrop-filter:none;background:linear-gradient(rgba(118,118,128,.24),rgba(118,118,128,.24)),#1C1C1E;}}
-:root.no-blur:root:root[data-theme="dark"] #panel-course .track-switch{-webkit-backdrop-filter:none;backdrop-filter:none;background:linear-gradient(rgba(118,118,128,.24),rgba(118,118,128,.24)),#1C1C1E;}
+:root.no-blur:root:root :is(#panel-course,#panel-quiz,#panel-me) .track-switch{-webkit-backdrop-filter:none;backdrop-filter:none;background:linear-gradient(rgba(118,118,128,.12),rgba(118,118,128,.12)),#FFFFFF;}
+@media (prefers-color-scheme: dark){:root.no-blur:root:root:not([data-theme="light"]) :is(#panel-course,#panel-quiz,#panel-me) .track-switch{-webkit-backdrop-filter:none;backdrop-filter:none;background:linear-gradient(rgba(118,118,128,.24),rgba(118,118,128,.24)),#1C1C1E;}}
+:root.no-blur:root:root[data-theme="dark"] :is(#panel-course,#panel-quiz,#panel-me) .track-switch{-webkit-backdrop-filter:none;backdrop-filter:none;background:linear-gradient(rgba(118,118,128,.24),rgba(118,118,128,.24)),#1C1C1E;}
 @media (prefers-reduced-transparency: reduce){
-:root:root:root #panel-course .track-switch{-webkit-backdrop-filter:none;backdrop-filter:none;background:linear-gradient(rgba(118,118,128,.12),rgba(118,118,128,.12)),#FFFFFF;}
-@media (prefers-color-scheme: dark){:root:root:root:not([data-theme="light"]) #panel-course .track-switch{-webkit-backdrop-filter:none;backdrop-filter:none;background:linear-gradient(rgba(118,118,128,.24),rgba(118,118,128,.24)),#1C1C1E;}}
-:root:root:root[data-theme="dark"] #panel-course .track-switch{-webkit-backdrop-filter:none;backdrop-filter:none;background:linear-gradient(rgba(118,118,128,.24),rgba(118,118,128,.24)),#1C1C1E;}
+:root:root:root :is(#panel-course,#panel-quiz,#panel-me) .track-switch{-webkit-backdrop-filter:none;backdrop-filter:none;background:linear-gradient(rgba(118,118,128,.12),rgba(118,118,128,.12)),#FFFFFF;}
+@media (prefers-color-scheme: dark){:root:root:root:not([data-theme="light"]) :is(#panel-course,#panel-quiz,#panel-me) .track-switch{-webkit-backdrop-filter:none;backdrop-filter:none;background:linear-gradient(rgba(118,118,128,.24),rgba(118,118,128,.24)),#1C1C1E;}}
+:root:root:root[data-theme="dark"] :is(#panel-course,#panel-quiz,#panel-me) .track-switch{-webkit-backdrop-filter:none;backdrop-filter:none;background:linear-gradient(rgba(118,118,128,.24),rgba(118,118,128,.24)),#1C1C1E;}
 }
 /* wide-screen (>680) safe area: .wrap top = 12 + inset; sticky top -24 (content top is 24 + inset) */
 @media (min-width:681px){.wrap{padding-top:calc(12px + env(safe-area-inset-top));}#panel-course .track-switch{top:-24px;}}
@@ -8315,10 +8353,50 @@ html:not(.lowfx):not(.no-blur) body:not(.lowfx):not(.no-blur) .sub-page .vip-bac
 :root{--bar-clear:calc(92px + env(safe-area-inset-bottom));}
 @media (orientation:landscape) and (max-height:393px){:root{--bar-clear:calc(70px + env(safe-area-inset-bottom));}}
 @media (orientation:landscape) and (max-height:340px){:root{--bar-clear:calc(66px + env(safe-area-inset-bottom));}}
-.wrap:has(#panel-course.active){padding-bottom:0 !important;}
+.wrap:not(.r3-m):has(#panel-course.active){padding-bottom:0 !important;}
 #panel-course .course-scroll{padding-bottom:var(--bar-clear) !important;}
 #panel-course.active{padding-bottom:0;}
 /*[/glass p5 r2]*/</style>
+<style>/*[glass p5 r3]*/
+/* A. quiz layout stability: the answered state must not move anything. Message = fixed-height slot that exists before the answer (transparent), the wrong-answer grey box lives on the inner span; the old answered-state grid restyle (:has on a non-empty message) is retargeted to :has(.quiz-msg.r3-off) is neutralised. */
+:root{--r3-msg-h:116px;--r3-ex-h:96px;}
+@media (max-width:720px) and (max-height:820px){:root{--r3-msg-h:78px;--r3-ex-h:96px;}}
+@media (max-width:720px) and (max-height:700px){:root{--r3-msg-h:66px;}}
+@media (max-width:720px) and (max-height:520px){:root{--r3-msg-h:46px;}}
+.quiz-msg,.quiz-msg:empty,#panel-quiz .quiz-msg,#panel-quiz .quiz-msg:empty,.rv-card .quiz-msg,#lq-msg{box-sizing:border-box !important;height:var(--r3-msg-h) !important;min-height:var(--r3-msg-h) !important;max-height:var(--r3-msg-h) !important;overflow-y:auto;overscroll-behavior:contain;align-items:flex-start;align-content:flex-start;margin-block:6px !important;padding:0 !important;background:none !important;border-radius:0 !important;flex:0 0 auto !important;}
+.quiz-msg.bad,#panel-quiz .quiz-msg.bad{padding:0 !important;background:none !important;}
+.quiz-msg.bad>span,#panel-quiz .quiz-msg.bad>span{display:block;width:100%;box-sizing:border-box;background:var(--surface-soft);border-radius:16px;padding:9px 12px;font-weight:500;font-size:13px;line-height:1.45;text-align:left;}
+.quiz-msg.good{justify-content:center;}
+/* lesson quizzes (.ex-msg + Next wrapper): same idea; Next keeps its place (visibility, not display) */
+#tl-msg,#tq-msg,#mxq-msg,#gxq-msg{min-height:var(--r3-ex-h);box-sizing:border-box;}
+#tl-msg.bad,#tq-msg.bad,#mxq-msg.bad,#gxq-msg.bad{background:none;padding:0;}
+#tl-msg.bad>span,#tq-msg.bad>span,#mxq-msg.bad>span,#gxq-msg.bad>span{display:block;background:var(--surface-soft);border-radius:12px;padding:9px 12px;}
+#tl-nextwrap[hidden],#tq-nextwrap[hidden],#mxq-nextwrap[hidden],#gxq-nextwrap[hidden]{display:flex !important;visibility:hidden;}
+.listen-stage:has(>[id$="againwrap"]:not([hidden]))>[id$="nextwrap"]{display:none !important;}
+#rv-next[hidden]{display:inline-flex !important;visibility:hidden;}
+#mxq-play[hidden],#gxq-play[hidden]{display:inline-flex;visibility:hidden;}
+.lp-bq-item .ex-msg{box-sizing:border-box;min-height:40px;}
+/* listen-pick options: the graded icon used to take 42px of padding, narrowing the text so long words re-wrapped (+54px per row). Keep the padding constant, icon sits in the corner. */
+.listen-opts .opt.right,.listen-opts .opt.wrong{padding-inline-start:8px !important;padding-inline-end:8px !important;}
+.listen-opts .opt.right::after,.listen-opts .opt.wrong::after{top:4px !important;margin-top:0 !important;inset-inline-end:6px !important;}
+#panel-quiz .quiz-card>.quiz-msg{width:100% !important;}
+/* answered options keep the unanswered weight: bold glyphs are wider and re-wrapped tight options (row grew by one line) */
+.opt.right,.opt.wrong{font-weight:500 !important;}
+/* B. flashcard tab switch: the wrap's bottom reserve flips (0 <-> 114px+) only when the slide ends (activateTab), which resized the incoming panel (flash image large -> small). Every panel now has its FINAL size during the slide: while the course tab is active the other panels carry the reserve as margin, while another tab is active the course panel gives it back; --r3-wpb is measured once (JS below). Resting layout is unchanged (.wrap pb 0 on course). */
+.wrap:has(#panel-course.active) .panel:not(#panel-course){margin-bottom:var(--r3-wpb,0px);}
+.wrap:not(:has(#panel-course.active)) #panel-course.panel{margin-bottom:calc(-1 * var(--r3-wpb,0px));}
+/* C. 测验 / 我的 top = 课程 top (title + seg). Seg look comes from the course Muse rules (selectors extended in place). */
+#panel-quiz .quiz-modes.track-switch .track-btn,#panel-me .me-seg .track-btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:44px;}
+#panel-quiz .quiz-modes.track-switch .qmode .ic{width:16px;height:16px;}
+#panel-quiz .quiz-modes.track-switch{padding:4px !important;}
+@media (min-height:600px){
+#panel-quiz .panel-head,#panel-me .panel-head,#panel-me .me-head{display:block !important;flex:0 0 auto;margin:0 0 10px !important;text-align:center;}
+#panel-quiz .panel-head p,#panel-me .panel-head p,#panel-quiz .panel-head::after,#panel-me .panel-head::after{display:none !important;}
+#panel-course .panel-head{text-align:center;}
+#panel-me.panel{padding-top:12px !important;}
+#panel-quiz .quiz-modes.track-switch,#panel-me .me-seg{width:100% !important;max-width:640px !important;margin:0 auto 12px !important;}
+}
+/*[/glass p5 r3]*/</style>
 <!--[p4 css-end]-->
 </body>
 </html>
