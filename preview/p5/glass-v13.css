@@ -1,0 +1,383 @@
+/* [glass] ================================================================
+   v1.3 Liquid Glass — glass-v13.css (independent layer, load LAST)
+   Source of truth: design/liquid-glass-spec.md (boss-approved) +
+   design/glass.css (designer parameters). This file REPLACES the
+   --tab-fill / --tab-blur / --tab-border system with --g-* tokens.
+
+   How it hooks the v1.3-dev snapshot (index.html) with ZERO class
+   changes: every rule below maps the snapshot's existing selectors
+   (.tabslider, .flash-face, .quiz-card, .opt, .dlg-line, sheets…)
+   onto the four glass layers. Utility classes (.glass/.g-bar/.g-ctl/
+   .g-card/.g-sheet/.press/.glass-follow/.rd) are also provided for
+   any new markup the frontend adds later.
+
+   Layer map (spec §1.2):
+     bar   = .tabslider, .vip-head, .ac-head
+     ctl   = .vip-back, .lm-close, .ac-iconbtn, .chip, .cat-select,
+             select.camp-input, .nav-btn, .mini-speak, .quiz-modes,
+             .track-switch, .srs-bar, .glass-follow
+             (.lp-steps is NOT glassed: base2 [lpsteps] made it solid --bg-soft + --hairline.)
+     card  = .flash-face, .tfc-face, .quiz-card, .rv-card,
+             .listen-stage, .food-cap, .tfc-back-cap, photo captions
+     sheet = .award-card, .lm-card, .lq-card, .ring-panel (.me-toast stays solid ink — see §3 note)
+   SOLID (never glass, spec §1.2/§4): .opt, .dlg-line, .vocab-row,
+             .lesson-row, primary buttons.
+   The ONLY blue in this file is --read-hl / --read-hl-bg (spec §4.2),
+   applied solely to .rd and .sent-ar-fill (follow-read progress).
+   No yellow, no neon, no glow, no coloured shadows anywhere.
+   ====================================================================== */
+
+/* ---------- 1. Tokens (spec §1.1 + §4.2) ---------- */
+:root{
+  --g-ink:#111113;--g-ink-2:#3A3A3C;--g-ink-3:#636366;--g-ink-4:#48484A;
+  --g-bg:#F5F5F7;--g-surface:#FFFFFF;
+  /* baseline tokens reused directly (no duplicates): --hairline (edges), --focus-ring (keyboard ring colour), --ease (the one motion curve), --surface (ring gap). --press-scale is the baseline press token: v1.3 sets it to .96 below. */
+  --press-scale:.96;--g-primary-ink:#111113;
+  --g-ok:#4E7A62;--g-ok-bg:#F1F4F2;--g-bad:#C0392B;--g-bad-bg:#FFFFFF;
+  --g-blur-bar:24px;--g-sat-bar:180%;
+  --g-blur-ctl:16px;--g-sat-ctl:160%;
+  --g-blur-card:28px;--g-sat-card:170%;
+  --g-blur-sheet:40px;--g-sat-sheet:180%;
+  --g-fill-bar:rgba(255,255,255,.80);
+  --g-fill-ctl:rgba(255,255,255,.72);
+  --g-fill-card:rgba(255,255,255,.92);
+  --g-fill-sheet:rgba(255,255,255,.88);
+  --g-fill-solid:#F7F7F8;
+  --g-spec:linear-gradient(160deg,rgba(255,255,255,.95) 0%,rgba(255,255,255,.35) 38%,rgba(255,255,255,.10) 62%,rgba(255,255,255,.55) 100%);
+  --g-inner:inset 0 1px 0 rgba(255,255,255,.75),inset 0 -1px 0 rgba(17,17,19,.04);
+  --g-shadow-bar:0 8px 32px rgba(17,17,19,.10),0 1px 3px rgba(17,17,19,.06);
+  --g-shadow-card:0 12px 40px rgba(17,17,19,.08),0 2px 6px rgba(17,17,19,.04);
+  --g-shadow-ctl:0 4px 14px rgba(17,17,19,.08),0 1px 2px rgba(17,17,19,.05);
+  --g-shadow-sheet:0 -10px 50px rgba(17,17,19,.14),0 24px 60px rgba(17,17,19,.10);
+  --g-r-bar:32px;--g-r-ctl:22px;--g-r-btn:999px;--g-r-card:28px;--g-r-sheet:34px;--g-r-option:20px;
+  --g-press-dur:110ms;--g-release-dur:420ms;/* timing curve for BOTH is the baseline var(--ease) = cubic-bezier(.25,.8,.25,1): press settles back with NO overshoot */
+  --g-tab-on:rgba(17,17,19,.07);
+  --g-scrim:rgba(0,0,0,.32);
+  --g-ar-lh:2.2;
+  /* current line (spec §4): ink, never red */
+  --hl-line:#111113;--hl-line-bg:rgba(17,17,19,.05);
+  /* follow-read progress (spec §4.2): the ONLY blue, ONLY for .rd */
+  --read-hl:#1A56B0;--read-hl-bg:rgba(26,86,176,.10);
+  /* legacy bridges: old token names now resolve to the glass system */
+  --tab-fill:var(--g-fill-bar);--tab-blur:var(--g-blur-bar);--tab-border:var(--hairline);
+  --tab-solid:var(--g-fill-solid);
+  --highlight-read:var(--read-hl);
+  accent-color:#111113;
+}
+:root[data-theme="dark"]{
+  --g-ink:#F5F5F7;--g-ink-2:#E5E5EA;--g-ink-3:#AEAEB2;--g-ink-4:#C7C7CC;
+  --g-bg:#000000;--g-surface:#1C1C1E;
+  --g-ok:#7FA08C;--g-ok-bg:#1E2622;--g-bad:#E0574A;--g-bad-bg:#1C1C1E;
+  --g-fill-bar:rgba(28,28,30,.80);
+  --g-fill-ctl:rgba(44,44,46,.72);
+  --g-fill-card:rgba(28,28,30,.92);
+  --g-fill-sheet:rgba(28,28,30,.88);
+  --g-fill-solid:#232325;
+  --g-spec:linear-gradient(160deg,rgba(255,255,255,.32) 0%,rgba(255,255,255,.08) 40%,rgba(255,255,255,.02) 62%,rgba(255,255,255,.16) 100%);
+  --g-inner:inset 0 1px 0 rgba(255,255,255,.12),inset 0 -1px 0 rgba(0,0,0,.3);
+  --g-shadow-bar:0 8px 32px rgba(0,0,0,.5),0 1px 3px rgba(0,0,0,.4);
+  --g-shadow-card:0 12px 40px rgba(0,0,0,.45),0 2px 6px rgba(0,0,0,.35);
+  --g-shadow-ctl:0 4px 14px rgba(0,0,0,.4),0 1px 2px rgba(0,0,0,.3);
+  --g-shadow-sheet:0 -10px 50px rgba(0,0,0,.6),0 24px 60px rgba(0,0,0,.5);
+  --g-tab-on:rgba(255,255,255,.12);
+  --g-scrim:rgba(0,0,0,.5);
+  --hl-line:#F2F2F3;--hl-line-bg:rgba(255,255,255,.08);
+  --read-hl:#7DB0FF;--read-hl-bg:rgba(125,176,255,.12);
+  accent-color:#F5F5F7;
+}
+/* The snapshot also goes dark via the media query (no attribute set);
+   glass tokens MUST follow the same route or system-dark users get
+   light glass on a black page. Declarations mirror the block above. */
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --g-ink:#F5F5F7;--g-ink-2:#E5E5EA;--g-ink-3:#AEAEB2;--g-ink-4:#C7C7CC;
+    --g-bg:#000000;--g-surface:#1C1C1E;
+    --g-ok:#7FA08C;--g-ok-bg:#1E2622;--g-bad:#E0574A;--g-bad-bg:#1C1C1E;
+    --g-fill-bar:rgba(28,28,30,.80);
+    --g-fill-ctl:rgba(44,44,46,.72);
+    --g-fill-card:rgba(28,28,30,.92);
+    --g-fill-sheet:rgba(28,28,30,.88);
+    --g-fill-solid:#232325;
+    --g-spec:linear-gradient(160deg,rgba(255,255,255,.32) 0%,rgba(255,255,255,.08) 40%,rgba(255,255,255,.02) 62%,rgba(255,255,255,.16) 100%);
+      --g-inner:inset 0 1px 0 rgba(255,255,255,.12),inset 0 -1px 0 rgba(0,0,0,.3);
+    --g-shadow-bar:0 8px 32px rgba(0,0,0,.5),0 1px 3px rgba(0,0,0,.4);
+    --g-shadow-card:0 12px 40px rgba(0,0,0,.45),0 2px 6px rgba(0,0,0,.35);
+    --g-shadow-ctl:0 4px 14px rgba(0,0,0,.4),0 1px 2px rgba(0,0,0,.3);
+    --g-shadow-sheet:0 -10px 50px rgba(0,0,0,.6),0 24px 60px rgba(0,0,0,.5);
+    --g-tab-on:rgba(255,255,255,.12);
+    --g-scrim:rgba(0,0,0,.5);
+    --hl-line:#F2F2F3;--hl-line-bg:rgba(255,255,255,.08);
+    --read-hl:#7DB0FF;--read-hl-bg:rgba(125,176,255,.12);
+    accent-color:#F5F5F7;
+  }
+}
+
+/* ---------- 2. Glass primitive + four layers (spec §1.3) ---------- */
+.glass,.tabslider,.vip-head,.ac-head,
+.vip-back,.lm-close,.ac-iconbtn,.chip,.cat-select,select.camp-input,
+.nav-btn,.mini-speak,.quiz-modes,.track-switch,.srs-bar,.glass-follow,
+.flash-face,.tfc-face,.quiz-card,.rv-card,.listen-stage,
+.food-cap,.tfc-back-cap,.flash-back.color-mode .color-back,.tfc-back.color-mode .tfc-body,
+.award-card,.lm-card,.lq-card,.ring-panel{
+  -webkit-backdrop-filter:blur(var(--b,var(--g-blur-ctl))) saturate(var(--s,var(--g-sat-ctl)));
+  backdrop-filter:blur(var(--b,var(--g-blur-ctl))) saturate(var(--s,var(--g-sat-ctl)));
+  background:var(--f,var(--g-fill-ctl));
+  border:.5px solid var(--hairline);
+  box-shadow:var(--g-inner),var(--sh,var(--g-shadow-ctl));
+}
+/* specular edge: 1px gradient ring via mask, never a glow (spec §1.3) */
+.glass::before,.tabslider::before,.vip-head::before,
+.vip-back::before,.lm-close::before,.chip::before,.cat-select-wrap::after,
+.nav-btn::before,.quiz-modes::before,.track-switch::before,.srs-bar::before,
+.flash-face::before,.quiz-card::before,.rv-card::before,.listen-stage::before,
+.food-cap::before,.tfc-back-cap::before,
+.award-card::before,.lm-card::before,.lq-card::before,.ring-panel::before,.tfc-face::before,.glass-follow::before{
+  content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;
+  background:var(--g-spec);
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;mask-composite:exclude;
+  pointer-events:none;z-index:1;
+}
+/* NOTE: .cat-select is a <select> (no pseudo-elements), so its ring is
+   drawn by the wrapper's ::after instead; the select itself stays
+   transparent over the wrapper's glass — see §3 ctl rules. */
+
+/* bar layer */
+.g-bar,.tabslider,.vip-head,.ac-head{
+  --b:var(--g-blur-bar);--s:var(--g-sat-bar);--f:var(--g-fill-bar);--sh:var(--g-shadow-bar);
+}
+.tabslider{border-radius:var(--g-r-bar);}
+.vip-head{border-radius:0 0 var(--g-r-bar) var(--g-r-bar);}
+/* ctl layer */
+.g-ctl,.vip-back,.lm-close,.ac-iconbtn,.chip,.cat-select-wrap,
+.nav-btn,.mini-speak,.quiz-modes,.track-switch,.srs-bar,.glass-follow,
+select.camp-input{
+  --b:var(--g-blur-ctl);--s:var(--g-sat-ctl);--f:var(--g-fill-ctl);--sh:var(--g-shadow-ctl);
+}
+.chip,.nav-btn,.mini-speak,.quiz-modes,.track-switch,.glass-follow{border-radius:var(--g-r-btn);}
+.srs-bar{border-radius:var(--g-r-ctl);}/* lp-steps is a full-width sticky strip: keeps its own square edges */
+.vip-back,.lm-close,.ac-iconbtn{border-radius:50%;}
+.cat-select-wrap{position:relative;border-radius:14px;
+  -webkit-backdrop-filter:blur(var(--g-blur-ctl)) saturate(var(--g-sat-ctl));
+  backdrop-filter:blur(var(--g-blur-ctl)) saturate(var(--g-sat-ctl));
+  background:var(--g-fill-ctl);border:.5px solid var(--hairline);
+  box-shadow:var(--g-inner),var(--g-shadow-ctl);}
+.cat-select{background:transparent;border:0;box-shadow:none;
+  -webkit-backdrop-filter:none;backdrop-filter:none;}
+select.camp-input{border-radius:14px;}
+/* card layer (carries Arabic text: .92 fill for contrast, spec §4) */
+.g-card,.flash-face,.tfc-face,.quiz-card,.rv-card,.listen-stage,
+.food-cap,.tfc-back-cap,.flash-back.color-mode .color-back,.tfc-back.color-mode .tfc-body{
+  --b:var(--g-blur-card);--s:var(--g-sat-card);--f:var(--g-fill-card);--sh:var(--g-shadow-card);
+  border-radius:var(--g-r-card);
+}
+/* sheet layer */
+.g-sheet,.award-card,.lm-card,.lq-card,.ring-panel{
+  --b:var(--g-blur-sheet);--s:var(--g-sat-sheet);--f:var(--g-fill-sheet);--sh:var(--g-shadow-sheet);
+}
+.award-card,.ring-panel{border-radius:var(--g-r-sheet) var(--g-r-sheet) 0 0;}
+.lm-card,.lq-card{border-radius:var(--g-r-sheet);}
+/* .me-toast stays a solid ink toast in the snapshot — deliberately NOT glassed (its text is --bg on --ink). */
+/* sheet scrims (spec §1.2): neutral black only */
+.award-backdrop,.lm-backdrop,.lq-backdrop,.ring-backdrop,.card-modal .award-backdrop{
+  background:var(--g-scrim);
+}
+/* positioning contexts for the specular ring */
+.vip-head,.vip-back,.chip,.nav-btn,.mini-speak,.quiz-modes,
+.track-switch,.srs-bar,.quiz-card,.rv-card,.listen-stage,
+.award-card,.lm-card,.lq-card{position:relative;}
+/* NOT here: .lm-close/.food-cap/.tfc-back-cap/.ring-panel/.flash-face/.tfc-face are already position:absolute in the snapshot — relative would un-anchor them. */
+.ring-panel{position:absolute;}/* restore: sheet anchored to wrap bottom */
+
+/* tab indicator: neutral capsule, never coloured (spec §2) */
+.tab-pill-in{background:var(--g-tab-on);box-shadow:var(--g-inner);}
+/* tab labels: --g-ink-4, NOT the old #8E8E93 (3.01:1 fail, spec §4) */
+.tab-btn{color:var(--g-ink-4);}
+.tab-btn.on,.tab-btn[aria-selected="true"]{color:var(--g-ink);}
+
+/* ---------- 3. Solid surfaces: options, dialogue, list rows ---------- */
+/* Spec §1.2: content itself is solid — no glass-on-glass. */
+.opt,.dlg-line,.vocab-row,.lesson-row{
+  background:var(--g-surface);
+  -webkit-backdrop-filter:none;backdrop-filter:none;
+}
+.opt{border-radius:var(--g-r-option);min-height:54px;border:1px solid var(--hairline);}
+.opt:not(.ar){font-size:19px;}/* spec §4: correct-green is "large text" at 19px bold when graded */
+.dlg-line{border:1px solid var(--hairline);}
+/* graded states: green ONLY for correct, red ONLY for wrong (spec §4) */
+.opt.right{color:var(--g-ok);background:var(--g-ok-bg);border-color:var(--g-ok);font-weight:700;}
+.opt.wrong{color:var(--g-bad);background:var(--g-bad-bg);border-color:var(--g-bad);font-weight:700;}
+.quiz-msg.good,.ex-msg.good{color:var(--g-ok);}
+.quiz-msg.bad,.ex-msg.bad{color:var(--g-ink);}
+/* primary buttons: solid ink, no glass (spec §1.2) */
+.btn-solid,.speak-btn,.camp-submit,.ac-main{
+  background:var(--g-ink);color:var(--g-bg);
+  -webkit-backdrop-filter:none;backdrop-filter:none;border:0;
+  border-radius:var(--g-r-btn);box-shadow:var(--g-shadow-ctl);min-height:54px;
+}
+:root[data-theme="dark"] .btn-solid,:root[data-theme="dark"] .speak-btn,
+:root[data-theme="dark"] .camp-submit,:root[data-theme="dark"] .ac-main{color:var(--g-primary-ink);}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]) .btn-solid,:root:not([data-theme="light"]) .speak-btn,
+  :root:not([data-theme="light"]) .camp-submit,:root:not([data-theme="light"]) .ac-main{color:var(--g-primary-ink);}
+}
+
+/* ---------- 4. Press + focus (spec §2) ---------- */
+*{-webkit-tap-highlight-color:transparent;}
+/* release: 420ms var(--ease) back to scale(1), NO overshoot; press-in: 110ms var(--ease) to .96 */
+.press,
+:is(button,select,summary,a[href],[role="button"],[role="tab"]):not(.flash):not(.tfc):not(.cf-slot):not(.tcard):not(.tabslider):not(.srs-bar):not(.dlg-line):not(.tab-btn):not(.me-row):not(.collect-head):not(.lvl-head){
+  transition:transform var(--g-release-dur) var(--ease),
+    border-color .18s var(--ease),background-color .18s var(--ease),box-shadow .18s var(--ease),opacity .18s var(--ease);
+}
+.press:active,.press.is-pressed,
+:is(button,select,summary,a[href],[role="button"],[role="tab"]):not(.flash):not(.tfc):not(.cf-slot):not(.tcard):not(.tabslider):not(.srs-bar):not(.dlg-line):not(.tab-btn):not(.me-row):not(.collect-head):not(.lvl-head):active,
+:is(button,select,summary,a[href],[role="button"],[role="tab"]):not(.flash):not(.tfc):not(.cf-slot):not(.tcard):not(.tabslider):not(.srs-bar):not(.dlg-line):not(.tab-btn):not(.me-row):not(.collect-head):not(.lvl-head).is-pressed{
+  transform:scale(var(--press-scale));
+  transition:transform var(--g-press-dur) var(--ease),
+    border-color .18s var(--ease),background-color .18s var(--ease),box-shadow .18s var(--ease),opacity .18s var(--ease);
+}
+/* specular ring dips 6px while pressed — glass feels pushed in (§2) */
+.press:active::before,.press.is-pressed::before,
+.tabslider:active::before,.nav-btn:active::before,.chip:active::before{background-position:0 6px;}
+/* snapshot-specific press overrides (same specificity, this file is later) */
+.controls .nav-btn:active,.controls .mini-speak:active{transform:scale(var(--press-scale));}
+.tab-btn:active .tab-btn-in,.tab-btn.pressing .tab-btn-in{transform:scale(var(--press-scale));}
+.tabslider.pressing .tab-pill-in{transform:none;}/* pill is the indicator, not the press target */
+/* focus: click/tap NEVER shows a box; keyboard gets the ink ring (§2) */
+:focus{outline:none;}
+:is(button,select,a,input,textarea,summary,[role="button"],[role="tab"],[role="slider"],[tabindex]):focus{outline:none;}
+:is(button,select,a,input,textarea,summary,[role="button"],[role="tab"],[role="slider"],[tabindex]):focus-visible{
+  outline:none;box-shadow:0 0 0 2px var(--surface),0 0 0 4px var(--focus-ring);
+}
+.tabslider:focus-visible{outline:none;box-shadow:0 0 0 2px var(--surface),0 0 0 4px var(--focus-ring);}
+
+/* ---------- 5. Arabic readability (spec §4) ---------- */
+body{background:var(--g-bg);}
+.ar{line-height:var(--g-ar-lh);}
+/* secondary text: --g-ink-3 (≥5:1), not the old #8E8E93 (3.01:1 fail).
+   dlg-zh/quiz-trans/sent-trans sit on solid white or card glass (.92):
+   5.02–6.0:1. panel-head p/course-src/srs-bar-s sit over the PAGE
+   background (never over photos): ctl .72 white over #F5F5F7 composites
+   to ≈rgb(252,252,252), giving ink-3 ≈5.9:1. */
+.dlg-zh,.quiz-trans,.sent-trans,.panel-head p,.srs-bar-s,.course-src,.quiz-score span,.counter{
+  color:var(--g-ink-3);
+}
+/* ctl-layer TEXT is ink / ink-2 (designer's .ctl{color:var(--ink)}):
+   ink-3 on a .72 ctl over a worst-case black photo would be 3.02:1,
+   so chips, segmented controls and step labels step up one shade.
+   ink-2 on that worst case is ≈5.7:1; ink is ≈9:1. */
+.chip{color:var(--g-ink);}
+.qmode,.track-btn,.lp-step-lab{color:var(--g-ink-2);}
+.cat-select-ic{color:var(--g-ink-2);}
+.chip[aria-pressed="true"]{background:var(--g-ink);color:var(--g-bg);border-color:transparent;}
+/* current line while reading aloud: ink rule + neutral wash (§4) */
+.dlg-line.current{
+  box-shadow:inset 3px 0 0 var(--hl-line);background:var(--hl-line-bg);
+}
+[dir="rtl"] .dlg-line.current{box-shadow:inset -3px 0 0 var(--hl-line);}
+
+/* ---------- 6. Follow-read progress: blue, ONLY here (spec §4.2) ---------- */
+.rd{color:var(--read-hl);background:var(--read-hl-bg);border-radius:8px;
+  padding:0 4px;margin:0 -4px;outline:none;box-shadow:none;border:0;
+  -webkit-box-decoration-break:clone;box-decoration-break:clone;
+  transition:color 180ms var(--ease),background-color 180ms var(--ease);}
+/* sentence-page karaoke fill: was --sent-red (#C0392B) in the snapshot;
+   §4.2 replaces the reading-progress red with this blue. Its clip-path
+   progress mechanism is untouched. Red remains reserved for errors. */
+.sent-ar-fill{color:var(--read-hl);}
+
+/* ---------- 7. Floating follow button must never cover Arabic (§4.1) ---------- */
+/* Utility for the follow-read FAB (snapshot has no FAB element yet —
+   its follow controls are inline; use this class when adding one). */
+.glass-follow{position:fixed;left:16px;right:auto;
+  bottom:calc(108px + env(safe-area-inset-bottom));height:52px;min-width:52px;
+  padding:0 18px;display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  z-index:45;color:var(--g-ink);font-weight:700;}
+/* lesson (课文) scroll: reserve the FAB + tab-bar zone, fade content
+   out before it can slide under the button (spec §4.1 numbers). */
+#lesson-scroll .vip-inner{padding-bottom:184px;}
+#lesson-scroll{
+  -webkit-mask-image:linear-gradient(180deg,#000 0,#000 calc(100% - 196px),transparent calc(100% - 172px));
+  mask-image:linear-gradient(180deg,#000 0,#000 calc(100% - 196px),transparent calc(100% - 172px));}
+
+/* ---------- 8. Touch targets ≥44px (spec §7) ---------- */
+.vip-back,.lm-close,.ac-iconbtn,.chip,.nav-btn,.mini-speak,.qmode,
+.track-btn,.cat-select,.tab-btn,.glass-follow{min-height:44px;}
+.vip-back,.lm-close,.ac-iconbtn{min-width:44px;}
+.tab-btn{min-width:56px;}
+.mini-speak{min-width:44px;}
+
+/* ---------- 8b. Dark cascade reinforcement ---------- */
+/* The snapshot's own dark rules for the tab bar carry higher
+   specificity than a plain class rule (:root[data-theme="dark"]
+   .tabslider and the media-query twin both count 0,3,0) and would
+   otherwise keep the OLD bar (rgba(28,28,30,.58) / blur 14px) in dark
+   mode. Restate the bar layer under matching selectors (tie → this
+   later file wins). The pill keeps its neutral --g-tab-on fill. */
+:root[data-theme="dark"] .tabslider{
+  --b:var(--g-blur-bar);--s:var(--g-sat-bar);--f:var(--g-fill-bar);--sh:var(--g-shadow-bar);
+  -webkit-backdrop-filter:blur(var(--g-blur-bar)) saturate(var(--g-sat-bar));
+  backdrop-filter:blur(var(--g-blur-bar)) saturate(var(--g-sat-bar));
+  background:var(--g-fill-bar);border:.5px solid var(--hairline);
+  box-shadow:var(--g-inner),var(--g-shadow-bar);
+}
+:root[data-theme="dark"] .tab-pill-in{background:var(--g-tab-on);}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]) .tabslider{
+    --b:var(--g-blur-bar);--s:var(--g-sat-bar);--f:var(--g-fill-bar);--sh:var(--g-shadow-bar);
+    -webkit-backdrop-filter:blur(var(--g-blur-bar)) saturate(var(--g-sat-bar));
+    backdrop-filter:blur(var(--g-blur-bar)) saturate(var(--g-sat-bar));
+    background:var(--g-fill-bar);border:.5px solid var(--hairline);
+    box-shadow:var(--g-inner),var(--g-shadow-bar);
+  }
+  :root:not([data-theme="light"]) .tab-pill-in{background:var(--g-tab-on);}
+  /* dark + degraded (no-blur/lowfx): solid must beat the same rules */
+  :root:not([data-theme="light"]).no-blur .tabslider,
+  :root:not([data-theme="light"]).lowfx .tabslider{
+    -webkit-backdrop-filter:none;backdrop-filter:none;background:var(--g-fill-solid);}
+}
+:root[data-theme="dark"].no-blur .tabslider,
+:root[data-theme="dark"].lowfx .tabslider{
+  -webkit-backdrop-filter:none;backdrop-filter:none;background:var(--g-fill-solid);}
+
+/* ---------- 9. Fallbacks (spec §5) ---------- */
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
+  .glass,.tabslider,.vip-head,.ac-head,.vip-back,.lm-close,.ac-iconbtn,.chip,
+  .cat-select-wrap,.nav-btn,.mini-speak,.quiz-modes,.track-switch,.srs-bar,
+  .glass-follow,.flash-face,.tfc-face,.quiz-card,.rv-card,.listen-stage,.food-cap,
+  .tfc-back-cap,.award-card,.lm-card,.lq-card,.ring-panel{
+    background:var(--g-fill-solid);}
+}
+@media (prefers-reduced-transparency:reduce){
+  .glass,.tabslider,.vip-head,.ac-head,.vip-back,.lm-close,.ac-iconbtn,.chip,
+  .cat-select-wrap,.nav-btn,.mini-speak,.quiz-modes,.track-switch,.srs-bar,
+  .glass-follow,.flash-face,.tfc-face,.quiz-card,.rv-card,.listen-stage,.food-cap,
+  .tfc-back-cap,.award-card,.lm-card,.lq-card,.ring-panel{
+    -webkit-backdrop-filter:none;backdrop-filter:none;background:var(--g-fill-solid);}
+}
+/* low-end devices: .lowfx (spec §5 heuristic, added by the diff's head
+   script) and .no-blur (the snapshot's existing head script) both land here */
+.lowfx .glass,.lowfx .tabslider,.lowfx .vip-head,.lowfx .ac-head,.lowfx .vip-back,
+.lowfx .lm-close,.lowfx .ac-iconbtn,.lowfx .chip,.lowfx .cat-select-wrap,.lowfx .nav-btn,
+.lowfx .mini-speak,.lowfx .quiz-modes,.lowfx .track-switch,.lowfx .srs-bar,
+.lowfx .glass-follow,.lowfx .flash-face,.lowfx .tfc-face,.lowfx .quiz-card,.lowfx .rv-card,
+.lowfx .listen-stage,.lowfx .food-cap,.lowfx .tfc-back-cap,.lowfx .award-card,.lowfx .lm-card,
+.lowfx .lq-card,.lowfx .ring-panel,
+.no-blur .glass,.no-blur .tabslider,.no-blur .vip-head,.no-blur .ac-head,.no-blur .vip-back,
+.no-blur .lm-close,.no-blur .ac-iconbtn,.no-blur .chip,.no-blur .cat-select-wrap,.no-blur .nav-btn,
+.no-blur .mini-speak,.no-blur .quiz-modes,.no-blur .track-switch,.no-blur .srs-bar,
+.no-blur .glass-follow,.no-blur .flash-face,.no-blur .tfc-face,.no-blur .quiz-card,.no-blur .rv-card,
+.no-blur .listen-stage,.no-blur .food-cap,.no-blur .tfc-back-cap,.no-blur .award-card,.no-blur .lm-card,
+.no-blur .lq-card,.no-blur .ring-panel{
+  -webkit-backdrop-filter:none;backdrop-filter:none;background:var(--g-fill-solid);}
+@media (prefers-reduced-motion:reduce){
+  .press,
+  :is(button,select,summary,a[href],[role="button"],[role="tab"]):not(.flash):not(.tfc):not(.cf-slot):not(.tcard):not(.tabslider):not(.srs-bar):not(.dlg-line):not(.tab-btn):not(.me-row):not(.collect-head):not(.lvl-head),
+  .press:active,.press.is-pressed,
+  :is(button,select,summary,a[href],[role="button"],[role="tab"]):not(.flash):not(.tfc):not(.cf-slot):not(.tcard):not(.tabslider):not(.srs-bar):not(.dlg-line):not(.tab-btn):not(.me-row):not(.collect-head):not(.lvl-head):active{
+    transition:opacity 120ms var(--ease);transform:none;}
+  .press:active,.press.is-pressed{opacity:.7;}
+  .rd{transition:none;}
+}
+/* [/glass] */

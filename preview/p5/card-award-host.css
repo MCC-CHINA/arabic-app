@@ -1,0 +1,38 @@
+/* card-award-host.css — our integration layer over Muse's card-award.css (v1). Loaded right after it.
+   Fixes rule violations without editing the delivered files: raw colours → app CSS variables (dark mode),
+   44pt touch targets, house easing, no red: errors and expiry use neutral ink (boss rule). Gold stays only on the collected card face. */
+:root{--ca-gold:#B9975B;--ca-gold-soft:rgba(185,151,91,.5);}
+.ca-btn,.ca-pill.ink,.ca-check-ic.done,.ca-tl-dot.done,.ca-toast{color:var(--bg);}
+.ca-cell .ca-cell-name,.ca-input input::placeholder,.ca-input textarea::placeholder,.ca-input .ca-pick-val.ph{color:var(--ink-soft);}
+.ca-check-ic.todo,.ca-tl-dot.todo{border-color:var(--line-strong);}
+.ca-tl-dot.current,.ca-tl-dot.todo{background:var(--surface);}
+.ca-cell.got{background:var(--surface);border-color:var(--ca-gold);}
+.ca-cell.got::after{border-color:var(--ca-gold-soft);}
+.ca-sheet-mask{background:color-mix(in srgb,var(--ink) 32%,transparent);}
+.ca-iconbtn{width:44px;height:44px;}
+.ca-btn.small{height:44px;}
+.ca-bar i{transition-timing-function:cubic-bezier(.25,.8,.25,1);}
+.ca-toast{transition-timing-function:cubic-bezier(.25,.8,.25,1);}
+.ca-panel{padding-left:env(safe-area-inset-left,0px);padding-right:env(safe-area-inset-right,0px);}
+/* neutral-errors: boss rule, red only for wrong answers */
+.ca-error-text,.ca-check-val.bad{color:var(--ink);font-weight:700;}
+.ca-input.err{border-color:var(--ink);border-width:1.5px;}
+/* [r10-dev: QA v1.3-dev + PM decisions] */
+.ca-input{cursor:text;}
+.ca-input input,.ca-input textarea{align-self:stretch;height:auto;min-height:44px;}
+.ca-cell.pending{border-style:dashed;border-color:var(--line-strong);background:var(--surface-soft);}
+.ca-cell.pending .ca-cell-name{color:var(--ink-mid);}
+.ca-pending-line{display:flex;align-items:center;gap:6px;margin:4px 0 6px;font-size:12.5px;font-weight:700;color:var(--ink-mid);}
+.ca-pending-line .ic{width:15px;height:15px;flex:0 0 auto;}
+@media (max-height:600px){
+  #ca-collect-body .ca-hero{padding:10px 14px;}
+  #ca-collect-body .ca-hero-num b{font-size:28px;}
+  #ca-collect-body .ca-miles{gap:6px;margin-top:8px;}
+  #ca-collect-body .ca-mile{padding:6px 10px;min-height:48px;}
+  #ca-collect-body .ca-mile-tile{width:32px;height:32px;}
+  #ca-collect-body .ca-album-head{margin-top:8px;}
+  #ca-collect-body > .ca-note{display:none;}
+  #ca-collect-body .ca-count-line{margin-top:4px;}
+}
+.ca-pill[style*="C0392B"],.ca-pill[style*="c0392b"]{color:var(--ink-mid) !important;font-weight:700;border:1px solid var(--line-strong);}
+[class^="ca-"] [style*="C0392B"],[class*=" ca-"] [style*="C0392B"]{color:var(--ink-mid) !important;}
