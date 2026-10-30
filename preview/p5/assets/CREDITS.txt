@@ -1,0 +1,405 @@
+集卡卡面星空照片来源（card face sky photographs）
+
+card-sky.jpg / card-sky2.jpg — 既有卡面（银河 / ALMA 射电望远镜剪影），沿用此前来源记录。
+  #1 字母启程卡用 card-sky.jpg，#2 初试通过卡用 card-sky2.jpg，两张保持不变。
+
+skies/n03.jpg - n99.jpg — 星名系列 97 张卡（#3-#99）各自专属的星空底图，一卡一图、互不重复：
+均为 NASA / ESA / 哈勃 / 韦伯 / ESO 等公有领域或 CC 授权照片，经 Wikimedia Commons 取得，
+按卡面 63:88 竖版裁剪、轻微压暗后使用。每张的原始条目与授权如下：
+
+n03.jpg — Messier51 sRGB
+  Source: https://commons.wikimedia.org/wiki/File:Messier51_sRGB.jpg
+  License: Public domain (via Wikimedia Commons)
+
+n04.jpg — 008 Milky way aligned with the Matterhorn reflecting in Stellisee Photo by Giles Laurent
+  Source: https://commons.wikimedia.org/wiki/File:008_Milky_way_aligned_with_the_Matterhorn_reflecting_in_Stellisee_Photo_by_Giles_Laurent.jpg
+  License: CC BY-SA 4.0 (via Wikimedia Commons)
+
+n05.jpg — Vela Supernova Remnant - Noirlab2406a
+  Source: https://commons.wikimedia.org/wiki/File:Vela_Supernova_Remnant_-_Noirlab2406a.jpg
+  License: CC BY 4.0 (via Wikimedia Commons)
+
+n06.jpg — Hubble Sees a Star ‘Inflating’ a Giant Bubble (26534662246)
+  Source: https://commons.wikimedia.org/wiki/File:Hubble_Sees_a_Star_%E2%80%98Inflating%E2%80%99_a_Giant_Bubble_(26534662246).jpg
+  License: Public domain (via Wikimedia Commons)
+
+n07.jpg — Orion Nebula in NIRCam short-wavelength channel ESA25105094
+  Source: https://commons.wikimedia.org/wiki/File:Orion_Nebula_in_NIRCam_short-wavelength_channel_ESA25105094.jpg
+  License: CC BY-SA 3.0 igo (via Wikimedia Commons)
+
+n08.jpg — NGC 1672 HST
+  Source: https://commons.wikimedia.org/wiki/File:NGC_1672_HST.jpg
+  License: Public domain (via Wikimedia Commons)
+
+n09.jpg — Rosette Nebula 13121 473 final v2 stars decon
+  Source: https://commons.wikimedia.org/wiki/File:Rosette_Nebula_13121_473_final_v2_stars_decon.jpg
+  License: CC BY 4.0 (via Wikimedia Commons)
+
+n10.jpg — Ou4 sh2-129 wf c lshorgb 2193m+3489m+2060m+120m 7876m 131h
+  Source: https://commons.wikimedia.org/wiki/File:Ou4_sh2-129_wf_c_lshorgb_2193m%2B3489m%2B2060m%2B120m_7876m_131h.jpg
+  License: CC BY 4.0 (via Wikimedia Commons)
+
+n11.jpg — NGC7293 (2004)
+  Source: https://commons.wikimedia.org/wiki/File:NGC7293_(2004).jpg
+  License: Public domain (via Wikimedia Commons)
+
+n12.jpg — 5 panel mosaic of the northern summer Milky Way
+  Source: https://commons.wikimedia.org/wiki/File:5_panel_mosaic_of_the_northern_summer_Milky_Way.jpg
+  License: CC BY 4.0 (via Wikimedia Commons)
+
+n13.jpg — The star cluster Messier 18 and its surroundings (eso1628a)
+  Source: https://commons.wikimedia.org/wiki/File:The_star_cluster_Messier_18_and_its_surroundings_(eso1628a).jpg
+  License: CC BY 4.0 (via Wikimedia Commons)
+
+n14.jpg — NGC 3372a-full
+  Source: https://commons.wikimedia.org/wiki/File:NGC_3372a-full.jpg
+  License: Public domain (via Wikimedia Commons)
+
+n15.jpg — Lynds’ Dark Nebula 673 (noao-ldn673)
+  Source: https://commons.wikimedia.org/wiki/File:Lynds%E2%80%99_Dark_Nebula_673_(noao-ldn673).jpg
+  License: CC BY 4.0 (via Wikimedia Commons)
+
+n16.jpg — NGC 6302 Hubble 2009.full
+  Source: https://commons.wikimedia.org/wiki/File:NGC_6302_Hubble_2009.full.jpg
+  License: Public domain (via Wikimedia Commons)
+
+n17.jpg — Crab Nebula
+  Source: https://commons.wikimedia.org/wiki/File:Crab_Nebula.jpg
+  License: Public domain (via Wikimedia Commons)
+
+n18.jpg — Young star lights up reflection nebula IC 2631
+  Source: https://commons.wikimedia.org/wiki/File:Young_star_lights_up_reflection_nebula_IC_2631.jpg
+  License: CC BY 4.0 (via Wikimedia Commons)
+
+n19.jpg — Young stars in the open star cluster NGC 2547
+  Source: https://commons.wikimedia.org/wiki/File:Young_stars_in_the_open_star_cluster_NGC_2547.jpg
+  License: CC BY 4.0 (via Wikimedia Commons)
+
+n20.jpg — Emission nebulae in Cassiopeia
+  Source: https://commons.wikimedia.org/wiki/File:Emission_nebulae_in_Cassiopeia.jpg
+  License: CC BY-SA 4.0 (via Wikimedia Commons)
+
+n21.jpg — Supernova Remnant Cassiopeia A – March 2004 (2006-30-1945)
+  Source: https://commons.wikimedia.org/wiki/File:Supernova_Remnant_Cassiopeia_A_%E2%80%93_March_2004_(2006-30-1945).jpg
+  License: Public domain (via Wikimedia Commons)
+
+n22.jpg — Seagull Nebula
+  Source: https://commons.wikimedia.org/wiki/File:Seagull_Nebula.jpg
+  License: CC BY 4.0 (via Wikimedia Commons)
+
+n23.jpg — M31-Andromede-16-09-2023-Hamois
+  Source: https://commons.wikimedia.org/wiki/File:M31-Andromede-16-09-2023-Hamois.jpg
+  License: CC BY-SA 2.5 (via Wikimedia Commons)
+
+n24.jpg — Carina Nebula
+  Source: https://commons.wikimedia.org/wiki/File:Carina_Nebula.jpg
+  License: CC BY 4.0 (via Wikimedia Commons)
+
+n25.jpg — Star cluster NGC 2367
+  Source: https://commons.wikimedia.org/wiki/File:Star_cluster_NGC_2367.jpg
+  License: CC BY 4.0 (via Wikimedia Commons)
+
+n26.jpg — North America Nebula
+  Source: https://commons.wikimedia.org/wiki/File:North_America_Nebula.jpg
+  License: Public domain (via Wikimedia Commons)
+
+n27.jpg — The Dark Wolf Nebula (eso2416a)
+  Source: https://commons.wikimedia.org/wiki/File:The_Dark_Wolf_Nebula_(eso2416a).jpg
+  License: CC BY 4.0 (via Wikimedia Commons)
+
+n28.jpg — VST image of the spectacular star-forming region Messier 17 (Omega Nebula)
+  Source: https://commons.wikimedia.org/wiki/File:VST_image_of_the_spectacular_star-forming_region_Messier_17_(Omega_Nebula).jpg
+  License: CC BY 4.0 (via Wikimedia Commons)
+
+n29.jpg — Sh2-155, Cave Nebula (noao-sh2-155)
+  Source: https://commons.wikimedia.org/wiki/File:Sh2-155,_Cave_Nebula_(noao-sh2-155).jpg
+  License: CC BY 4.0 (via Wikimedia Commons)
+
+n30.jpg — Guisard - Milky Way
+  Source: https://commons.wikimedia.org/wiki/File:Guisard_-_Milky_Way.jpg
+  License: CC BY 4.0 (via Wikimedia Commons)
+
+n31.jpg — Webb unveils young stars across every stage of formation (potm2605a)
+  Source: https://commons.wikimedia.org/wiki/File:Webb_unveils_young_stars_across_every_stage_of_formation_(potm2605a).jpg
+  License: CC BY 4.0 (via Wikimedia Commons)
+
+n32.jpg — Messier 81 HST
+  Source: https://commons.wikimedia.org/wiki/File:Messier_81_HST.jpg
+  License: Public domain (via Wikimedia Commons)
+
+n33.jpg — The star formation region NGC 3324
+  Source: https://commons.wikimedia.org/wiki/File:The_star_formation_region_NGC_3324.jpg
+  License: CC BY 4.0 (via Wikimedia Commons)
+
+n34.jpg — Webb opens a Treasure Chest filled with stars ESA524464
+  Source: https://commons.wikimedia.org/wiki/File:Webb_opens_a_Treasure_Chest_filled_with_stars_ESA524464.jpg
+  License: CC BY 4.0 (via Wikimedia Commons)
+
+n35.jpg — Heart and Soul nebulae
+  Source: https://commons.wikimedia.org/wiki/File:Heart_and_Soul_nebulae.jpg
+  License: Public domain (via Wikimedia Commons)
+
+n36.jpg — The star cluster Messier 7
+  Source: https://commons.wikimedia.org/wiki/File:The_star_cluster_Messier_7.jpg
+  License: CC BY 3.0 (via Wikimedia Commons)
+
+n37.jpg — Emission nebulae in Auriga
+  Source: https://commons.wikimedia.org/wiki/File:Emission_nebulae_in_Auriga.jpg
+  License: CC BY-SA 4.0 (via Wikimedia Commons)
+
+n38.jpg — M45-Les Pléiades Hamois le 28-12-2024-Luc Viatour
+  Source: https://commons.wikimedia.org/wiki/File:M45-Les_Pl%C3%A9iades_Hamois_le_28-12-2024-Luc_Viatour.jpg
+  License: CC BY-SA 4.0 (via Wikimedia Commons)
+
+n39.jpg — Cosmic ‘Winter’ Wonderland
+  Source: https://commons.wikimedia.org/wiki/File:Cosmic_%E2%80%98Winter%E2%80%99_Wonderland.jpg
+  License: Public domain (via Wikimedia Commons)
+
+n40.jpg — Hubble2005-01-barred-spiral-galaxy-NGC1300
+  Source: https://commons.wikimedia.org/wiki/File:Hubble2005-01-barred-spiral-galaxy-NGC1300.jpg
+  License: Public domain (via Wikimedia Commons)
+
+n41.jpg — Euclid’s view of the Horsehead Nebula ESA25170866
+  Source: https://commons.wikimedia.org/wiki/File:Euclid%E2%80%99s_view_of_the_Horsehead_Nebula_ESA25170866.jpg
+  License: CC BY-SA 3.0 igo (via Wikimedia Commons)
+
+n42.jpg — NASA Unveils Celestial Fireworks as Official Hubble 25th Anniversary Image
+  Source: https://commons.wikimedia.org/wiki/File:NASA_Unveils_Celestial_Fireworks_as_Official_Hubble_25th_Anniversary_Image.jpg
+  License: Public domain (via Wikimedia Commons)
+
+n43.jpg — Nebula around star cluster RCW 38 (eso0929c)
+  Source: https://commons.wikimedia.org/wiki/File:Nebula_around_star_cluster_RCW_38_(eso0929c).jpg
+  License: CC BY 4.0 (via Wikimedia Commons)
+
+n44.jpg — NGC 6334 Nebulosa pata de gato en paleta Hubble
+  Source: https://commons.wikimedia.org/wiki/File:NGC_6334_Nebulosa_pata_de_gato_en_paleta_Hubble.jpg
+  License: CC BY-SA 4.0 (via Wikimedia Commons)
+
+n45.jpg — Crescent, NGC 6888 (noao-04494)
+  Source: https://commons.wikimedia.org/wiki/File:Crescent,_NGC_6888_(noao-04494).jpg
+  License: CC BY 4.0 (via Wikimedia Commons)
+
+n46.jpg — There is an impostor in this nebula (potw2518a)
+  Source: https://commons.wikimedia.org/wiki/File:There_is_an_impostor_in_this_nebula_(potw2518a).jpg
+  License: CC BY 4.0 (via Wikimedia Commons)
+
+n47.jpg — Tarantula Nebula by JWST
+  Source: https://commons.wikimedia.org/wiki/File:Tarantula_Nebula_by_JWST.jpg
+  License: Public domain (via Wikimedia Commons)
+
+n48.jpg — Stephan's Quintet Hubble 2009.full
+  Source: https://commons.wikimedia.org/wiki/File:Stephan%27s_Quintet_Hubble_2009.full.jpg
+  License: Public domain (via Wikimedia Commons)
+
+n49.jpg — Messier 24 (infrared, red, green)
+  Source: https://commons.wikimedia.org/wiki/File:Messier_24_(infrared,_red,_green).jpg
+  License: CC BY 4.0 (via Wikimedia Commons)
+
+n50.jpg — Webb's First Deep Field
+  Source: https://commons.wikimedia.org/wiki/File:Webb%27s_First_Deep_Field.jpg
+  License: Public domain (via Wikimedia Commons)
+
+n51.jpg — The globular star cluster NGC 6362
+  Source: https://commons.wikimedia.org/wiki/File:The_globular_star_cluster_NGC_6362.jpg
+  License: CC BY 4.0 (via Wikimedia Commons)
+
+n52.jpg — Northern Sky Narrowband Survey - H-alpha and Continuum
+  Source: https://commons.wikimedia.org/wiki/File:Northern_Sky_Narrowband_Survey_-_H-alpha_and_Continuum.jpg
+  License: CC BY-SA 4.0 (via Wikimedia Commons)
+
+n53.jpg — Emission nebulae in Cepheus and Cassiopeia
+  Source: https://commons.wikimedia.org/wiki/File:Emission_nebulae_in_Cepheus_and_Cassiopeia.jpg
+  License: CC BY-SA 4.0 (via Wikimedia Commons)
+
+n54.jpg — Ultraviolet image of the Cygnus Loop Nebula crop
+  Source: https://commons.wikimedia.org/wiki/File:Ultraviolet_image_of_the_Cygnus_Loop_Nebula_crop.jpg
+  License: Public domain (via Wikimedia Commons)
+
+n55.jpg — Reflection Nebula Bernes 149 in Dark Cloud Lupus 3 (noirlab2313a)
+  Source: https://commons.wikimedia.org/wiki/File:Reflection_Nebula_Bernes_149_in_Dark_Cloud_Lupus_3_(noirlab2313a).jpg
+  License: CC BY 4.0 (via Wikimedia Commons)
+
+n56.jpg — Поглед на Млечен Пат со Персеиди од Кокино
+  Source: https://commons.wikimedia.org/wiki/File:%D0%9F%D0%BE%D0%B3%D0%BB%D0%B5%D0%B4_%D0%BD%D0%B0_%D0%9C%D0%BB%D0%B5%D1%87%D0%B5%D0%BD_%D0%9F%D0%B0%D1%82_%D1%81%D0%BE_%D0%9F%D0%B5%D1%80%D1%81%D0%B5%D0%B8%D0%B4%D0%B8_%D0%BE%D0%B4_%D0%9A%D0%BE%D0%BA%D0%B8%D0%BD%D0%BE.jpg
+  License: CC BY-SA 4.0 (via Wikimedia Commons)
+
+n57.jpg — The hidden fires of the Flame Nebula
+  Source: https://commons.wikimedia.org/wiki/File:The_hidden_fires_of_the_Flame_Nebula.jpg
+  License: CC BY 4.0 (via Wikimedia Commons)
+
+n58.jpg — Vela supernova - VST - Eso2214a
+  Source: https://commons.wikimedia.org/wiki/File:Vela_supernova_-_VST_-_Eso2214a.jpg
+  License: CC BY 4.0 (via Wikimedia Commons)
+
+n59.jpg — WR134-16-07-2026-Belgium-Hamois-Luc-Viatour
+  Source: https://commons.wikimedia.org/wiki/File:WR134-16-07-2026-Belgium-Hamois-Luc-Viatour.jpg
+  License: CC BY-SA 4.0 (via Wikimedia Commons)
+
+n60.jpg — Orion Nebula - Hubble 2006 mosaic 18000
+  Source: https://commons.wikimedia.org/wiki/File:Orion_Nebula_-_Hubble_2006_mosaic_18000.jpg
+  License: Public domain (via Wikimedia Commons)
+
+n61.jpg — Messier83 - Heic1403a
+  Source: https://commons.wikimedia.org/wiki/File:Messier83_-_Heic1403a.jpg
+  License: Public domain (via Wikimedia Commons)
+
+n62.jpg — Large Magellanic Cloud
+  Source: https://commons.wikimedia.org/wiki/File:Large_Magellanic_Cloud.jpg
+  License: Public domain (via Wikimedia Commons)
+
+n63.jpg — Reflection Nebula NGC 1999 (noao1104a)
+  Source: https://commons.wikimedia.org/wiki/File:Reflection_Nebula_NGC_1999_(noao1104a).jpg
+  License: CC BY 4.0 (via Wikimedia Commons)
+
+n64.jpg — Star formation in the southern Milky Way
+  Source: https://commons.wikimedia.org/wiki/File:Star_formation_in_the_southern_Milky_Way.jpg
+  License: CC BY 4.0 (via Wikimedia Commons)
+
+n65.jpg — The Prawn Nebula from ESO’s VST (wide crop)
+  Source: https://commons.wikimedia.org/wiki/File:The_Prawn_Nebula_from_ESO%E2%80%99s_VST_(wide_crop).jpg
+  License: CC BY 4.0 (via Wikimedia Commons)
+
+n66.jpg — 30 Doradus, Tarantula Nebula
+  Source: https://commons.wikimedia.org/wiki/File:30_Doradus,_Tarantula_Nebula.jpg
+  License: Public domain (via Wikimedia Commons)
+
+n67.jpg — Ic443 nf c shorgb 2218m+823m+666m+729m 2218m 37h
+  Source: https://commons.wikimedia.org/wiki/File:Ic443_nf_c_shorgb_2218m%2B823m%2B666m%2B729m_2218m_37h.jpg
+  License: CC BY 4.0 (via Wikimedia Commons)
+
+n68.jpg — Helix Nebula (NIRCam image) (weic2601a)
+  Source: https://commons.wikimedia.org/wiki/File:Helix_Nebula_(NIRCam_image)_(weic2601a).jpg
+  License: CC BY 4.0 (via Wikimedia Commons)
+
+n69.jpg — M33-Hamois-30-11-2024-Luc-Viatour
+  Source: https://commons.wikimedia.org/wiki/File:M33-Hamois-30-11-2024-Luc-Viatour.jpg
+  License: CC BY-SA 4.0 (via Wikimedia Commons)
+
+n70.jpg — M27-Dumbbell Nebula-29-07-2026
+  Source: https://commons.wikimedia.org/wiki/File:M27-Dumbbell_Nebula-29-07-2026.jpg
+  License: CC BY-SA 4.0 (via Wikimedia Commons)
+
+n71.jpg — M13-Hamois-26-04-2025-Luc-Viatour
+  Source: https://commons.wikimedia.org/wiki/File:M13-Hamois-26-04-2025-Luc-Viatour.jpg
+  License: CC BY-SA 4.0 (via Wikimedia Commons)
+
+n72.jpg — California nebula NGC1499
+  Source: https://commons.wikimedia.org/wiki/File:California_nebula_NGC1499.jpg
+  License: CC BY 4.0 (via Wikimedia Commons)
+
+n73.jpg — Gamma Velorum (55285474075)
+  Source: https://commons.wikimedia.org/wiki/File:Gamma_Velorum_(55285474075).jpg
+  License: CC BY-SA 4.0 (via Wikimedia Commons)
+
+n74.jpg — Cartwheel Galaxy (NIRCam and MIRI Composite Image) (weic2211a)
+  Source: https://commons.wikimedia.org/wiki/File:Cartwheel_Galaxy_(NIRCam_and_MIRI_Composite_Image)_(weic2211a).jpeg
+  License: Public domain (via Wikimedia Commons)
+
+n75.jpg — IC434 et Barnard 33 Nébuleuse de la tête de cheval 24-10-2024
+  Source: https://commons.wikimedia.org/wiki/File:IC434_et_Barnard_33_N%C3%A9buleuse_de_la_t%C3%AAte_de_cheval_24-10-2024.jpg
+  License: CC BY-SA 4.0 (via Wikimedia Commons)
+
+n76.jpg — Messier 20 Nebulosa Trifida en LRGB
+  Source: https://commons.wikimedia.org/wiki/File:Messier_20_Nebulosa_Trifida_en_LRGB.jpg
+  License: CC BY-SA 4.0 (via Wikimedia Commons)
+
+n77.jpg — Trifid and Lagoon nebulae
+  Source: https://commons.wikimedia.org/wiki/File:Trifid_and_Lagoon_nebulae.jpg
+  License: CC BY 4.0 (via Wikimedia Commons)
+
+n78.jpg — Wolf's Cave Nebula Lbn528 Lbn532
+  Source: https://commons.wikimedia.org/wiki/File:Wolf%27s_Cave_Nebula_Lbn528_Lbn532.jpg
+  License: CC0 (via Wikimedia Commons)
+
+n79.jpg — Fairy of Eagle Nebula
+  Source: https://commons.wikimedia.org/wiki/File:Fairy_of_Eagle_Nebula.jpg
+  License: Public domain (via Wikimedia Commons)
+
+n80.jpg — The dark nebula LDN 483
+  Source: https://commons.wikimedia.org/wiki/File:The_dark_nebula_LDN_483.jpg
+  License: CC BY 4.0 (via Wikimedia Commons)
+
+n81.jpg — The star cluster NGC 6604 and its surroundings
+  Source: https://commons.wikimedia.org/wiki/File:The_star_cluster_NGC_6604_and_its_surroundings.jpg
+  License: CC BY 4.0 (via Wikimedia Commons)
+
+n82.jpg — Euclid and Hubble's view of Cat's Eye Nebula (potm2602c)
+  Source: https://commons.wikimedia.org/wiki/File:Euclid_and_Hubble%27s_view_of_Cat%27s_Eye_Nebula_(potm2602c).jpg
+  License: CC BY 4.0 (via Wikimedia Commons)
+
+n83.jpg — Milky way1
+  Source: https://commons.wikimedia.org/wiki/File:Milky_way1.jpg
+  License: Public domain (via Wikimedia Commons)
+
+n84.jpg — Emission nebulae behind molecular clouds in Perseus and Taurus
+  Source: https://commons.wikimedia.org/wiki/File:Emission_nebulae_behind_molecular_clouds_in_Perseus_and_Taurus.jpg
+  License: CC BY-SA 4.0 (via Wikimedia Commons)
+
+n85.jpg — Pillars of creation 2014 HST WFC3-UVIS full-res denoised
+  Source: https://commons.wikimedia.org/wiki/File:Pillars_of_creation_2014_HST_WFC3-UVIS_full-res_denoised.jpg
+  License: Public domain (via Wikimedia Commons)
+
+n86.jpg — NGC3199 - ESO - Potw1831a
+  Source: https://commons.wikimedia.org/wiki/File:NGC3199_-_ESO_-_Potw1831a.jpg
+  License: CC BY 4.0 (via Wikimedia Commons)
+
+n87.jpg — 360-degree Panorama of the Southern Sky
+  Source: https://commons.wikimedia.org/wiki/File:360-degree_Panorama_of_the_Southern_Sky.jpg
+  License: CC BY 4.0 (via Wikimedia Commons)
+
+n88.jpg — Infrared VISTA view of a nearby star formation in Monoceros
+  Source: https://commons.wikimedia.org/wiki/File:Infrared_VISTA_view_of_a_nearby_star_formation_in_Monoceros.jpg
+  License: CC BY 4.0 (via Wikimedia Commons)
+
+n89.jpg — Iotw2249a - Coloring the Night
+  Source: https://commons.wikimedia.org/wiki/File:Iotw2249a_-_Coloring_the_Night.jpg
+  License: CC BY 4.0 (via Wikimedia Commons)
+
+n90.jpg — M24 - VST - potw2237a
+  Source: https://commons.wikimedia.org/wiki/File:M24_-_VST_-_potw2237a.jpg
+  License: CC BY 4.0 (via Wikimedia Commons)
+
+n91.jpg — Lagoon Nebula (ESO)
+  Source: https://commons.wikimedia.org/wiki/File:Lagoon_Nebula_(ESO).jpg
+  License: CC BY 4.0 (via Wikimedia Commons)
+
+n92.jpg — Firestorm of Star Birth in Galaxy Centaurus A
+  Source: https://commons.wikimedia.org/wiki/File:Firestorm_of_Star_Birth_in_Galaxy_Centaurus_A.jpg
+  License: Public domain (via Wikimedia Commons)
+
+n93.jpg — Hubble NGC6530
+  Source: https://commons.wikimedia.org/wiki/File:Hubble_NGC6530.jpg
+  License: Public domain (via Wikimedia Commons)
+
+n94.jpg — Nebuleuse de l Etoile flamboyante 25-12-2025-Luc-Viatour
+  Source: https://commons.wikimedia.org/wiki/File:Nebuleuse_de_l_Etoile_flamboyante_25-12-2025-Luc-Viatour.jpg
+  License: CC BY-SA 4.0 (via Wikimedia Commons)
+
+n95.jpg — Dark Clouds of the Carina Nebula
+  Source: https://commons.wikimedia.org/wiki/File:Dark_Clouds_of_the_Carina_Nebula.jpg
+  License: Public domain (via Wikimedia Commons)
+
+n96.jpg — NGC2207+IC2163
+  Source: https://commons.wikimedia.org/wiki/File:NGC2207%2BIC2163.jpg
+  License: Public domain (via Wikimedia Commons)
+
+n97.jpg — Hubble ultra deep field
+  Source: https://commons.wikimedia.org/wiki/File:Hubble_ultra_deep_field.jpg
+  License: Public domain (via Wikimedia Commons)
+
+n98.jpg — M16-29-06-2025-Luc Viatour
+  Source: https://commons.wikimedia.org/wiki/File:M16-29-06-2025-Luc_Viatour.jpg
+  License: CC BY-SA 4.0 (via Wikimedia Commons)
+
+n99.jpg — Rho Ophiuchi
+  Source: https://commons.wikimedia.org/wiki/File:Rho_Ophiuchi.jpg
+  License: Public domain (via Wikimedia Commons)
+
+
+All images were resized and slightly darkened for card duty; no other retouching.
+
+单词配图 · 扩词 500（2026-10-19 新增 355 张）
+greet/ num/ food/ time/ people/ nature/ daily/ 各目录的新增词条照片，以及新分类目录
+animals/ jobs/ body/ clothes/ weather/ traffic/ 的全部照片（每词一张，900×600）：
+均通过图片检索自公开网络图源下载、裁剪后存入本包；颜色分类沿用纯色卡，无照片。
+逐张目检过拼图：主体须与词义一致，插画风已逐张替换为真实照片。
