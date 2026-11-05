@@ -6785,6 +6785,10 @@ body:has(.vip-page.open) :is(.panel,.tabbar) :is(.tabslider,.flash-face,.tfc-fac
         document.getElementById("morph-progress-txt").textContent = "词法 · 已完成 " + doneN + " / " + MLESSONS.length + " 课";
         document.getElementById("morph-barfill").style.width = (doneN / MLESSONS.length * 100) + "%";
         body.innerHTML = "";
+        var card = document.createElement("div");
+        card.className = "lvl-card";
+        var rows = document.createElement("div");
+        rows.className = "lvl-rows";
         MLESSONS.forEach(function(L){
           var steps = morphSteps(L.no);
           var n = steps.filter(Boolean).length;
@@ -6796,8 +6800,10 @@ body:has(.vip-page.open) :is(.panel,.tabbar) :is(.tabslider,.flash-face,.tfc-fac
             : '<span class="phon-prog"><b>' + n + "</b> / 4 步</span>";
           row.innerHTML = '<span class="lesson-no">' + L.no + '</span><span class="lesson-main"><span class="lesson-name">第' + L.no + "课 · " + L.name + ' <span class="ar" style="font-size:14.5px;color:var(--ink-soft);font-weight:600;">' + L.ar + '</span></span><span class="lesson-sub" style="display:block;">讲解 → 例句 → 小测 → 打卡</span></span>' + right;
           row.addEventListener("click", function(){ openMorphLesson(L.no); });
-          body.appendChild(row);
+          rows.appendChild(row);
         });
+        card.appendChild(rows);
+        body.appendChild(card);
       }
       var curMorph = null;
       function openMorphLesson(no){
@@ -6998,6 +7004,10 @@ body:has(.vip-page.open) :is(.panel,.tabbar) :is(.tabslider,.flash-face,.tfc-fac
         document.getElementById("gram-progress-txt").textContent = "语法 · 已完成 " + doneN + " / " + GLESSONS.length + " 课";
         document.getElementById("gram-barfill").style.width = (doneN / GLESSONS.length * 100) + "%";
         body.innerHTML = "";
+        var card = document.createElement("div");
+        card.className = "lvl-card";
+        var rows = document.createElement("div");
+        rows.className = "lvl-rows";
         GLESSONS.forEach(function(L){
           var steps = gramSteps(L.no);
           var n = steps.filter(Boolean).length;
@@ -7009,8 +7019,10 @@ body:has(.vip-page.open) :is(.panel,.tabbar) :is(.tabslider,.flash-face,.tfc-fac
             : '<span class="phon-prog"><b>' + n + "</b> / 4 步</span>";
           row.innerHTML = '<span class="lesson-no">' + L.no + '</span><span class="lesson-main"><span class="lesson-name">第' + L.no + "课 · " + L.name + ' <span class="ar" style="font-size:14.5px;color:var(--ink-soft);font-weight:600;">' + L.ar + '</span></span><span class="lesson-sub" style="display:block;">讲解 → 例句 → 小测 → 打卡</span></span>' + right;
           row.addEventListener("click", function(){ openGramLesson(L.no); });
-          body.appendChild(row);
+          rows.appendChild(row);
         });
+        card.appendChild(rows);
+        body.appendChild(card);
       }
       var curGram = null;
       function openGramLesson(no){
