@@ -8564,6 +8564,21 @@ html:not(.lowfx):not(.no-blur) body:not(.lowfx):not(.no-blur) .sub-page .vip-bac
   .cp-sheet-s{margin-bottom:4px}
   .cp-sheet .btns{flex-direction:row;margin-top:4px}
 }
+/* [courses-white] soft panel + white group cards */
+#panel-course,#panel-course .course-scroll{background:var(--bg-soft);}
+#panel-course .course-progress{margin-bottom:12px;}
+.lvl-card{background:var(--surface);border:1px solid var(--line);border-radius:22px;box-shadow:var(--shadow-1);margin:0 0 12px;overflow:hidden;padding:0;}
+:root[data-theme="dark"] .lvl-card{background:var(--surface-soft);}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .lvl-card{background:var(--surface-soft);}}
+.course-group-h{margin:18px 0 8px;}
+.lvl-rows .lesson-row{background:transparent;}
+.lvl-rows .lesson-row:last-child{border-bottom:0;margin-bottom:0;}
+.lvl-rows .lesson-row:active{background:var(--bg-soft);}
+.lvl-rows .lesson-row:focus,.lvl-rows .lesson-row:focus-visible,.lvl-head:focus,.lvl-head:focus-visible{outline:none;box-shadow:none;}
+/* [hint-contrast] light only */
+.tfc-hint,#flash-cat-back,.flash-hint,.quiz-listen-hint{color:#6B6B70;}
+:root[data-theme="dark"] .tfc-hint,:root[data-theme="dark"] #flash-cat-back,:root[data-theme="dark"] .flash-hint,:root[data-theme="dark"] .quiz-listen-hint{color:#98989D;}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .tfc-hint,:root:not([data-theme="light"]) #flash-cat-back,:root:not([data-theme="light"]) .flash-hint,:root:not([data-theme="light"]) .quiz-listen-hint{color:#98989D;}}
 </style>
 <script>/* [letter-checkpoint-20261103-7] */
 (function(){
