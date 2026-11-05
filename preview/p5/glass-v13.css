@@ -22,8 +22,12 @@
      sheet = .award-card, .lm-card, .lq-card, .ring-panel (.me-toast stays solid ink — see §3 note)
    SOLID (never glass, spec §1.2/§4): .opt, .dlg-line, .vocab-row,
              .lesson-row, primary buttons.
-   The ONLY blue in this file is --read-hl / --read-hl-bg (spec §4.2),
-   applied solely to .rd and .sent-ar-fill (follow-read progress).
+   No blue in this file: the follow-read blue tokens (--read-hl,
+   --read-hl-bg, --highlight-read) and their sole consumer rules (.rd,
+   .sent-ar-fill) were removed in v4.2 (PM decision 2026-11-04) — they
+   were dead (zero elements) and highlight is red only via hl-r13.
+   v4.3 (2026-11-04): the leftover dead rule .rd{transition:none} in the
+   reduced-motion block was removed (NOTES-6 §8 item 5); no other change.
    No yellow, no neon, no glow, no coloured shadows anywhere.
    ====================================================================== */
 
@@ -56,12 +60,9 @@
   --g-ar-lh:2.2;
   /* current line (spec §4): ink, never red */
   --hl-line:#111113;--hl-line-bg:rgba(17,17,19,.05);
-  /* follow-read progress (spec §4.2): the ONLY blue, ONLY for .rd */
-  --read-hl:#1A56B0;--read-hl-bg:rgba(26,86,176,.10);
   /* legacy bridges: old token names now resolve to the glass system */
   --tab-fill:var(--g-fill-bar);--tab-blur:var(--g-blur-bar);--tab-border:var(--hairline);
   --tab-solid:var(--g-fill-solid);
-  --highlight-read:var(--read-hl);
   accent-color:#111113;
 }
 :root[data-theme="dark"]{
@@ -82,7 +83,6 @@
   --g-tab-on:rgba(255,255,255,.12);
   --g-scrim:rgba(0,0,0,.5);
   --hl-line:#F2F2F3;--hl-line-bg:rgba(255,255,255,.08);
-  --read-hl:#7DB0FF;--read-hl-bg:rgba(125,176,255,.12);
   accent-color:#F5F5F7;
 }
 /* The snapshot also goes dark via the media query (no attribute set);
@@ -107,7 +107,6 @@
     --g-tab-on:rgba(255,255,255,.12);
     --g-scrim:rgba(0,0,0,.5);
     --hl-line:#F2F2F3;--hl-line-bg:rgba(255,255,255,.08);
-    --read-hl:#7DB0FF;--read-hl-bg:rgba(125,176,255,.12);
     accent-color:#F5F5F7;
   }
 }
@@ -277,16 +276,6 @@ body{background:var(--g-bg);}
 }
 [dir="rtl"] .dlg-line.current{box-shadow:inset -3px 0 0 var(--hl-line);}
 
-/* ---------- 6. Follow-read progress: blue, ONLY here (spec §4.2) ---------- */
-.rd{color:var(--read-hl);background:var(--read-hl-bg);border-radius:8px;
-  padding:0 4px;margin:0 -4px;outline:none;box-shadow:none;border:0;
-  -webkit-box-decoration-break:clone;box-decoration-break:clone;
-  transition:color 180ms var(--ease),background-color 180ms var(--ease);}
-/* sentence-page karaoke fill: was --sent-red (#C0392B) in the snapshot;
-   §4.2 replaces the reading-progress red with this blue. Its clip-path
-   progress mechanism is untouched. Red remains reserved for errors. */
-.sent-ar-fill{color:var(--read-hl);}
-
 /* ---------- 7. Floating follow button must never cover Arabic (§4.1) ---------- */
 /* Utility for the follow-read FAB (snapshot has no FAB element yet —
    its follow controls are inline; use this class when adding one). */
@@ -378,6 +367,5 @@ body{background:var(--g-bg);}
   :is(button,select,summary,a[href],[role="button"],[role="tab"]):not(.flash):not(.tfc):not(.cf-slot):not(.tcard):not(.tabslider):not(.srs-bar):not(.dlg-line):not(.tab-btn):not(.me-row):not(.collect-head):not(.lvl-head):active{
     transition:opacity 120ms var(--ease);transform:none;}
   .press:active,.press.is-pressed{opacity:.7;}
-  .rd{transition:none;}
 }
 /* [/glass] */
