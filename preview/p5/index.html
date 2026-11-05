@@ -2627,7 +2627,7 @@ body:has(.vip-page.open) :is(.panel,.tabbar) :is(.tabslider,.flash-face,.tfc-fac
       [].forEach(function(id){ AUDIO_MISSING[id] = true; });
       AUDIO_MISSING["w588"] = true; // detached entry, kept only for old progress
       /* r10: QA round 10 */
-      var HIDE_AUDIO = {}; ["d17-1", "d17-2", "d17-3", "d17-4", "d17-5", "d18-1", "d18-2", "d18-3", "d18-4", "d18-5", "d19-1", "d19-2", "d19-3", "d19-4", "d19-5", "d19-6", "d20-1", "d20-2", "d20-3", "d20-4", "d20-5", "d21-1", "d21-2", "d21-4", "d22-1", "d26-1", "s37", "s41", "s50", "s52", "s95", "s96", "s97", "s98", "s99", "s100", "s101", "w519", "w589", "w590", "w591", "w592", "w593", "w594", "w595", "w596", "w597", "w598", "w599", "w600", "w601", "w602", "w603", "w604", "w605", "w606", "w607", "w608", "w609", "w610", "w611", "w612", "w613", "w614", "w615", "w616", "w617", "w618", "w619", "w620", "w621", "w622", "w623", "w624", "w625", "w626", "w627", "w628", "w629", "w630", "w631", "w632", "w633", "w634", "w635", "w636", "w637", "w638"].forEach(function(id){ HIDE_AUDIO[id] = true; }); /* 部分已重录合入，剩余仍待重录（旧音频含 سَامِي 等）；remove ids to restore */
+      var HIDE_AUDIO = {}; [].forEach(function(id){ HIDE_AUDIO[id] = true; }); /* HIDE 补齐已合入 preview（88 条：38 nova + 50 alloy 复用，20261105）；add ids to hide */
 
       /* shared audio helper: sentence/dialogue (sNN, dN-M) at 0.85x with pitch preserved; letters/syllables/words and other clips at 1.0x. iOS Safari resets the rate on load, so it's re-applied on src change, loadedmetadata and play, and set before play(). */
       var PLAY_RATE_SLOW = 0.85;
