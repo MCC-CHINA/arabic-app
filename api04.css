@@ -1,0 +1,58 @@
+/* api04.css — account panel (contract v0.4). CSS variables only; neutral errors; 44pt+ targets; 16px inputs. */
+.ac-page{position:fixed;inset:0;z-index:1250;background:var(--bg);display:none;flex-direction:column;padding:env(safe-area-inset-top,0px) env(safe-area-inset-right,0px) env(safe-area-inset-bottom,0px) env(safe-area-inset-left,0px);}
+.ac-page.open{display:flex;}
+.ac-head{flex:0 0 auto;display:flex;align-items:center;gap:8px;padding:6px 8px;border-bottom:1px solid var(--line);}
+.ac-head h2{flex:1;margin:0;text-align:center;font-size:17px;font-weight:800;color:var(--ink);}
+.ac-iconbtn{width:44px;height:44px;display:inline-flex;align-items:center;justify-content:center;background:none;border:0;color:var(--ink);border-radius:12px;cursor:pointer;}
+.ac-iconbtn .ic{width:22px;height:22px;}
+.ac-body{flex:1 1 auto;min-height:0;overflow:auto;padding:14px 16px 16px;display:flex;flex-direction:column;gap:10px;max-width:560px;width:100%;margin:0 auto;box-sizing:border-box;}
+.ac-seg{display:flex;gap:6px;background:var(--surface-soft);border-radius:14px;padding:4px;}
+.ac-seg button{flex:1;min-height:44px;border:0;border-radius:11px;background:none;font:inherit;font-size:15px;font-weight:700;color:var(--ink-soft);cursor:pointer;}
+.ac-seg button[aria-pressed="true"]{background:var(--surface);color:var(--ink);}
+.ac-row{display:flex;gap:8px;}
+.ac-row > *{flex:1 1 0;min-width:0;}
+.ac-in{width:100%;box-sizing:border-box;font:inherit;font-size:16px;min-height:48px;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:0 14px;outline:none;-webkit-appearance:none;appearance:none;}
+.ac-in:focus{border-color:var(--ink);}
+.ac-btn2{flex:0 0 auto !important;min-width:112px;min-height:48px;font:inherit;font-size:16px;font-weight:700;color:var(--ink);background:var(--surface-soft);border:1px solid var(--line-strong);border-radius:14px;cursor:pointer;font-variant-numeric:tabular-nums;}
+.ac-btn2:disabled{opacity:.45;cursor:default;}
+.ac-main{min-height:50px;width:100%;border:0;border-radius:999px;background:var(--ink);color:var(--bg);font:inherit;font-size:16px;font-weight:800;cursor:pointer;transition:transform .18s cubic-bezier(.25,.8,.25,1);}
+.ac-main:active{transform:scale(.98);}
+.ac-main:disabled{opacity:.35;cursor:default;transform:none;}
+.ac-ghost{min-height:48px;width:100%;border:1px solid var(--line-strong);border-radius:999px;background:none;color:var(--ink);font:inherit;font-size:15px;font-weight:700;cursor:pointer;}
+.ac-line{display:flex;align-items:center;gap:6px;margin:2px 0 0;font-size:13px;font-weight:700;color:var(--ink-mid);}
+.ac-line .ic{width:16px;height:16px;flex:0 0 auto;}
+.ac-ok{font-size:14px;font-weight:700;color:var(--ink);background:var(--surface-soft);border:1px solid var(--line);border-radius:14px;padding:12px 14px;line-height:1.6;}
+.ac-err{font-size:13px;font-weight:700;color:var(--ink);display:flex;gap:6px;align-items:center;}
+.ac-err .ic{width:16px;height:16px;flex:0 0 auto;}
+.ac-err[hidden],.ac-g[hidden],.ac-reg[hidden]{display:none !important;}
+.ac-g{display:flex;flex-direction:column;gap:10px;}
+.ac-note{font-size:12.5px;line-height:1.6;color:var(--ink-soft);margin:0;}
+/* [r10-dev: QA v1.3-dev + PM decisions] short screens (e.g. 375x577): no internal scroll on the minor register page */
+@media (max-height:640px){
+  .ac-head{padding:2px 8px;}
+  .ac-body{gap:8px;padding:10px 16px 12px;}
+  .ac-in,.ac-btn2{min-height:44px;}
+  .ac-seg button{min-height:44px;}
+  .ac-seg{padding:3px;}
+  .ac-main{min-height:46px;}
+  .ac-ghost{min-height:44px;}
+  .ac-g{gap:8px;}
+  .ac-g .ac-row[style]{margin-top:8px !important;}
+  .ac-ok{padding:8px 12px;}
+}
+
+/* birthday */ .ac-hint{margin:-4px 0 8px;font-size:13px;color:var(--muted,#888);} .ac-hint[hidden]{display:none;} #ac-reg{gap:8px;} #ac-reg > .ac-in{min-width:0;flex:1 1 0;}
+/* parent-verify */ .ac-gdone{display:flex;align-items:center;gap:6px;color:var(--ink,#2B2B2E);} .ac-gdone[hidden]{display:none;} .ac-gdone .ic{width:18px;height:18px;flex:none;}
+/* [v08c-css] captcha slider slot · 我的 birth-date tip — CSS variables only, neutral */
+.ac-cap{position:relative;margin-top:8px;height:48px;border-radius:14px;background:var(--surface-soft);border:1px solid var(--line-strong);}
+.ac-cap input[type=range]{-webkit-appearance:none;appearance:none;position:absolute;inset:0;width:100%;height:100%;margin:0;background:transparent;z-index:1;cursor:pointer;}
+.ac-cap input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:48px;height:46px;border-radius:13px;background:var(--surface);border:1px solid var(--line-strong);}
+.ac-cap input[type=range]::-moz-range-thumb{width:48px;height:46px;border-radius:13px;background:var(--surface);border:1px solid var(--line-strong);}
+.ac-capt{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:15px;color:var(--ink-soft);pointer-events:none;}
+.ac-wide{width:100%;margin-top:8px;}
+.ac-sub{font-weight:400;color:var(--ink-soft);font-size:13px;margin-left:6px;}
+.me-tip{display:flex;align-items:center;gap:4px;margin:8px 0;border:1px solid var(--line);border-radius:14px;background:var(--surface);}
+.me-tip[hidden]{display:none;}
+.me-tip-main{flex:1;display:flex;align-items:center;gap:10px;min-height:48px;padding:0 12px;font:inherit;color:var(--ink);background:none;border:0;text-align:left;cursor:pointer;}
+.me-tip-main small{display:block;font-size:13px;color:var(--ink-soft);}
+.me-tip .ac-iconbtn{min-width:44px;min-height:44px;}
