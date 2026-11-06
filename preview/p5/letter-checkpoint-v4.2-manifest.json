@@ -1,0 +1,541 @@
+{
+  "release": "letter-cp v4.2 / V9-68",
+  "source_zip_md5": "ff1e280f854f57cb5b20ab4189538bbd",
+  "api_status": "需要后端先准备预览环境",
+  "api_base": "",
+  "question_count": 69,
+  "questions": [
+    {
+      "question_id": 200211,
+      "version": 1,
+      "course_ref": "A2",
+      "stem_audio": null
+    },
+    {
+      "question_id": 200212,
+      "version": 1,
+      "course_ref": "A2",
+      "stem_audio": null
+    },
+    {
+      "question_id": 200213,
+      "version": 1,
+      "course_ref": "A2",
+      "stem_audio": null
+    },
+    {
+      "question_id": 200214,
+      "version": 1,
+      "course_ref": "A2",
+      "stem_audio": null
+    },
+    {
+      "question_id": 200219,
+      "version": 1,
+      "course_ref": "A2",
+      "stem_audio": null
+    },
+    {
+      "question_id": 200220,
+      "version": 1,
+      "course_ref": "A2",
+      "stem_audio": null
+    },
+    {
+      "question_id": 200221,
+      "version": 1,
+      "course_ref": "A2",
+      "stem_audio": null
+    },
+    {
+      "question_id": 200222,
+      "version": 1,
+      "course_ref": "A2",
+      "stem_audio": null
+    },
+    {
+      "question_id": 200225,
+      "version": 1,
+      "course_ref": "A2",
+      "stem_audio": "q200225_v1_stem.mp3"
+    },
+    {
+      "question_id": 200226,
+      "version": 1,
+      "course_ref": "A2",
+      "stem_audio": "q200226_v1_stem.mp3"
+    },
+    {
+      "question_id": 200307,
+      "version": 2,
+      "course_ref": "A3",
+      "stem_audio": "q200307_v2_stem.mp3"
+    },
+    {
+      "question_id": 200308,
+      "version": 3,
+      "course_ref": "A3",
+      "stem_audio": "q200308_v3_stem.mp3"
+    },
+    {
+      "question_id": 200309,
+      "version": 2,
+      "course_ref": "A3",
+      "stem_audio": "q200309_v2_stem.mp3"
+    },
+    {
+      "question_id": 200310,
+      "version": 3,
+      "course_ref": "A3",
+      "stem_audio": "q200310_v3_stem.mp3"
+    },
+    {
+      "question_id": 200311,
+      "version": 2,
+      "course_ref": "A3",
+      "stem_audio": "q200311_v2_stem.mp3"
+    },
+    {
+      "question_id": 200313,
+      "version": 2,
+      "course_ref": "A3",
+      "stem_audio": "q200313_v2_stem.mp3"
+    },
+    {
+      "question_id": 200314,
+      "version": 3,
+      "course_ref": "A3",
+      "stem_audio": "q200314_v3_stem.mp3"
+    },
+    {
+      "question_id": 200316,
+      "version": 3,
+      "course_ref": "A3",
+      "stem_audio": "q200316_v3_stem.mp3"
+    },
+    {
+      "question_id": 200323,
+      "version": 1,
+      "course_ref": "A3",
+      "stem_audio": null
+    },
+    {
+      "question_id": 200324,
+      "version": 1,
+      "course_ref": "A3",
+      "stem_audio": null
+    },
+    {
+      "question_id": 200325,
+      "version": 1,
+      "course_ref": "A3",
+      "stem_audio": null
+    },
+    {
+      "question_id": 200326,
+      "version": 1,
+      "course_ref": "A3",
+      "stem_audio": null
+    },
+    {
+      "question_id": 200327,
+      "version": 1,
+      "course_ref": "A3",
+      "stem_audio": "q200327_v1_stem.mp3"
+    },
+    {
+      "question_id": 200328,
+      "version": 1,
+      "course_ref": "A3",
+      "stem_audio": "q200328_v1_stem.mp3"
+    },
+    {
+      "question_id": 200329,
+      "version": 1,
+      "course_ref": "A3",
+      "stem_audio": "q200329_v1_stem.mp3"
+    },
+    {
+      "question_id": 200401,
+      "version": 1,
+      "course_ref": "A4",
+      "stem_audio": "q200401_v1_stem.mp3"
+    },
+    {
+      "question_id": 200402,
+      "version": 1,
+      "course_ref": "A4",
+      "stem_audio": "q200402_v1_stem.mp3"
+    },
+    {
+      "question_id": 200403,
+      "version": 1,
+      "course_ref": "A4",
+      "stem_audio": "q200403_v1_stem.mp3"
+    },
+    {
+      "question_id": 200404,
+      "version": 1,
+      "course_ref": "A4",
+      "stem_audio": "q200404_v1_stem.mp3"
+    },
+    {
+      "question_id": 200405,
+      "version": 1,
+      "course_ref": "A4",
+      "stem_audio": "q200405_v1_stem.mp3"
+    },
+    {
+      "question_id": 200406,
+      "version": 1,
+      "course_ref": "A4",
+      "stem_audio": "q200406_v1_stem.mp3"
+    },
+    {
+      "question_id": 200407,
+      "version": 2,
+      "course_ref": "A4",
+      "stem_audio": "q200407_v2_stem.mp3"
+    },
+    {
+      "question_id": 200408,
+      "version": 3,
+      "course_ref": "A4",
+      "stem_audio": "q200408_v3_stem.mp3"
+    },
+    {
+      "question_id": 200409,
+      "version": 2,
+      "course_ref": "A4",
+      "stem_audio": "q200409_v2_stem.mp3"
+    },
+    {
+      "question_id": 200417,
+      "version": 1,
+      "course_ref": "A4",
+      "stem_audio": null
+    },
+    {
+      "question_id": 200418,
+      "version": 1,
+      "course_ref": "A4",
+      "stem_audio": null
+    },
+    {
+      "question_id": 200419,
+      "version": 1,
+      "course_ref": "A4",
+      "stem_audio": null
+    },
+    {
+      "question_id": 200420,
+      "version": 1,
+      "course_ref": "A4",
+      "stem_audio": null
+    },
+    {
+      "question_id": 200421,
+      "version": 1,
+      "course_ref": "A4",
+      "stem_audio": null
+    },
+    {
+      "question_id": 200422,
+      "version": 1,
+      "course_ref": "A4",
+      "stem_audio": null
+    },
+    {
+      "question_id": 200423,
+      "version": 1,
+      "course_ref": "A4",
+      "stem_audio": null
+    },
+    {
+      "question_id": 200424,
+      "version": 1,
+      "course_ref": "A4",
+      "stem_audio": null
+    },
+    {
+      "question_id": 200425,
+      "version": 1,
+      "course_ref": "A4",
+      "stem_audio": null
+    },
+    {
+      "question_id": 200426,
+      "version": 1,
+      "course_ref": "A4",
+      "stem_audio": null
+    },
+    {
+      "question_id": 200427,
+      "version": 1,
+      "course_ref": "A4",
+      "stem_audio": null
+    },
+    {
+      "question_id": 200428,
+      "version": 1,
+      "course_ref": "A4",
+      "stem_audio": null
+    },
+    {
+      "question_id": 200429,
+      "version": 1,
+      "course_ref": "A4",
+      "stem_audio": null
+    },
+    {
+      "question_id": 200430,
+      "version": 1,
+      "course_ref": "A4",
+      "stem_audio": null
+    },
+    {
+      "question_id": 200501,
+      "version": 1,
+      "course_ref": "A5",
+      "stem_audio": "q200501_v1_stem.mp3"
+    },
+    {
+      "question_id": 200502,
+      "version": 1,
+      "course_ref": "A5",
+      "stem_audio": "q200502_v1_stem.mp3"
+    },
+    {
+      "question_id": 200503,
+      "version": 1,
+      "course_ref": "A5",
+      "stem_audio": "q200503_v1_stem.mp3"
+    },
+    {
+      "question_id": 200504,
+      "version": 2,
+      "course_ref": "A5",
+      "stem_audio": "q200504_v2_stem.mp3"
+    },
+    {
+      "question_id": 200505,
+      "version": 3,
+      "course_ref": "A5",
+      "stem_audio": "q200505_v3_stem.mp3"
+    },
+    {
+      "question_id": 200507,
+      "version": 2,
+      "course_ref": "A5",
+      "stem_audio": "q200507_v2_stem.mp3"
+    },
+    {
+      "question_id": 200508,
+      "version": 3,
+      "course_ref": "A5",
+      "stem_audio": "q200508_v3_stem.mp3"
+    },
+    {
+      "question_id": 200515,
+      "version": 1,
+      "course_ref": "A5",
+      "stem_audio": null
+    },
+    {
+      "question_id": 200516,
+      "version": 1,
+      "course_ref": "A5",
+      "stem_audio": null
+    },
+    {
+      "question_id": 200517,
+      "version": 1,
+      "course_ref": "A5",
+      "stem_audio": null
+    },
+    {
+      "question_id": 200518,
+      "version": 1,
+      "course_ref": "A5",
+      "stem_audio": null
+    },
+    {
+      "question_id": 200519,
+      "version": 1,
+      "course_ref": "A5",
+      "stem_audio": null
+    },
+    {
+      "question_id": 200520,
+      "version": 1,
+      "course_ref": "A5",
+      "stem_audio": null
+    },
+    {
+      "question_id": 200523,
+      "version": 1,
+      "course_ref": "A5",
+      "stem_audio": null
+    },
+    {
+      "question_id": 200524,
+      "version": 1,
+      "course_ref": "A5",
+      "stem_audio": null
+    },
+    {
+      "question_id": 200525,
+      "version": 1,
+      "course_ref": "A5",
+      "stem_audio": null
+    },
+    {
+      "question_id": 200526,
+      "version": 1,
+      "course_ref": "A5",
+      "stem_audio": null
+    },
+    {
+      "question_id": 200527,
+      "version": 1,
+      "course_ref": "A5",
+      "stem_audio": null
+    },
+    {
+      "question_id": 200528,
+      "version": 1,
+      "course_ref": "A5",
+      "stem_audio": null
+    },
+    {
+      "question_id": 200529,
+      "version": 1,
+      "course_ref": "A5",
+      "stem_audio": null
+    },
+    {
+      "question_id": 200530,
+      "version": 1,
+      "course_ref": "A5",
+      "stem_audio": null
+    }
+  ],
+  "media": [
+    {
+      "file": "q200225_v1_stem.mp3",
+      "md5": "836fb8b447be3502822c2b898b9b742e"
+    },
+    {
+      "file": "q200226_v1_stem.mp3",
+      "md5": "1c53cdd66923271931b1df0bb74c4a79"
+    },
+    {
+      "file": "q200307_v2_stem.mp3",
+      "md5": "429d8988f29137b10fa6ea63eec770ac"
+    },
+    {
+      "file": "q200308_v3_stem.mp3",
+      "md5": "eff2bffbe4e0d4ad314ebd87b2317437"
+    },
+    {
+      "file": "q200309_v2_stem.mp3",
+      "md5": "089735b9c4cbeec41fbb0cb075e901e7"
+    },
+    {
+      "file": "q200310_v3_stem.mp3",
+      "md5": "080017cebcc908a87b577e20d523a028"
+    },
+    {
+      "file": "q200311_v2_stem.mp3",
+      "md5": "1c24c2c87df24b77750120acdb488fb6"
+    },
+    {
+      "file": "q200313_v2_stem.mp3",
+      "md5": "b2a87d854cf371db0789527e091aabe7"
+    },
+    {
+      "file": "q200314_v3_stem.mp3",
+      "md5": "a24cd7eee23d36c86a59523c1e65900d"
+    },
+    {
+      "file": "q200316_v3_stem.mp3",
+      "md5": "d1e4dab145e5de28b91e4895d82e19a1"
+    },
+    {
+      "file": "q200327_v1_stem.mp3",
+      "md5": "ff2ca83fab694089a11f09b6afb9dd9f"
+    },
+    {
+      "file": "q200328_v1_stem.mp3",
+      "md5": "c982bdc3a279dac92ae974fb146e0436"
+    },
+    {
+      "file": "q200329_v1_stem.mp3",
+      "md5": "fd9fba46a0b0517247542746bd78b4fb"
+    },
+    {
+      "file": "q200401_v1_stem.mp3",
+      "md5": "ea006c5d64ef8d51863c8438251610a7"
+    },
+    {
+      "file": "q200402_v1_stem.mp3",
+      "md5": "5c4881345815739e63ba83a302d66dcf"
+    },
+    {
+      "file": "q200403_v1_stem.mp3",
+      "md5": "5cd6036b8c8dde3d7f0ebf8b48546865"
+    },
+    {
+      "file": "q200404_v1_stem.mp3",
+      "md5": "012f6a832504c159e77fc92a132966d8"
+    },
+    {
+      "file": "q200405_v1_stem.mp3",
+      "md5": "e5e5428a84c5fc5417a24517658c9464"
+    },
+    {
+      "file": "q200406_v1_stem.mp3",
+      "md5": "1bff30cf8ac749f7c770de8a88b24e8d"
+    },
+    {
+      "file": "q200407_v2_stem.mp3",
+      "md5": "af35bd8eacd417d72121e02e8e137889"
+    },
+    {
+      "file": "q200408_v3_stem.mp3",
+      "md5": "4bf828819279bcab14ae0f3773eb8fd6"
+    },
+    {
+      "file": "q200409_v2_stem.mp3",
+      "md5": "62ed28b53fa3d4e2e9410ff4c35c92ec"
+    },
+    {
+      "file": "q200501_v1_stem.mp3",
+      "md5": "3c9448e371b2ca2c2d53138128ead9b7"
+    },
+    {
+      "file": "q200502_v1_stem.mp3",
+      "md5": "bd1f719708227bed691b84dfad878ef9"
+    },
+    {
+      "file": "q200503_v1_stem.mp3",
+      "md5": "a8d67532d58353a23c7dca15f29d74f0"
+    },
+    {
+      "file": "q200504_v2_stem.mp3",
+      "md5": "ea006c5d64ef8d51863c8438251610a7"
+    },
+    {
+      "file": "q200505_v3_stem.mp3",
+      "md5": "104a3421336e9d369986f38d58b50ed9"
+    },
+    {
+      "file": "q200507_v2_stem.mp3",
+      "md5": "937af9f800c9a30fc421bb0efe5a16d1"
+    },
+    {
+      "file": "q200508_v3_stem.mp3",
+      "md5": "c693f7e9b1c2e054202a6b127e1623c4"
+    }
+  ]
+}
