@@ -1477,6 +1477,11 @@ body #lesson-page.has-follow #lesson-scroll{-webkit-mask-image:none;mask-image:n
 .dlg-zh-row > .dlg-name-zh{font-size:13.5px;line-height:1.6;font-weight:600;color:var(--ink);white-space:nowrap;}
 .dlg-zh-row > .dlg-zh{margin-top:0;min-width:0;color:var(--ink-mid,var(--ink-soft));}
 .dlg-name.is-long,.dlg-name-zh.is-long{white-space:normal;overflow-wrap:anywhere;}
+.dlg-line.is-dash .dlg-ar-row,.dlg-line.is-dash .dlg-zh-row{grid-template-columns:max-content minmax(0,1fr);}
+@media (max-width:360px){
+  :root{--who-ar-max:88px;}
+  .dlg-ar-row{grid-template-columns:min(var(--who-ar,max-content),88px) minmax(0,1fr);}
+}
 /* [/dlg-name] */</style>
 
 <style>/* [v13-finish] */
@@ -3291,13 +3296,23 @@ body:has(.vip-page.open) :is(.panel,.tabbar) :is(.tabslider,.flash-face,.tfc-fac
         if (!k || SPEAKER_NAME_SKIP[k]) return false;
         return true;
       }
+      function isDashSpeakerName(t){
+        t = String(t == null ? "" : t).trim();
+        return t === "\u2013" || t === "\u2014";
+      }
       function layoutSpeakerNameCols(root){
         root = root || document;
         if (!root.querySelectorAll) return;
+        var capA = 104, capZ = 84;
+        if (window.matchMedia && window.matchMedia("(max-width: 360px)").matches) capA = 88;
         var secs = [];
         root.querySelectorAll(".dlg-line.has-name").forEach(function(l){
           var s = l.closest(".lp-sec") || l.parentElement;
           if (s && secs.indexOf(s) < 0) secs.push(s);
+          var n1 = l.querySelector(".dlg-name");
+          var n2 = l.querySelector(".dlg-name-zh");
+          var dash = isDashSpeakerName(n1 && n1.textContent) || isDashSpeakerName(n2 && n2.textContent);
+          l.classList.toggle("is-dash", !!dash);
         });
         secs.forEach(function(s){
           s.style.removeProperty("--who-ar");
@@ -3306,17 +3321,19 @@ body:has(.vip-page.open) :is(.panel,.tabbar) :is(.tabslider,.flash-face,.tfc-fac
           s.querySelectorAll(".dlg-name-zh").forEach(function(e){ e.classList.remove("is-long"); });
           var a = 0, z = 0;
           s.querySelectorAll(".dlg-name").forEach(function(e){
+            if (isDashSpeakerName(e.textContent)) return;
             var w = e.scrollWidth;
             a = Math.max(a, w);
-            if (w > 104) e.classList.add("is-long");
+            if (w > capA) e.classList.add("is-long");
           });
           s.querySelectorAll(".dlg-name-zh").forEach(function(e){
+            if (isDashSpeakerName(e.textContent)) return;
             var w = e.scrollWidth;
             z = Math.max(z, w);
-            if (w > 84) e.classList.add("is-long");
+            if (w > capZ) e.classList.add("is-long");
           });
-          s.style.setProperty("--who-ar", Math.min(Math.ceil(a) || 0, 104) + "px");
-          s.style.setProperty("--who-zh", Math.min(Math.ceil(z) || 0, 84) + "px");
+          s.style.setProperty("--who-ar", Math.min(Math.ceil(a) || 0, capA) + "px");
+          s.style.setProperty("--who-zh", Math.min(Math.ceil(z) || 0, capZ) + "px");
         });
       }
       function applySpeakerNames(root){
@@ -3351,6 +3368,7 @@ body:has(.vip-page.open) :is(.panel,.tabbar) :is(.tabslider,.flash-face,.tfc-fac
           box.insertBefore(r1, box.firstChild);
           if (zh || names.zh) box.insertBefore(r2, r1.nextSibling);
           l.classList.add("has-name");
+          if (isDashSpeakerName(names.ar) || isDashSpeakerName(names.zh)) l.classList.add("is-dash");
         });
         layoutSpeakerNameCols(root);
       }
