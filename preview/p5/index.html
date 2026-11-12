@@ -8892,63 +8892,244 @@ function cpPlay(url, btn, hintEl, durMs, questionId){
   try{ p = cpAudio.play(); }catch(e){ p = null; }
   if (p && p.catch) p.catch(function(){ /* 手势下的播放被拒：清除播放态，等再次点按；但音频已失败（err / cpAudio.error）时不得把失败文案覆回“点喇叭听题”——error 事件与 play() 拒绝的先后顺序不定，覆回会使 404 文案丢失（E2E v3 R2 实测） */ btn.classList.remove("playing"); if (btn.classList.contains("err") || (cpAudio && cpAudio.error)){ warnFail(); btn.classList.add("err"); btn.setAttribute("aria-label", "播放题干录音"); if (hintEl) hintEl.textContent = CP_COPY.audioFail; } else { if (hintEl) hintEl.textContent = "点喇叭听题"; btn.setAttribute("aria-label", "播放题干录音"); } });
 }
-/* [preview/p5 letter-cp v4.2 / V9-68]
-   No public preview backend has been supplied. Fail closed: never inherit
-   API04's production base and never call same-origin GitHub Pages /api.
-   Backend must first prepare a dedicated HTTPS preview API and media host.
-   Existing checkpoint UI/accessibility fixes remain intact. */
+/* [preview/p5 letter-cp v4.2 / V9-68 + cpreal]
+   Preview-only test gateway. Never inherit API04's production or mock
+   token, and never call same-origin GitHub Pages /api. Checkpoint
+   auth lives in its own store and talks only to CP_GATEWAY.base
+   (synthetic 199 test phones). Production root is not wired. */
 var CP_GATEWAY = (function(){
-  var c = { mock: false, base: '', previewPending: true, status: '需要后端先准备预览环境' };
+  var c = { mock: false, base: "https://18871-agq2bl53frvjk6urpbx3rt4lqq.instabox.tech", previewPending: false };
   window.CP_GATEWAY = c;
   return c;
 })();
 function cpGateway(){ return CP_GATEWAY.mock === false; }
 var cpIdemPending = {};
-function cpUuid(){ return (window.crypto && crypto.randomUUID) ? crypto.randomUUID() : ('k-' + Date.now() + '-' + Math.random().toString(16).slice(2)); }
-function cpRequest(method, path, body){
-  /* Live transport that bypasses the global mock layer: when the global
-     API04 runs mocked, API04.request would serve the in-page mock server
-     instead of the real backend, so the checkpoint fetches directly.
-     Same envelope ({ok,data}), same headers (Bearer token from
-     localStorage, X-Device-Id reused from api04's stored id,
-     X-Platform), same error shape (Error with .code/.status).
-     No auto-refresh: on 401 the caller shows the login sheet. */
-  var base = CP_GATEWAY.base;
-  if (CP_GATEWAY.previewPending || !base){
-    var pending = new Error('需要后端先准备预览环境'); pending.code = 'PREVIEW_API_PENDING';
-    return Promise.reject(pending);
-  }
-  var tok = null;
-  try{ var a = window.API04 ? window.API04.auth() : null; tok = a && a.access_token; }catch(e){}
+var CP_AUTH_KEY = "arabic-cp-preview-auth-v1";
+var CP_WAKE_BUDGET_MS = 45000;
+var CP_WAKE_TEXT = "服务唤醒中";
+var cpAuthInflight = null;
+function cpUuid(){ return (window.crypto && crypto.randomUUID) ? crypto.randomUUID() : ("k-" + Date.now() + "-" + Math.random().toString(16).slice(2)); }
+function cpDeviceId(){
   var dev = null;
-  try{ dev = localStorage.getItem('arabic-device-id-v1'); }catch(e){}
+  try{ dev = localStorage.getItem("arabic-device-id-v1"); }catch(e){}
   if (!dev || !/^[\x21-\x7e]{1,128}$/.test(dev)){
-    dev = 'h5-' + ((window.crypto && crypto.randomUUID) ? crypto.randomUUID() : (Date.now() + '-' + Math.random().toString(16).slice(2)));
-    try{ localStorage.setItem('arabic-device-id-v1', dev); }catch(e){}
+    dev = "h5-" + ((window.crypto && crypto.randomUUID) ? crypto.randomUUID() : (Date.now() + "-" + Math.random().toString(16).slice(2)));
+    try{ localStorage.setItem("arabic-device-id-v1", dev); }catch(e){}
   }
-  var h = { 'Content-Type': 'application/json', 'X-Device-Id': dev, 'X-Platform': 'h5' };
-  if (tok) h.Authorization = 'Bearer ' + tok;
-  /* 写接口必须带 Idempotency-Key（后端全局校验，API04.request 同款规则：
-     同一 method|path|body 在拿到 <500 的确定性答复前复用同一 key，之后丢弃，
-     这样答题/交卷在网络失败重试时不会被后端重复计入）。 */
-  var ik = null;
-  if (method !== 'GET'){
-    ik = method + '|' + path + '|' + JSON.stringify(body || {});
-    h['Idempotency-Key'] = cpIdemPending[ik] || (cpIdemPending[ik] = cpUuid());
-  }
-  return fetch(base + path, { method: method, headers: h, body: body ? JSON.stringify(body) : undefined, credentials: 'omit' })
-    .then(function(r){ return r.json().catch(function(){ return { ok: false, code: r.status >= 500 ? 'INTERNAL' : 'NETWORK' }; })
-      .then(function(j){ return { status: r.status, json: j }; }); },
-      function(){ return { status: 0, json: { ok: false, code: 'NETWORK' } }; })
-    .then(function(r){
-      if (ik && r.status && r.status < 500) delete cpIdemPending[ik];
-      var j = r.json || {};
-      if (j.ok) return j.data;
-      var e = new Error(j.code || 'NETWORK'); e.code = j.code || 'NETWORK'; e.status = r.status; e.message = j.message || ''; throw e;
-    });
+  return dev;
+}
+function cpAuthStore(){
+  try{ var r = localStorage.getItem(CP_AUTH_KEY); return r ? JSON.parse(r) : null; }catch(e){ return null; }
+}
+function cpAuthSave(o){
+  try{ localStorage.setItem(CP_AUTH_KEY, JSON.stringify(o)); }catch(e){}
+}
+function cpAuthClear(){
+  try{ localStorage.removeItem(CP_AUTH_KEY); }catch(e){}
 }
 function cpAuthed(){
-  try{ var a = window.API04 ? window.API04.auth() : null; return !!(a && a.access_token); }catch(e){ return false; }
+  var a = cpAuthStore();
+  return !!(a && a.access_token);
+}
+function cpSleep(ms){ return new Promise(function(res){ setTimeout(res, ms); }); }
+function cpParseRetryAfter(r){
+  var h = null;
+  try{ h = r && r.headers && r.headers.get && r.headers.get("Retry-After"); }catch(e){}
+  if (!h) return 2000;
+  var n = parseInt(h, 10);
+  if (!isNaN(n) && n >= 0) return Math.min(n * 1000, CP_WAKE_BUDGET_MS);
+  var t = Date.parse(h);
+  if (!isNaN(t)) return Math.min(Math.max(t - Date.now(), 0), CP_WAKE_BUDGET_MS);
+  return 2000;
+}
+function cpIsWakeStatus(status, code){
+  return !status || status === 503 || status === 502 || status === 504 || code === "NETWORK" || code === "TIMEOUT";
+}
+function cpIsAuthFail(status, code){
+  return status === 401 || code === "TOKEN_EXPIRED" || code === "TOKEN_INVALID" || code === "UNAUTHORIZED";
+}
+function cpWakeNotify(on, msg){
+  try{ if (typeof window.cpOnWake === "function") window.cpOnWake(on, msg || CP_WAKE_TEXT); }catch(e){}
+}
+function cpHeaders(tok, ik){
+  var h = { "Content-Type": "application/json", "X-Device-Id": cpDeviceId(), "X-Platform": "h5" };
+  if (tok) h.Authorization = "Bearer " + tok;
+  if (ik) h["Idempotency-Key"] = ik;
+  return h;
+}
+function cpRawFetch(method, path, body, tok, ik, timeoutMs){
+  var base = CP_GATEWAY.base;
+  if (CP_GATEWAY.previewPending || !base){
+    var pending = new Error("需要后端先准备预览环境"); pending.code = "PREVIEW_API_PENDING";
+    return Promise.reject(pending);
+  }
+  var ctl = null, to = null;
+  var opts = { method: method, headers: cpHeaders(tok, ik), body: body ? JSON.stringify(body) : undefined, credentials: "omit" };
+  if (typeof AbortController !== "undefined" && timeoutMs && timeoutMs > 0){
+    ctl = new AbortController();
+    opts.signal = ctl.signal;
+    to = setTimeout(function(){ try{ ctl.abort(); }catch(e){} }, timeoutMs);
+  }
+  return fetch(base + path, opts)
+    .then(function(r){
+      if (to) clearTimeout(to);
+      return r.json().catch(function(){ return { ok: false, code: r.status >= 500 ? "INTERNAL" : "NETWORK" }; })
+        .then(function(j){ return { status: r.status, json: j, headers: r.headers }; });
+    }, function(err){
+      if (to) clearTimeout(to);
+      var aborted = err && (err.name === "AbortError" || err.code === 20);
+      return { status: 0, json: { ok: false, code: aborted ? "TIMEOUT" : "NETWORK" }, headers: null };
+    });
+}
+function cpWaitBudget(started, delay, onWake){
+  var left = CP_WAKE_BUDGET_MS - (Date.now() - started);
+  if (left <= 0) return Promise.resolve(false);
+  var wait = Math.min(delay || 2000, left);
+  if (onWake) onWake(true, CP_WAKE_TEXT);
+  cpWakeNotify(true, CP_WAKE_TEXT);
+  return cpSleep(wait).then(function(){ return (Date.now() - started) < CP_WAKE_BUDGET_MS; });
+}
+function cpFetchWithWake(method, path, body, tok, ik, started, onWake){
+  started = started || Date.now();
+  function once(){
+    var left = CP_WAKE_BUDGET_MS - (Date.now() - started);
+    if (left <= 0){
+      var e = new Error("WAKE_TIMEOUT"); e.code = "WAKE_TIMEOUT"; e.status = 0; e.retryable = true; return Promise.reject(e);
+    }
+    return cpRawFetch(method, path, body, tok, ik, left).then(function(r){
+      var j = r.json || {};
+      var code = j.code || (!r.status ? "NETWORK" : null);
+      if (j.ok) return { data: j.data, status: r.status, json: j };
+      if (cpIsAuthFail(r.status, code)){
+        var a = new Error(code || "TOKEN_INVALID"); a.code = code || "TOKEN_INVALID"; a.status = r.status; a.message = j.message || ""; throw a;
+      }
+      if (cpIsWakeStatus(r.status, code)){
+        return cpWaitBudget(started, cpParseRetryAfter(r), onWake).then(function(ok){
+          if (!ok){
+            var e = new Error("WAKE_TIMEOUT"); e.code = "WAKE_TIMEOUT"; e.status = r.status; e.retryable = true; throw e;
+          }
+          if (onWake) onWake(true, CP_WAKE_TEXT);
+          cpWakeNotify(true, CP_WAKE_TEXT);
+          return once();
+        });
+      }
+      var e = new Error(code || "NETWORK"); e.code = code || "NETWORK"; e.status = r.status; e.message = j.message || ""; throw e;
+    });
+  }
+  return once();
+}
+function cpSynthPhone(){
+  var s = "199";
+  for (var i = 0; i < 8; i++) s += Math.floor(Math.random() * 10);
+  return s;
+}
+function cpAuthRegisterBody(phone, code){
+  return { phone: phone, code: code, nickname: "cp-preview-test", birth_year: 1990, birth_month: 1, birth_day: 1 };
+}
+function cpTakeToken(data, rec, phone){
+  var tok = data && data.access_token;
+  if (!tok){ var e = new Error("AUTH_NO_TOKEN"); e.code = "AUTH_NO_TOKEN"; throw e; }
+  rec.access_token = tok;
+  rec.phone = phone;
+  rec.source = "cp-preview-test";
+  rec.registered = true;
+  cpAuthSave(rec);
+  return tok;
+}
+function cpDoAuth(started, onWake){
+  /* Test-base only. Never reads API04 tokens. */
+  var rec = cpAuthStore() || {};
+  var phone = rec.phone || cpSynthPhone();
+  if (!rec.phone){ rec.phone = phone; rec.source = "cp-preview-test"; cpAuthSave(rec); }
+  function send(purpose){
+    return cpFetchWithWake("POST", "/api/v1/auth/sms/send", { phone: phone, purpose: purpose }, null, cpUuid(), started, onWake);
+  }
+  var purpose = rec.registered ? "login" : "register";
+  return send(purpose).then(function(r){
+    var code = r.data && r.data.dev_code;
+    if (!code){ var e = new Error("AUTH_NO_CODE"); e.code = "AUTH_NO_CODE"; throw e; }
+    if (purpose === "register"){
+      return cpFetchWithWake("POST", "/api/v1/auth/register", cpAuthRegisterBody(phone, code), null, cpUuid(), started, onWake)
+        .then(function(rr){ return cpTakeToken(rr.data, rec, phone); })
+        .catch(function(err){
+          if (err && (err.status === 409 || err.status === 400 || (err.code && (String(err.code).indexOf("EXISTS") >= 0 || String(err.code).indexOf("REGISTERED") >= 0)))){
+            rec.registered = true; cpAuthSave(rec);
+            return send("login").then(function(r2){
+              var c2 = r2.data && r2.data.dev_code;
+              if (!c2) throw err;
+              return cpFetchWithWake("POST", "/api/v1/auth/login", { phone: phone, code: c2 }, null, cpUuid(), started, onWake)
+                .then(function(rr){ return cpTakeToken(rr.data, rec, phone); });
+            });
+          }
+          throw err;
+        });
+    }
+    return cpFetchWithWake("POST", "/api/v1/auth/login", { phone: phone, code: code }, null, cpUuid(), started, onWake)
+      .then(function(rr){ return cpTakeToken(rr.data, rec, phone); })
+      .catch(function(err){
+        if (err && (err.status === 404 || err.status === 400 || err.code === "USER_NOT_FOUND")){
+          rec.registered = false; cpAuthSave(rec);
+          return send("register").then(function(r2){
+            var c2 = r2.data && r2.data.dev_code;
+            if (!c2) throw err;
+            return cpFetchWithWake("POST", "/api/v1/auth/register", cpAuthRegisterBody(phone, c2), null, cpUuid(), started, onWake)
+              .then(function(rr){ return cpTakeToken(rr.data, rec, phone); });
+          });
+        }
+        throw err;
+      });
+  });
+}
+function cpEnsureAuth(started, onWake){
+  var rec = cpAuthStore();
+  if (rec && rec.access_token) return Promise.resolve(rec.access_token);
+  if (onWake) onWake(true, CP_WAKE_TEXT);
+  cpWakeNotify(true, CP_WAKE_TEXT);
+  if (cpAuthInflight) return cpAuthInflight;
+  cpAuthInflight = cpDoAuth(started || Date.now(), onWake).then(function(t){ cpAuthInflight = null; return t; }, function(e){ cpAuthInflight = null; throw e; });
+  return cpAuthInflight;
+}
+function cpRelogin(started, onWake){
+  var rec = cpAuthStore() || {};
+  rec.access_token = null;
+  cpAuthSave(rec);
+  if (onWake) onWake(true, CP_WAKE_TEXT);
+  cpWakeNotify(true, CP_WAKE_TEXT);
+  if (cpAuthInflight) return cpAuthInflight;
+  cpAuthInflight = cpDoAuth(started || Date.now(), onWake).then(function(t){ cpAuthInflight = null; return t; }, function(e){ cpAuthInflight = null; throw e; });
+  return cpAuthInflight;
+}
+function cpRequest(method, path, body, opt){
+  /* Isolated preview transport: Bearer from CP_AUTH_KEY only (synthetic
+     test account on CP_GATEWAY.base). Never reads API04.auth().
+     503/timeout/network: retry up to 45s with 「服务唤醒中」.
+     401: re-login once on the test base, then retry the original
+     request once, reusing the same Idempotency-Key for writes.
+     Re-login failure does not loop. */
+  opt = opt || {};
+  var onWake = opt.onWake;
+  var started = Date.now();
+  var idemSlot = null;
+  var ik = null;
+  if (method !== "GET"){
+    idemSlot = method + "|" + path + "|" + JSON.stringify(body || {});
+    ik = cpIdemPending[idemSlot] || (cpIdemPending[idemSlot] = cpUuid());
+  }
+  function dropIdem(){ if (idemSlot) delete cpIdemPending[idemSlot]; }
+  function doneOk(data){ dropIdem(); cpWakeNotify(false); if (onWake) onWake(false); return data; }
+  function failFinal(e){
+    if (e && e.status && e.status >= 400 && e.status < 500 && !cpIsAuthFail(e.status, e.code)) dropIdem();
+    cpWakeNotify(false); if (onWake) onWake(false);
+    throw e;
+  }
+  return cpEnsureAuth(started, onWake).then(function(tok){
+    return cpFetchWithWake(method, path, body, tok, ik, started, onWake).then(function(r){ return doneOk(r.data); });
+  }).catch(function(e){
+    if (!e || !cpIsAuthFail(e.status, e.code)) return failFinal(e);
+    return cpRelogin(Date.now(), onWake).then(function(tok2){
+      return cpFetchWithWake(method, path, body, tok2, ik, Date.now(), onWake).then(function(r){ return doneOk(r.data); });
+    }).catch(function(e2){ return failFinal(e2); });
+  });
 }
 /* ---- 全屏闯关 overlay（quiz 视图 + result 视图）与弹层：只建一次 ---- */
 var cpOverlay = null, cpEls = null;
@@ -9057,6 +9238,10 @@ function buildSheets(){
   wrap.innerHTML =
     sheetHTML("pending", "", "预览闯关暂未连通", "需要后端先准备预览环境。当前仅预览入口，不会请求生产 API 或保存闯关成绩。",
       '<button class="nav-btn primary cp-press" id="cp-sh-pending-practice" type="button">先去练习</button>') +
+    sheetHTML("waking", "", "服务唤醒中", "测试服务正在启动，请稍候。", "") +
+    sheetHTML("wakefail", "", "服务暂时不可用", "请稍后重试。",
+      '<button class="nav-btn primary cp-press" id="cp-sh-wake-retry" type="button">重试</button>' +
+      '<button class="nav-btn cp-press" id="cp-sh-wake-practice" type="button">先去练习</button>') +
     sheetHTML("login", "logIn", "登录后才能闯关", "没登录也能先做练习。",
       '<button class="nav-btn primary cp-press" id="cp-sh-login-practice" type="button">先去练习</button>') +
     sheetHTML("exit", "", CP_COPY.exitTitle, CP_COPY.exitBody,
@@ -9068,17 +9253,21 @@ function buildSheets(){
   document.body.appendChild(wrap);
   cpSheets = {
     pending: document.getElementById("cp-sheet-pending"),
+    waking: document.getElementById("cp-sheet-waking"),
+    wakefail: document.getElementById("cp-sheet-wakefail"),
     login: document.getElementById("cp-sheet-login"),
     exit: document.getElementById("cp-sheet-exit"),
     offline: document.getElementById("cp-sheet-offline")
   };
   document.getElementById("cp-sh-pending-practice").addEventListener("click", function(){ cpHideSheets(); cpCloseOverlay(); cpPracticeScroll(); });
+  document.getElementById("cp-sh-wake-retry").addEventListener("click", function(){ cpHideSheets(); if (cpState.n) startCheckpoint(cpState.n); });
+  document.getElementById("cp-sh-wake-practice").addEventListener("click", function(){ cpHideSheets(); cpCloseOverlay(); cpPracticeScroll(); });
   document.getElementById("cp-sh-login-practice").addEventListener("click", function(){ cpHideSheets(); cpCloseOverlay(); cpPracticeScroll(); });
   document.getElementById("cp-sh-exit-stay").addEventListener("click", function(){ cpHideSheets(); });
   document.getElementById("cp-sh-exit-quit").addEventListener("click", function(){ cpHideSheets(); cpCloseOverlay(); });
   document.getElementById("cp-sh-off-practice").addEventListener("click", function(){ cpHideSheets(); cpCloseOverlay(); cpPracticeScroll(); });
   document.getElementById("cp-sh-off-retry").addEventListener("click", function(){ cpHideSheets(); if (cpState.n) startCheckpoint(cpState.n); });
-  [cpSheets.exit, cpSheets.offline].forEach(function(sh){
+  [cpSheets.exit, cpSheets.offline, cpSheets.wakefail].forEach(function(sh){
     sh.addEventListener("click", function(e){ if (e.target === sh) sh.classList.remove("on"); });
   });
 }
@@ -9148,15 +9337,16 @@ function startCheckpoint(n, card){
     runCheckpointQuiz(n, CP_MOCK[n] || [], null, true);
     return;
   }
-  if (!cpAuthed()){
-    cpShowSheet("login");
-    return;
-  }
-  cpRequest("GET", "/api/v1/courses/" + CP_COURSE[n] + "/checkpoint-questions?mode=letter").then(function(d){
+  /* Auto test-base login (synthetic 199 numbers). Do not send API04 / production tokens. */
+  buildSheets();
+  cpShowSheet("waking");
+  var wakeUi = function(on){ if (on) cpShowSheet("waking"); };
+  cpRequest("GET", "/api/v1/courses/" + CP_COURSE[n] + "/checkpoint-questions?mode=letter", null, { onWake: wakeUi }).then(function(d){
+    cpHideSheets();
     runCheckpointQuiz(n, d.questions, d.attempt_id, false);
   }).catch(function(e){
-    /* 入口取题失败：401（token 失效/未登录）弹登录层，其余（断网或题未就绪）弹离线层，给先去练习 / 重试 */
-    if (e && (e.status === 401 || e.code === 'TOKEN_EXPIRED' || e.code === 'TOKEN_INVALID')) cpShowSheet("login");
+    /* Auth is automatic; show retryable failure rather than the production-login sheet. */
+    if (e && (e.code === "WAKE_TIMEOUT" || (e.status === 401 || e.code === "TOKEN_EXPIRED" || e.code === "TOKEN_INVALID" || e.code === "AUTH_NO_TOKEN" || e.code === "AUTH_NO_CODE"))) cpShowSheet("wakefail");
     else cpShowSheet("offline");
   });
 }
@@ -9267,7 +9457,8 @@ function runCheckpointQuiz(n, qs, attemptId, isMock){
       return;
     }
     cpRequest("POST", "/api/v1/courses/" + CP_COURSE[n] + "/checkpoint/answer",
-      { attempt_id: attemptId, question_id: cur.question_id, option_index: j }).then(function(d){
+      { attempt_id: attemptId, question_id: cur.question_id, option_index: j },
+      { onWake: function(on, msg){ if (on) setMsg("", msg || "服务唤醒中"); } }).then(function(d){
       mark(d.correct, d.correct_index);
     }).catch(function(){
       lock = false;
@@ -9289,7 +9480,8 @@ function runCheckpointQuiz(n, qs, attemptId, isMock){
       showResult(score, qs.length, passed, true);
       return;
     }
-    cpRequest("POST", "/api/v1/courses/" + CP_COURSE[n] + "/checkpoint/finish", { attempt_id: attemptId }).then(function(d){
+    cpRequest("POST", "/api/v1/courses/" + CP_COURSE[n] + "/checkpoint/finish", { attempt_id: attemptId },
+      { onWake: function(on, msg){ if (on) setMsg("", msg || "服务唤醒中"); } }).then(function(d){
       var cp = cpStore();
       cp[n] = { best: d.best_correct, total: d.best_total, passed: d.passed || (cp[n] && cp[n].passed) };
       try{ saveStore(); }catch(e){}
@@ -9348,8 +9540,8 @@ window.startCheckpoint = startCheckpoint;
 window.cpRefreshFromServer = cpRefreshFromServer;
 })();
 </script>
-<!-- [preview/p5 V9-68] Clean bank source ff1e280f854f57cb5b20ab4189538bbd; q200505 version=3 / q200505_v3_stem.mp3. See letter-checkpoint-v4.2-manifest.json. API base is deliberately empty and blocked pending a dedicated preview backend. -->
-<!-- Existing v4.3-v4.6 UI fixes retained. CP_GATEWAY is preview-only and fail-closed; API04_CONFIG is unchanged. Clean V9-68 media keep their original versioned filenames; no devalias. -->
+<!-- [preview/p5 V9-68 + cpreal] Clean bank source ff1e280f854f57cb5b20ab4189538bbd; q200505 version=3 / q200505_v3_stem.mp3. See letter-checkpoint-v4.2-manifest.json. CP_GATEWAY talks only to the preview test base; auth is a separate test-phone token, never API04 / production. API04_CONFIG is unchanged. -->
+<!-- Existing v4.3-v4.6 UI fixes retained. Clean V9-68 media keep their original versioned filenames; no devalias. -->
 
 </body>
 </html>
