@@ -851,12 +851,12 @@
       .tfc-illo svg{width:150px;height:105px;}
       .tfc-illo.has-photo{padding:0;}
       .tfc-illo img{width:100%;height:100%;display:block;}/*[p3 cover-removed]*/
-      .tfc-body{flex:1 1 auto;min-height:0;overflow-y:auto;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;padding:10px 16px;text-align:center;}
+      .tfc-body{flex:1 1 auto;min-height:0;overflow:visible;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;padding:10px 16px;text-align:center;}
       .tfc-cat{font-size:11.5px;font-weight:700;color:var(--accent-ink);letter-spacing:.04em;}
       .tfc-ar{font-size:31px;line-height:1.9;font-weight:700;}.meem-abbrev{color:var(--ink-soft);font-size:0.82em;font-weight:600;}.tfc-meem-note,.flash-meem-note,.cf-meem-note{display:block;margin-top:4px;font-size:11px;line-height:1.45;color:var(--ink-soft);direction:ltr;text-align:start;font-weight:400;}.tfc-back .tfc-body .tfc-meem-note{order:1;}
       .tfc-ar.long{font-size:24px;}
       .tfc-tr{font-size:13px;color:var(--ink-soft);}
-      .tfc-hint{font-size:12px;color:var(--ink-soft);margin-top:5px;}
+      .tfc-cat,.tfc-hint,.tfc-meem-note{flex-shrink:0;}.tfc-hint{font-size:12px;color:var(--ink-soft);margin-top:5px;}
       .tfc-back-photo{position:absolute;inset:0;display:flex;flex-direction:column;background:var(--surface);} .tfc-back-photo[hidden]{display:none!important;}
       .tfc-back-photo img{width:100%;flex:0 0 52%;height:52%;display:block;}/*[p3 cover-removed]*/
       .tfc-back-cap{position:relative;flex:1 1 auto;padding:8px 16px 12px;background:var(--surface);color:var(--ink);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;text-align:center;}
@@ -2557,10 +2557,31 @@ body:has(.vip-page.open) :is(.panel,.tabbar) :is(.tabslider,.flash-face,.tfc-fac
         return CLIP_TEXT[id] || "";
       }
       var audioFailAt = 0;
+function stripIsolatedMeemAbbrev(s){
+        /* TTS only: drop a bare «م» token (space/punct bounded). Never touch display or source code points. */
+        var cps = Array.from(s || ""), out = [], i, ch, sep;
+        function isSep(ch){
+          return !ch || /[\s\u00A0\u060C\u061B\u061F\u066B\u066C\u06D4.,;:!?()\[\]{}"'「」『』（）\-–—]/.test(ch);
+        }
+        for (i = 0; i < cps.length; i++){
+          ch = cps[i];
+          if (typeof isBareMeem === "function"){
+            if (isBareMeem(cps, i)) continue;
+          } else if (ch === "\u0645"){
+            var L = i - 1, R = i + 1;
+            while (L >= 0 && typeof isMeemHaraka === "function" && isMeemHaraka(cps[L])) L--;
+            while (R < cps.length && typeof isMeemHaraka === "function" && isMeemHaraka(cps[R])) R++;
+            if (isSep(L >= 0 ? cps[L] : "") && isSep(R < cps.length ? cps[R] : "")) continue;
+          }
+          out.push(ch);
+        }
+        return out.join("").replace(/[ \t\u00A0]{2,}/g, " ").replace(/^ +| +$/g, "");
+      }
+      function ttsTextFromClip(src){ return stripIsolatedMeemAbbrev(clipText(src)); }
       function audioUnavailable(src){
         var now = Date.now();
         if (now - audioFailAt > 3500){ audioFailAt = now; if (typeof meToast === "function") meToast("音频暂不可用，已改用机器朗读"); }
-        var text = clipText(src);
+        var text = ttsTextFromClip(src);
         if (text && window.speechSynthesis){
           try{
             speechSynthesis.cancel();
@@ -4886,25 +4907,57 @@ body:has(.vip-page.open) :is(.panel,.tabbar) :is(.tabslider,.flash-face,.tfc-fac
           scheduleSizeTfcForExample._wait = document.fonts.ready.then(function(){ scheduleSizeTfcForExample._wait = null; sizeTfcForExample(); });
         }
       }
+      function scheduleSizeTfcToViewport(){
+        sizeTfcToViewport();
+        if (typeof requestAnimationFrame === "function"){
+          requestAnimationFrame(function(){ sizeTfcToViewport(); });
+        }
+        if (document.fonts && document.fonts.ready && !scheduleSizeTfcToViewport._wait){
+          scheduleSizeTfcToViewport._wait = document.fonts.ready.then(function(){
+            scheduleSizeTfcToViewport._wait = null;
+            sizeTfcToViewport();
+          });
+        }
+      }
       
       function sizeTfcToViewport(){
         var card = document.getElementById("tfc");
         if (!card) return;
+        var ar = document.getElementById("tfc-ar");
+        if (ar) ar.style.fontSize = "";
         card.style.height = "";
         var vh = window.innerHeight || 800;
         var rect = card.getBoundingClientRect();
         var top = rect.top;
-        var bottom = rect.bottom;
         var cap = Math.max(232, Math.floor(vh - Math.max(top, 0) - 8));
         if (cap > 520) cap = 520;
-        if (bottom > vh - 1){
-          card.style.height = cap + "px";
-        } else {
-          var face = card.querySelector(".tfc-front") || card;
-          var overflow = Math.ceil((face.scrollHeight || 0) - (face.clientHeight || 0));
-          if (overflow > 1){
-            var next = Math.min(cap, Math.ceil(rect.height + overflow));
-            if (next > rect.height + 0.5) card.style.height = next + "px";
+        var face = card.querySelector(".tfc-front") || card;
+        function overflowPx(){ return Math.ceil((face.scrollHeight || 0) - (face.clientHeight || 0)); }
+        if (rect.bottom > vh - 1) card.style.height = cap + "px";
+        var ov = overflowPx();
+        /* Grow first. .tfc-illo is 42% of the card, so only part of a height bump
+           reaches the body — iterate until content fits or the leftover-viewport cap. */
+        var guard = 0;
+        while (ov > 1 && guard++ < 24){
+          var h = card.getBoundingClientRect().height;
+          if (h >= cap - 0.5) break;
+          var bump = Math.max(1, Math.ceil(ov / 0.55));
+          var next = Math.min(cap, Math.ceil(h + bump));
+          if (next <= h + 0.5) break;
+          card.style.height = next + "px";
+          void card.offsetHeight;
+          ov = overflowPx();
+        }
+        /* If still too tall at the cap, shrink Arabic (not cat / hint / note). */
+        ov = overflowPx();
+        if (ov > 1 && ar){
+          var fs = parseFloat(getComputedStyle(ar).fontSize) || 24;
+          var floor = 16;
+          while (ov > 1 && fs > floor){
+            fs -= 1;
+            ar.style.fontSize = fs + "px";
+            void ar.offsetHeight;
+            ov = overflowPx();
           }
         }
       } /* [b1fix34] shrink photo cards only when the CSS clamp would overflow the viewport (narrow chrome) */
@@ -7633,6 +7686,7 @@ body:has(.vip-page.open) :is(.panel,.tabbar) :is(.tabslider,.flash-face,.tfc-fac
         setCardArabic(document.getElementById("tfc-bar2"), w, document.getElementById("tfc-meem-note-b2"));
         document.getElementById("tfc-btr2").textContent = "";
         document.getElementById("tfc-count").textContent = (tfcState.idx + 1) + " / " + tfcState.words.length;
+        scheduleSizeTfcToViewport();
       }
 
       var TLQ_TOTAL = 6;
